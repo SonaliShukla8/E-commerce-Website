@@ -49,8 +49,8 @@ public class Product {
 	    @JoinColumn(name="subcategory_Id")
 	    private SubCategory subCategory;
 	    
-	    @ManyToMany(mappedBy="products" ,fetch = FetchType.LAZY)
-	    private List<Cart> carts=new ArrayList<Cart>();
+	    @ManyToMany(mappedBy="product" ,fetch = FetchType.LAZY)
+	    private List<CartItem> cartitem=new ArrayList<CartItem>();
 	    
 	    
 }

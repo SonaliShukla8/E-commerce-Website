@@ -17,7 +17,6 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Cart {
 	  @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private String cartId;
 	  
 	  @OneToOne(cascade=CascadeType.ALL, mappedBy="cart")

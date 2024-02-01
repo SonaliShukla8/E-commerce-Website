@@ -26,15 +26,15 @@ public class Customer {
             inverseJoinColumns = {@JoinColumn(name = "address_id")})
     private List<Address> addresses =new ArrayList<Address>();
     
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "userId")
+    @OneToOne(cascade=CascadeType.ALL, mappedBy="customer")
     private User user;
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="cartId")
     private Cart cart;
     
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Order> orders=new ArrayList<Order>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="order_id")
+    private Order order;
 }
 

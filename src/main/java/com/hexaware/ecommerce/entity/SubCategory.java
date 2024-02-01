@@ -23,7 +23,7 @@ public class SubCategory {
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<Product>();
     
-    @OneToMany(cascade=CascadeType.ALL,mappedBy="product")
+    @OneToMany(cascade=CascadeType.ALL,mappedBy="subCategory")
     private List<Product> product=new ArrayList<Product>();
     
     

@@ -23,4 +23,6 @@ public class Seller {
 	 @OneToMany(cascade=CascadeType.ALL,mappedBy="seller")
 	 private List<Product> product=new ArrayList<Product>();
 	 
+	 @OneToOne(mappedBy="seller",cascade=CascadeType.ALL)
+	 private User user;
 }

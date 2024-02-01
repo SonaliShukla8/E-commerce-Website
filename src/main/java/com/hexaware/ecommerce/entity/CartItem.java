@@ -34,7 +34,7 @@ public class CartItem {
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="product_cart_detail", joinColumns= {@JoinColumn(name="cartitemId")},
 	inverseJoinColumns= {@JoinColumn(name="productId")})
-    private List<Product> products=new ArrayList<Product>();
+    private List<Product> product=new ArrayList<Product>();
 	
  
     
