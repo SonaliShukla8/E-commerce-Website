@@ -26,4 +26,5 @@ public class SubCategory {
     @OneToMany(cascade=CascadeType.ALL,mappedBy="product")
     private List<Product> product=new ArrayList<Product>();
     
+    
 }
