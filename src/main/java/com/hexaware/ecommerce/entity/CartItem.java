@@ -38,6 +38,69 @@ public class CartItem {
 	@JoinTable(name="product_cart_detail", joinColumns= {@JoinColumn(name="cartitemId")},
 	inverseJoinColumns= {@JoinColumn(name="productId")})
     private List<Product> product=new ArrayList<Product>();
+
+
+	public CartItem() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public CartItem(@NotNull int cartitemId, @Positive int itemQuantity, Cart cart, List<Product> product) {
+		super();
+		this.cartitemId = cartitemId;
+		this.itemQuantity = itemQuantity;
+		this.cart = cart;
+		this.product = product;
+	}
+
+
+	public int getCartitemId() {
+		return cartitemId;
+	}
+
+
+	public void setCartitemId(int cartitemId) {
+		this.cartitemId = cartitemId;
+	}
+
+
+	public int getItemQuantity() {
+		return itemQuantity;
+	}
+
+
+	public void setItemQuantity(int itemQuantity) {
+		this.itemQuantity = itemQuantity;
+	}
+
+
+	public Cart getCart() {
+		return cart;
+	}
+
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
+
+	public List<Product> getProduct() {
+		return product;
+	}
+
+
+	public void setProduct(List<Product> product) {
+		this.product = product;
+	}
+
+
+	@Override
+	public String toString() {
+		return "CartItem [cartitemId=" + cartitemId + ", itemQuantity=" + itemQuantity + ", cart=" + cart + ", product="
+				+ product + "]";
+	}
+	
 	
  
     

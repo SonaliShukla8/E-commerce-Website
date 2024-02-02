@@ -24,11 +24,60 @@ public class SubCategory {
     
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<Product>();
+
+	public SubCategory() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public SubCategory(int subCategoryId,
+			@NotBlank(message = "Subcategory name cannot be blank") String subCategoryName, Category category,
+			List<Product> products) {
+		super();
+		this.subCategoryId = subCategoryId;
+		this.subCategoryName = subCategoryName;
+		this.category = category;
+		this.products = products;
+	}
+
+	public int getSubCategoryId() {
+		return subCategoryId;
+	}
+
+	public void setSubCategoryId(int subCategoryId) {
+		this.subCategoryId = subCategoryId;
+	}
+
+	public String getSubCategoryName() {
+		return subCategoryName;
+	}
+
+	public void setSubCategoryName(String subCategoryName) {
+		this.subCategoryName = subCategoryName;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	@Override
+	public String toString() {
+		return "SubCategory [subCategoryId=" + subCategoryId + ", subCategoryName=" + subCategoryName + ", category="
+				+ category + ", products=" + products + "]";
+	}
     
-	/*
-	 * @OneToMany(cascade=CascadeType.ALL,mappedBy="subCategory") private
-	 * List<Product> product=new ArrayList<Product>();
-	 */
     
     
 }

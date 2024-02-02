@@ -34,4 +34,98 @@ public class Seller {
 	 
 	 @OneToOne(mappedBy="seller",cascade=CascadeType.ALL)
 	 private User user;
+
+	public Seller() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Seller(int sellerId, @NotBlank String businessName, @Pattern(regexp = "[0-9]{10}") String phoneNumber,
+			@Email(message = "Invalid email address") @NotBlank(message = "Email cannot be blank") String email,
+			@NotBlank(message = "Address cannot be blank") String address,
+			@NotBlank(message = "Selling domain cannot be blank") String sellingDomain, List<Product> product,
+			User user) {
+		super();
+		this.sellerId = sellerId;
+		this.businessName = businessName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.address = address;
+		this.sellingDomain = sellingDomain;
+		this.product = product;
+		this.user = user;
+	}
+
+	public int getSellerId() {
+		return sellerId;
+	}
+
+	public void setSellerId(int sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	public String getBusinessName() {
+		return businessName;
+	}
+
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getSellingDomain() {
+		return sellingDomain;
+	}
+
+	public void setSellingDomain(String sellingDomain) {
+		this.sellingDomain = sellingDomain;
+	}
+
+	public List<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(List<Product> product) {
+		this.product = product;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "Seller [sellerId=" + sellerId + ", businessName=" + businessName + ", phoneNumber=" + phoneNumber
+				+ ", email=" + email + ", address=" + address + ", sellingDomain=" + sellingDomain + ", product="
+				+ product + ", user=" + user + "]";
+	}
+	 
+	 
 }
