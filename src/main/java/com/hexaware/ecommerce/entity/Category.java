@@ -7,14 +7,15 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 
 @Entity
 public class Category {
     @Id
 	private int categoryId;        // Primary Key
+    @NotBlank
     private String categoryName;
-    private int subCategoryId;
     
     @OneToMany(cascade = CascadeType.ALL,mappedBy="category")
     private List<SubCategory> subCategories =new ArrayList<SubCategory>();
