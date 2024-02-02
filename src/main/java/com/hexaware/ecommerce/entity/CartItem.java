@@ -19,11 +19,14 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 @Entity
 public class CartItem {
 	@Id
-    private String cartitemId;
-	
+	@NotNull
+    private int cartitemId;
+	@Positive
 	private int itemQuantity;
 	
 	 @ManyToOne(cascade=CascadeType.ALL)

@@ -13,6 +13,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 
 
 @Entity
@@ -23,21 +27,21 @@ public class Product {
 	 @ManyToOne(cascade=CascadeType.ALL)
 	 @JoinColumn(name = "seller_Id")
 	 private Seller seller;
-	 
+	 @NotBlank
 	    private String productName;
-	    
+	    @NotBlank
 	    private String productImageURL;
-	    
+	    @NotBlank
 	    private String description;
-	    
+	    @Positive
 	    private double price;
-	    
+	    @Min(1)
 	    private int stockQuantity;
-	    
+	    @NotBlank
 	    private String brand;
-	    
+	    @PastOrPresent
 	    private LocalDateTime createdAt;
-	    
+	    @PastOrPresent
 	    private LocalDateTime modifiedAt;
 	    
 	    

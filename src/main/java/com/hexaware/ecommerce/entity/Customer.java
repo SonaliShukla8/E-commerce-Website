@@ -11,14 +11,23 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Customer {
 	@Id
 	private int customerId;        // Primary Key
+	@NotBlank
     private String fullName;
+	@NotBlank
     private String gender;
+	@NotBlank
+	@Pattern(regexp = "\\d{10}")
     private String contactNumber;
+    @NotBlank
+    @Email
     private String email;
     
     @ManyToMany(cascade=CascadeType.ALL)

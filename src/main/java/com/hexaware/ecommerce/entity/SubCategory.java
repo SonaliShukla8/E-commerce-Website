@@ -9,11 +9,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class SubCategory {
 	@Id
     private int subCategoryId;        // Primary Key
+	@NotBlank(message = "Subcategory name cannot be blank")
     private String subCategoryName;
     
     @ManyToOne(cascade=CascadeType.ALL)
@@ -23,8 +25,10 @@ public class SubCategory {
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<Product>();
     
-    @OneToMany(cascade=CascadeType.ALL,mappedBy="subCategory")
-    private List<Product> product=new ArrayList<Product>();
+	/*
+	 * @OneToMany(cascade=CascadeType.ALL,mappedBy="subCategory") private
+	 * List<Product> product=new ArrayList<Product>();
+	 */
     
     
 }
