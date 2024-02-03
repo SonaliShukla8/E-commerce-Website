@@ -8,7 +8,7 @@ import com.hexaware.ecommerce.entity.Category;
 public interface ICategoryService {
 	 public Category addCategory(CategoryDTO categoryDTO);
      public Category updateCategory(CategoryDTO categoryDTO);
-     public String deleteCategoryById(int cartegoryId);
+     public String deleteCategoryById(int categoryId);
      public CategoryDTO getCategoryById(int categoryId);
      public List<Category> getAllCategory();
 }

@@ -17,31 +17,52 @@ public class CartServiceImp implements ICartService {
 	@Override
 	public Cart addCart(CartDTO cartDTO) {
 		
-		return null;
+		Cart cart = new Cart();
+		cart.setCartId(cartDTO.getCartId());
+		cart.setCartItems(cartDTO.getCartItems());
+		cart.setCustomer(cartDTO.getCustomer());
+		cart.setTotalPrice(cartDTO.getTotalPrice());
+		
+		return repo.save(cart);
 	}
 
 	@Override
 	public Cart updateCart(CartDTO cartDTO) {
 	
-		return null;
+		Cart cart = new Cart();
+		cart.setCartId(cartDTO.getCartId());
+		cart.setCartItems(cartDTO.getCartItems());
+		cart.setCustomer(cartDTO.getCustomer());
+		cart.setTotalPrice(cartDTO.getTotalPrice());
+		
+		return repo.save(cart);
 	}
 
 	@Override
 	public String deleteCartById(int cartId) {
+		
+		repo.deleteById(cartId);
 
-		return null;
+		return "Cart with cartId "+cartId+" deleted.";
 	}
 
 	@Override
 	public CartDTO getCartbyId(int cartId) {
+		
+		Cart cart = repo.findById(cartId).orElse(null);
+		CartDTO dto = new CartDTO();
+		dto.setCartId(cart.getCartId());
+		dto.setCartItems(cart.getCartItems());
+		dto.setCustomer(cart.getCustomer());
+		dto.setTotalPrice(cart.getTotalPrice());
 
-		return null;
+		return dto;
 	}
 
 	@Override
 	public List<Cart> getAllCart() {
 	
-		return null;
+		return repo.findAll();
 	}
 
 }

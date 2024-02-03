@@ -15,30 +15,62 @@ public class AddressServiceImp implements IAddressService {
 	@Override
 	public Address addAddress(AddressDTO addressDTO) {
 		
-		return null;
+		Address address = new Address();
+		address.setAddressId(addressDTO.getAddressId());
+		address.setAddressLine1(addressDTO.getAddressLine1());
+		address.setAddressLine2(address.getAddressLine2());
+		address.setCity(addressDTO.getCity());
+		address.setCountry(addressDTO.getCountry());
+		address.setCustomers(addressDTO.getCustomers());
+		address.setPostalCode(addressDTO.getPostalCode());
+		address.setState(addressDTO.getState());
+		
+		return repo.save(address);
 	}
 
 	@Override
 	public Address updateAddress(AddressDTO addressDTO) {
 		
-		return null;
+		Address address = new Address();
+		address.setAddressId(addressDTO.getAddressId());
+		address.setAddressLine1(addressDTO.getAddressLine1());
+		address.setAddressLine2(address.getAddressLine2());
+		address.setCity(addressDTO.getCity());
+		address.setCountry(addressDTO.getCountry());
+		address.setCustomers(addressDTO.getCustomers());
+		address.setPostalCode(addressDTO.getPostalCode());
+		address.setState(addressDTO.getState());
+		
+		return repo.save(address);
 	}
 
 	@Override
 	public String deleteAddressById(int addressId) {
 		
-		return null;
+		repo.deleteById(addressId);
+		
+		return "Address with addressId "+addressId+" deleted.";
 	}
 
 	@Override
 	public AddressDTO getAddressById(int addressId) {
 		
-		return null;
+		Address address = repo.findById(addressId).orElse(null);
+		AddressDTO dto = new AddressDTO();
+		dto.setAddressId(address.getAddressId());
+		dto.setAddressLine1(address.getAddressLine1());
+		dto.setAddressLine2(address.getAddressLine2());
+		dto.setCity(address.getCity());
+		dto.setCountry(address.getCountry());
+		dto.setCustomers(address.getCustomers());
+		dto.setPostalCode(address.getPostalCode());
+		dto.setState(address.getState());
+		return dto;
 	}
 
 	@Override
 	public List<Address> getAllAddress() {
-		return null;
+		return repo.findAll();
 	}
 
 }

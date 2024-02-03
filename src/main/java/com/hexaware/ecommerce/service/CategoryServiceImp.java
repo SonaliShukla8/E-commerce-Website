@@ -16,31 +16,54 @@ public class CategoryServiceImp implements ICategoryService {
 	@Override
 	public Category addCategory(CategoryDTO categoryDTO) {
 		
-		return null;
+		Category category = new Category();
+		category.setCategoryId(categoryDTO.getCategoryId());
+		category.setCategoryName(categoryDTO.getCategoryName());
+		category.setProducts(categoryDTO.getProducts());
+		category.setSubCategories(categoryDTO.getSubCategories());
+		
+		return repo.save(category);
 	}
 
 	@Override
 	public Category updateCategory(CategoryDTO categoryDTO) {
 		
-		return null;
+
+		Category category = new Category();
+		category.setCategoryId(categoryDTO.getCategoryId());
+		category.setCategoryName(categoryDTO.getCategoryName());
+		category.setProducts(categoryDTO.getProducts());
+		category.setSubCategories(categoryDTO.getSubCategories());
+		
+		return repo.save(category);
 	}
 
 	@Override
-	public String deleteCategoryById(int cartegoryId) {
+	public String deleteCategoryById(int categoryId) {
 		
-		return null;
+		repo.deleteById(categoryId);
+		
+		
+		return "Category Id with categoryId "+categoryId +" deleted.";
 	}
 
 	@Override
 	public CategoryDTO getCategoryById(int categoryId) {
+		
+		Category category = repo.findById(categoryId).orElse(null);
+		CategoryDTO dto = new CategoryDTO();
+		dto.setCategoryId(category.getCategoryId());
+		dto.setCategoryName(category.getCategoryName());
+		dto.setProducts(category.getProducts());
+		dto.setSubCategories(category.getSubCategories());
 	
-		return null;
+		return dto;
 	}
 
 	@Override
 	public List<Category> getAllCategory() {
 
-		return null;
+		return repo.findAll();
 	}
 
 }

@@ -15,31 +15,50 @@ public class CartItemServiceImp implements ICartItemService {
 	
 	@Override
 	public CartItem addCartItem(CartItemDTO cartItemDTO) {
+		CartItem cartItem = new CartItem();
+		cartItem.setCart(cartItemDTO.getCart());
+		cartItem.setCartitemId(cartItemDTO.getCartitemId());
+		cartItem.setItemQuantity(cartItemDTO.getItemQuantity());
+		cartItem.setProduct(cartItemDTO.getProduct());
 	
-		return null;
+		return repo.save(cartItem);
 	}
 
 	@Override
 	public CartItem updateCartItem(CartItemDTO cartItemDTO) {
 		
-		return null;
+		CartItem cartItem = new CartItem();
+		cartItem.setCart(cartItemDTO.getCart());
+		cartItem.setCartitemId(cartItemDTO.getCartitemId());
+		cartItem.setItemQuantity(cartItemDTO.getItemQuantity());
+		cartItem.setProduct(cartItemDTO.getProduct());
+	
+		return repo.save(cartItem);
 	}
 
 	@Override
 	public String deleteCartItemById(int cartitemId) {
 		
-		return null;
+		repo.deleteById(cartitemId);
+		return "Cart Item with cartitemId "+cartitemId+ "deleted.";
 	}
 
 	@Override
 	public CartItemDTO getCartItemById(int cartitemId) {
+		CartItem cartItem = repo.findById(cartitemId).orElse(null);
+		CartItemDTO dto = new CartItemDTO();
+		dto.setCart(cartItem.getCart());
+		dto.setCartitemId(cartItem.getCartitemId());
+		dto.setItemQuantity(cartItem.getItemQuantity());
+		dto.setProduct(cartItem.getProduct());
 		
-		return null;
+		
+		return dto;
 	}
 
 	@Override
 	public List<CartItem> getAllCartItem() {
-		return null;
+		return repo.findAll();
 	}
 
 }
