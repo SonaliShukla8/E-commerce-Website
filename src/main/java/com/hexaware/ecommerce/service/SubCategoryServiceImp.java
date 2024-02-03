@@ -20,7 +20,7 @@ public class SubCategoryServiceImp implements ISubCategoryService {
 	}
 
 	@Override
-	public SubCategory updateCategory(SubCategoryDTO subCategoryDTO) {
+	public SubCategory updateSubCategory(SubCategoryDTO subCategoryDTO) {
 
 		return null;
 	}
