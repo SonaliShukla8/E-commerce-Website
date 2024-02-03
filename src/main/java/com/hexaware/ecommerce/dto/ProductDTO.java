@@ -12,7 +12,7 @@ import com.hexaware.ecommerce.entity.SubCategory;
 public class ProductDTO {
 
 
-	private SellerDTO seller;
+	private Seller seller;
 
 	 
     private String productName;
@@ -30,19 +30,19 @@ public class ProductDTO {
     private LocalDateTime createdAt;
     
     private LocalDateTime modifiedAt;
-    private CategoryDTO category;
-    private SubCategoryDTO subCategory;
+    private Category category;
+    private SubCategory subCategory;
 
-    private List<CartItemDTO> cartitem=new ArrayList<CartItemDTO>();
+    private List<CartItem> cartitem=new ArrayList<CartItem>();
 	
     public ProductDTO() {
 		super();
 		
 	}
 
-	public ProductDTO(SellerDTO seller, String productName, String productImageURL, String description, double price,
-			int stockQuantity, String brand, LocalDateTime createdAt, LocalDateTime modifiedAt, CategoryDTO category,
-			SubCategoryDTO subCategory, List<CartItemDTO> cartitem) {
+	public ProductDTO(Seller seller, String productName, String productImageURL, String description, double price,
+			int stockQuantity, String brand, LocalDateTime createdAt, LocalDateTime modifiedAt, Category category,
+			SubCategory subCategory, List<CartItem> cartitem) {
 		super();
 		this.seller = seller;
 		this.productName = productName;
@@ -58,11 +58,11 @@ public class ProductDTO {
 		this.cartitem = cartitem;
 	}
 
-	public SellerDTO getSeller() {
+	public Seller getSeller() {
 		return seller;
 	}
 
-	public void setSeller(SellerDTO seller) {
+	public void setSeller(Seller seller) {
 		this.seller = seller;
 	}
 
@@ -130,27 +130,27 @@ public class ProductDTO {
 		this.modifiedAt = modifiedAt;
 	}
 
-	public CategoryDTO getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(CategoryDTO category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
-	public SubCategoryDTO getSubCategory() {
+	public SubCategory getSubCategory() {
 		return subCategory;
 	}
 
-	public void setSubCategory(SubCategoryDTO subCategory) {
+	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
 	}
 
-	public List<CartItemDTO> getCartitem() {
+	public List<CartItem> getCartitem() {
 		return cartitem;
 	}
 
-	public void setCartitem(List<CartItemDTO> cartitem) {
+	public void setCartitem(List<CartItem> cartitem) {
 		this.cartitem = cartitem;
 	}
 
@@ -163,7 +163,4 @@ public class ProductDTO {
 	}
 
 	
-    
-
-
 }

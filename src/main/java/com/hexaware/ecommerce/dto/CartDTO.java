@@ -9,14 +9,14 @@ import com.hexaware.ecommerce.entity.Customer;
 public class CartDTO {
 
 	 private int cartId;
-	 private CustomerDTO customer;
-	 private List<CartItemDTO> cartItems= new ArrayList<CartItemDTO>();
+	 private Customer customer;
+	 private List<CartItem> cartItems= new ArrayList<CartItem>();
 	 private double totalPrice;
 	public CartDTO() {
 		super();
 	
 	}
-	public CartDTO(int cartId, CustomerDTO customer, List<CartItemDTO> cartItems, double totalPrice) {
+	public CartDTO(int cartId, Customer customer, List<CartItem> cartItems, double totalPrice) {
 		super();
 		this.cartId = cartId;
 		this.customer = customer;
@@ -29,16 +29,16 @@ public class CartDTO {
 	public void setCartId(int cartId) {
 		this.cartId = cartId;
 	}
-	public CustomerDTO getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
-	public void setCustomer(CustomerDTO customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public List<CartItemDTO> getCartItems() {
+	public List<CartItem> getCartItems() {
 		return cartItems;
 	}
-	public void setCartItems(List<CartItemDTO> cartItems) {
+	public void setCartItems(List<CartItem> cartItems) {
 		this.cartItems = cartItems;
 	}
 	public double getTotalPrice() {

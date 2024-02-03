@@ -10,15 +10,14 @@ public class CategoryDTO {
 	
 	private int categoryId;        // Primary Key
     private String categoryName;
-    private List<SubCategoryDTO> subCategories = new ArrayList<SubCategoryDTO>();
-    private List<ProductDTO> products=new ArrayList<ProductDTO>();
+    private List<SubCategory> subCategories = new ArrayList<SubCategory>();
+    private List<Product> products=new ArrayList<Product>();
 	
     public CategoryDTO() {
 		super();
 	}
 
-	public CategoryDTO(int categoryId, String categoryName, List<SubCategoryDTO> subCategories,
-			List<ProductDTO> products) {
+	public CategoryDTO(int categoryId, String categoryName, List<SubCategory> subCategories, List<Product> products) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -42,19 +41,19 @@ public class CategoryDTO {
 		this.categoryName = categoryName;
 	}
 
-	public List<SubCategoryDTO> getSubCategories() {
+	public List<SubCategory> getSubCategories() {
 		return subCategories;
 	}
 
-	public void setSubCategories(List<SubCategoryDTO> subCategories) {
+	public void setSubCategories(List<SubCategory> subCategories) {
 		this.subCategories = subCategories;
 	}
 
-	public List<ProductDTO> getProducts() {
+	public List<Product> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<ProductDTO> products) {
+	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 
@@ -64,8 +63,6 @@ public class CategoryDTO {
 				+ subCategories + ", products=" + products + "]";
 	}
 
-
-    
 	
 
 }

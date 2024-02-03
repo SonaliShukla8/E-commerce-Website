@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.hexaware.ecommerce.entity.Customer;
 
+
+
 public class AddressDTO {
 		
 	    private int addressId;        // Primary Key
@@ -15,7 +17,7 @@ public class AddressDTO {
 	    private String state;
 	    private String country;
 
-	    private List<CustomerDTO> customers = new ArrayList<CustomerDTO>();
+	    private List<Customer> customers = new ArrayList<Customer>();
 		
 	    public AddressDTO() {
 			super();
@@ -23,7 +25,7 @@ public class AddressDTO {
 		}
 
 		public AddressDTO(int addressId, String addressLine1, String addressLine2, String postalCode, String city,
-				String state, String country, List<CustomerDTO> customers) {
+				String state, String country, List<Customer> customers) {
 			super();
 			this.addressId = addressId;
 			this.addressLine1 = addressLine1;
@@ -67,7 +69,6 @@ public class AddressDTO {
 			this.postalCode = postalCode;
 		}
 
-
 		public String getCity() {
 			return city;
 		}
@@ -92,11 +93,11 @@ public class AddressDTO {
 			this.country = country;
 		}
 
-		public List<CustomerDTO> getCustomers() {
+		public List<Customer> getCustomers() {
 			return customers;
 		}
 
-		public void setCustomers(List<CustomerDTO> customers) {
+		public void setCustomers(List<Customer> customers) {
 			this.customers = customers;
 		}
 
@@ -106,6 +107,7 @@ public class AddressDTO {
 					+ addressLine2 + ", postalCode=" + postalCode + ", city=" + city + ", state=" + state + ", country="
 					+ country + ", customers=" + customers + "]";
 		}
+	    
 
 		
 }

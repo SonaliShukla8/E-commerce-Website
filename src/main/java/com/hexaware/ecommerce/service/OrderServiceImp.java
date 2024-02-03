@@ -15,7 +15,17 @@ public class OrderServiceImp implements IOrderService {
 	
 	@Override
 	public Order addOrder(OrderDTO orderDTO) {
-		// TODO Auto-generated method stub
+//		Order order=new Order();
+//		order.setOrderId(orderDTO.getOrderId());
+//		order.setOrderDate(orderDTO.getOrderDate());
+//		order.setDeliveryDate(order.getDeliveryDate());
+//		order.setStatus(orderDTO.getStatus());
+//		order.setStatusDescription(orderDTO.getStatusDescription());
+//		order.setTotalAmount(orderDTO.getTotalAmount());
+//		order.setPayment(orderDTO.getPayment());
+//		order.setCustomer(orderDTO.getCustomer());
+		
+		
 		return null;
 	}
 

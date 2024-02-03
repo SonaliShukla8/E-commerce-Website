@@ -9,20 +9,20 @@ import com.hexaware.ecommerce.entity.Seller;
 public class OrderDTO {
 	
 	private int orderId; 
-	 private CustomerDTO customer;
+	 private Customer customer;
 	    private LocalDate orderDate;
 	    private double totalAmount;
 	    private String status;
 	    private String statusDescription;
-	    private PaymentDTO payment;
+	    private Payment payment;
 	    private LocalDate deliveryDate;
-	    private SellerDTO seller;
+	    private Seller seller;
 		public OrderDTO() {
 			super();
 			
 		}
-		public OrderDTO(int orderId, CustomerDTO customer, LocalDate orderDate, double totalAmount, String status,
-				String statusDescription, PaymentDTO payment, LocalDate deliveryDate, SellerDTO seller) {
+		public OrderDTO(int orderId, Customer customer, LocalDate orderDate, double totalAmount, String status,
+				String statusDescription, Payment payment, LocalDate deliveryDate, Seller seller) {
 			super();
 			this.orderId = orderId;
 			this.customer = customer;
@@ -40,10 +40,10 @@ public class OrderDTO {
 		public void setOrderId(int orderId) {
 			this.orderId = orderId;
 		}
-		public CustomerDTO getCustomer() {
+		public Customer getCustomer() {
 			return customer;
 		}
-		public void setCustomer(CustomerDTO customer) {
+		public void setCustomer(Customer customer) {
 			this.customer = customer;
 		}
 		public LocalDate getOrderDate() {
@@ -70,10 +70,10 @@ public class OrderDTO {
 		public void setStatusDescription(String statusDescription) {
 			this.statusDescription = statusDescription;
 		}
-		public PaymentDTO getPayment() {
+		public Payment getPayment() {
 			return payment;
 		}
-		public void setPayment(PaymentDTO payment) {
+		public void setPayment(Payment payment) {
 			this.payment = payment;
 		}
 		public LocalDate getDeliveryDate() {
@@ -82,10 +82,10 @@ public class OrderDTO {
 		public void setDeliveryDate(LocalDate deliveryDate) {
 			this.deliveryDate = deliveryDate;
 		}
-		public SellerDTO getSeller() {
+		public Seller getSeller() {
 			return seller;
 		}
-		public void setSeller(SellerDTO seller) {
+		public void setSeller(Seller seller) {
 			this.seller = seller;
 		}
 		@Override

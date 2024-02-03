@@ -8,6 +8,8 @@ import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.User;
 
+
+
 public class CustomerDTO {
 	
 	private int customerId;        // Primary Key
@@ -16,10 +18,10 @@ public class CustomerDTO {
     private String contactNumber;
     private String email;
 
-    private List<AddressDTO> addresses = new ArrayList<AddressDTO>();
-    private UserDTO user;
-    private CartDTO cart;
-    private OrderDTO order;
+    private List<Address> addresses = new ArrayList<Address>();
+    private User user;
+    private Cart cart;
+    private Order order;
 	
     public CustomerDTO() {
 		super();
@@ -27,7 +29,7 @@ public class CustomerDTO {
 	}
 
 	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
-			List<AddressDTO> addresses, UserDTO user, CartDTO cart, OrderDTO order) {
+			List<Address> addresses, User user, Cart cart, Order order) {
 		super();
 		this.customerId = customerId;
 		this.fullName = fullName;
@@ -80,35 +82,35 @@ public class CustomerDTO {
 		this.email = email;
 	}
 
-	public List<AddressDTO> getAddresses() {
+	public List<Address> getAddresses() {
 		return addresses;
 	}
 
-	public void setAddresses(List<AddressDTO> addresses) {
+	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
 
-	public UserDTO getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserDTO user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public CartDTO getCart() {
+	public Cart getCart() {
 		return cart;
 	}
 
-	public void setCart(CartDTO cart) {
+	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
 
-	public OrderDTO getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(OrderDTO order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 
@@ -118,7 +120,7 @@ public class CustomerDTO {
 				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
 				+ user + ", cart=" + cart + ", order=" + order + "]";
 	}
-
+    
 	
 
 
