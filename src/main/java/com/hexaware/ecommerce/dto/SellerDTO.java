@@ -18,8 +18,8 @@ public class SellerDTO {
 	 private String address;
 	 
 	 private String sellingDomain;
-	 private List<Product> product;
-	 private User user;
+	 private List<ProductDTO> product;
+	 private UserDTO user;
 	 
 	 
 

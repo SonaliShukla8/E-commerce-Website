@@ -8,7 +8,7 @@ import com.hexaware.ecommerce.entity.Customer;
 public class CartDTO {
 
 	 private int cartId;
-	 private Customer customer;
-	 private List<CartItem> cartItems;
+	 private CustomerDTO customer;
+	 private List<CartItemDTO> cartItems;
 	 private double totalPrice;
 }

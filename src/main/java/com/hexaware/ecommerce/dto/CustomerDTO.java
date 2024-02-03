@@ -14,10 +14,10 @@ public class CustomerDTO {
     private String gender;
     private String contactNumber;
     private String email;
-    private List<Address> addresses;
-    private User user;
-    private Cart cart;
-    private Order order;
+    private List<AddressDTO> addresses;
+    private UserDTO user;
+    private CartDTO cart;
+    private OrderDTO order;
     
 
 }

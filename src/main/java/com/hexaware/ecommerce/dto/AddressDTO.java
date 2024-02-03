@@ -13,6 +13,6 @@ public class AddressDTO {
 	    private String city;
 	    private String state;
 	    private String country;
-	    private List<Customer> customers;
+	    private List<CustomerDTO> customers;
 
 }
