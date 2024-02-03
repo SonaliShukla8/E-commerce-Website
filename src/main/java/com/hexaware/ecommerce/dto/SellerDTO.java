@@ -1,7 +1,9 @@
 package com.hexaware.ecommerce.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.User;
 
@@ -18,9 +20,108 @@ public class SellerDTO {
 	 private String address;
 	 
 	 private String sellingDomain;
-	 private List<ProductDTO> product;
-	 private UserDTO user;
-	 
-	 
 
+	 private List<ProductDTO> product=new ArrayList<ProductDTO>();
+	 private UserDTO user;
+	 private List<OrderDTO> order=new ArrayList<OrderDTO>();
+	
+	 public SellerDTO() {
+		super();
+	
+	}
+
+	public SellerDTO(int sellerId, String businessName, String phoneNumber, String email, String address,
+			String sellingDomain, List<ProductDTO> product, UserDTO user, List<OrderDTO> order) {
+		super();
+		this.sellerId = sellerId;
+		this.businessName = businessName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.address = address;
+		this.sellingDomain = sellingDomain;
+		this.product = product;
+		this.user = user;
+		this.order = order;
+	}
+
+	public int getSellerId() {
+		return sellerId;
+	}
+
+	public void setSellerId(int sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	public String getBusinessName() {
+		return businessName;
+	}
+
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getSellingDomain() {
+		return sellingDomain;
+	}
+
+	public void setSellingDomain(String sellingDomain) {
+		this.sellingDomain = sellingDomain;
+	}
+
+	public List<ProductDTO> getProduct() {
+		return product;
+	}
+
+	public void setProduct(List<ProductDTO> product) {
+		this.product = product;
+	}
+
+	public UserDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+
+	public List<OrderDTO> getOrder() {
+		return order;
+	}
+
+	public void setOrder(List<OrderDTO> order) {
+		this.order = order;
+	}
+
+	@Override
+	public String toString() {
+		return "SellerDTO [sellerId=" + sellerId + ", businessName=" + businessName + ", phoneNumber=" + phoneNumber
+				+ ", email=" + email + ", address=" + address + ", sellingDomain=" + sellingDomain + ", product="
+				+ product + ", user=" + user + ", order=" + order + "]";
+	}
+
+	
 }
