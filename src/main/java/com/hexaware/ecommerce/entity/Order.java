@@ -37,14 +37,18 @@ public class Order {
 	    @JoinColumn(name="payment_id")
 	    private Payment payment;
 
+	    @ManyToOne(cascade=CascadeType.ALL)
+	    @JoinColumn(name="sellerId")
+	    private Seller seller;
+
 		public Order() {
 			super();
-			// TODO Auto-generated constructor stub
+
 		}
 
 		public Order(int orderId, Customer customer, @NotNull LocalDate orderDate, @Positive double totalAmount,
 				@NotBlank String status, @NotBlank String statusDescription, @FutureOrPresent LocalDate deliveryDate,
-				Payment payment) {
+				Payment payment, Seller seller) {
 			super();
 			this.orderId = orderId;
 			this.customer = customer;
@@ -54,6 +58,7 @@ public class Order {
 			this.statusDescription = statusDescription;
 			this.deliveryDate = deliveryDate;
 			this.payment = payment;
+			this.seller = seller;
 		}
 
 		public int getOrderId() {
@@ -120,12 +125,21 @@ public class Order {
 			this.payment = payment;
 		}
 
+		public Seller getSeller() {
+			return seller;
+		}
+
+		public void setSeller(Seller seller) {
+			this.seller = seller;
+		}
+
 		@Override
 		public String toString() {
 			return "Order [orderId=" + orderId + ", customer=" + customer + ", orderDate=" + orderDate
 					+ ", totalAmount=" + totalAmount + ", status=" + status + ", statusDescription=" + statusDescription
-					+ ", deliveryDate=" + deliveryDate + ", payment=" + payment + "]";
+					+ ", deliveryDate=" + deliveryDate + ", payment=" + payment + ", seller=" + seller + "]";
 		}
+		
 	    
 	    
 }

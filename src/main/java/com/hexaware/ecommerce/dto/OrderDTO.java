@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Payment;
+import com.hexaware.ecommerce.entity.Seller;
 
 public class OrderDTO {
 	
@@ -15,12 +16,13 @@ public class OrderDTO {
 	    private String statusDescription;
 	    private Payment payment;
 	    private LocalDate deliveryDate;
+	    private Seller seller;
 		public OrderDTO() {
 			super();
 			
 		}
 		public OrderDTO(int orderId, Customer customer, LocalDate orderDate, double totalAmount, String status,
-				String statusDescription, Payment payment, LocalDate deliveryDate) {
+				String statusDescription, Payment payment, LocalDate deliveryDate, Seller seller) {
 			super();
 			this.orderId = orderId;
 			this.customer = customer;
@@ -30,6 +32,7 @@ public class OrderDTO {
 			this.statusDescription = statusDescription;
 			this.payment = payment;
 			this.deliveryDate = deliveryDate;
+			this.seller = seller;
 		}
 		public int getOrderId() {
 			return orderId;
@@ -79,14 +82,20 @@ public class OrderDTO {
 		public void setDeliveryDate(LocalDate deliveryDate) {
 			this.deliveryDate = deliveryDate;
 		}
+		public Seller getSeller() {
+			return seller;
+		}
+		public void setSeller(Seller seller) {
+			this.seller = seller;
+		}
 		@Override
 		public String toString() {
 			return "OrderDTO [orderId=" + orderId + ", customer=" + customer + ", orderDate=" + orderDate
 					+ ", totalAmount=" + totalAmount + ", status=" + status + ", statusDescription=" + statusDescription
-					+ ", payment=" + payment + ", deliveryDate=" + deliveryDate + "]";
+					+ ", payment=" + payment + ", deliveryDate=" + deliveryDate + ", seller=" + seller + "]";
 		}
 		
 		
-
+	    
 	    
 }
