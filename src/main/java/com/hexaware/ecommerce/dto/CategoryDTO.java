@@ -9,7 +9,7 @@ import com.hexaware.ecommerce.entity.SubCategory;
 public class CategoryDTO {
 	
 	private int categoryId;        // Primary Key
-    private String categoryName;
+
     private List<SubCategoryDTO> subCategories = new ArrayList<SubCategoryDTO>();
     private List<ProductDTO> products=new ArrayList<ProductDTO>();
 	
@@ -63,6 +63,8 @@ public class CategoryDTO {
 		return "CategoryDTO [categoryId=" + categoryId + ", categoryName=" + categoryName + ", subCategories="
 				+ subCategories + ", products=" + products + "]";
 	}
+
+
     
 	
 

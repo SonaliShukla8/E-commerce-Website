@@ -14,6 +14,7 @@ public class AddressDTO {
 	    private String city;
 	    private String state;
 	    private String country;
+
 	    private List<CustomerDTO> customers = new ArrayList<CustomerDTO>();
 		
 	    public AddressDTO() {
@@ -65,6 +66,7 @@ public class AddressDTO {
 		public void setPostalCode(String postalCode) {
 			this.postalCode = postalCode;
 		}
+
 
 		public String getCity() {
 			return city;

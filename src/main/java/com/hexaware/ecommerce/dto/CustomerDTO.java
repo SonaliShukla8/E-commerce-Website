@@ -15,6 +15,7 @@ public class CustomerDTO {
     private String gender;
     private String contactNumber;
     private String email;
+
     private List<AddressDTO> addresses = new ArrayList<AddressDTO>();
     private UserDTO user;
     private CartDTO cart;
@@ -119,5 +120,6 @@ public class CustomerDTO {
 	}
 
 	
+
 
 }

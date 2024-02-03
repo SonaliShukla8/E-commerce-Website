@@ -11,7 +11,9 @@ import com.hexaware.ecommerce.entity.SubCategory;
 
 public class ProductDTO {
 
-	private Seller seller;
+
+	private SellerDTO seller;
+
 	 
     private String productName;
     
@@ -30,6 +32,7 @@ public class ProductDTO {
     private LocalDateTime modifiedAt;
     private CategoryDTO category;
     private SubCategoryDTO subCategory;
+
     private List<CartItemDTO> cartitem=new ArrayList<CartItemDTO>();
 	
     public ProductDTO() {
@@ -37,7 +40,7 @@ public class ProductDTO {
 		
 	}
 
-	public ProductDTO(Seller seller, String productName, String productImageURL, String description, double price,
+	public ProductDTO(SellerDTO seller, String productName, String productImageURL, String description, double price,
 			int stockQuantity, String brand, LocalDateTime createdAt, LocalDateTime modifiedAt, CategoryDTO category,
 			SubCategoryDTO subCategory, List<CartItemDTO> cartitem) {
 		super();
@@ -55,11 +58,11 @@ public class ProductDTO {
 		this.cartitem = cartitem;
 	}
 
-	public Seller getSeller() {
+	public SellerDTO getSeller() {
 		return seller;
 	}
 
-	public void setSeller(Seller seller) {
+	public void setSeller(SellerDTO seller) {
 		this.seller = seller;
 	}
 
@@ -161,5 +164,6 @@ public class ProductDTO {
 
 	
     
+
 
 }

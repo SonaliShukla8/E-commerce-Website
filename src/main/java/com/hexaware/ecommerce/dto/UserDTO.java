@@ -14,6 +14,7 @@ public class UserDTO {
     private SellerDTO seller;
     private CustomerDTO customer;
     private AdminDTO admin;
+
 	
     
     public UserDTO() {
@@ -121,6 +122,7 @@ public class UserDTO {
 		return "UserDTO [userId=" + userId + ", username=" + username + ", email=" + email + ", password=" + password
 				+ ", userType=" + userType + ", seller=" + seller + ", customer=" + customer + ", admin=" + admin + "]";
 	}
+
 
    
     

@@ -11,6 +11,7 @@ public class SubCategoryDTO {
 	 private int subCategoryId;        // Primary Key
 	    private String subCategoryName;
 	    private CategoryDTO category;
+
 	    private List<ProductDTO> products= new ArrayList<ProductDTO>();
 		
 	    public SubCategoryDTO() {
@@ -65,5 +66,7 @@ public class SubCategoryDTO {
 		}
 
 		
+
+
 
 }

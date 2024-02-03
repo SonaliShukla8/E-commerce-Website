@@ -20,6 +20,7 @@ public class SellerDTO {
 	 private String address;
 	 
 	 private String sellingDomain;
+
 	 private List<ProductDTO> product=new ArrayList<ProductDTO>();
 	 private UserDTO user;
 	 private List<OrderDTO> order=new ArrayList<OrderDTO>();

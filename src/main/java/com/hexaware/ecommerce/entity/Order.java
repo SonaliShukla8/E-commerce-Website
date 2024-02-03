@@ -15,7 +15,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 @Entity
-@Table(name="order-info")
+
+@Table(name="orderTable")
+
 public class Order {
 	@Id
 	private int orderId;        // Primary Key

@@ -13,6 +13,7 @@ public class AdminDTO {
 	    private String password;
 	    private LocalDate joiningDate;
 	    private UserDTO user;
+
 		public AdminDTO() {
 			super();
 		}
@@ -75,4 +76,5 @@ public class AdminDTO {
 					+ phoneNumber + ", password=" + password + ", joiningDate=" + joiningDate + ", user=" + user + "]";
 		}
 		
+
 }

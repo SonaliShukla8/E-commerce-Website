@@ -11,6 +11,7 @@ public class CartItemDTO {
 	 private int cartitemId;
 	 private int itemQuantity;
 	 private CartDTO cart;
+
 	 private List<ProductDTO> product=new ArrayList<ProductDTO>();
 	
 	 public CartItemDTO() {
@@ -41,6 +42,8 @@ public class CartItemDTO {
 	public void setItemQuantity(int itemQuantity) {
 		this.itemQuantity = itemQuantity;
 	}
+
+
 
 	public CartDTO getCart() {
 		return cart;
