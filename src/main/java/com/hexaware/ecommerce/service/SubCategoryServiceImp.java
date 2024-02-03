@@ -15,32 +15,46 @@ public class SubCategoryServiceImp implements ISubCategoryService {
 	
 	@Override
 	public SubCategory addSubCategory(SubCategoryDTO subCategoryDTO) {
-
-		return null;
+        	SubCategory subcategory=new SubCategory();
+        	subcategory.setSubCategoryId(subCategoryDTO.getSubCategoryId());
+        	subcategory.setSubCategoryName(subCategoryDTO.getSubCategoryName());
+        	subcategory.setCategory(subCategoryDTO.getCategory());
+        	subcategory.setProducts(subCategoryDTO.getProducts());
+		return repo.save(subcategory);
 	}
 
 	@Override
 	public SubCategory updateSubCategory(SubCategoryDTO subCategoryDTO) {
-
-		return null;
+		SubCategory subcategory=new SubCategory();
+    	subcategory.setSubCategoryId(subCategoryDTO.getSubCategoryId());
+    	subcategory.setSubCategoryName(subCategoryDTO.getSubCategoryName());
+    	subcategory.setCategory(subCategoryDTO.getCategory());
+    	subcategory.setProducts(subCategoryDTO.getProducts());
+	    return repo.save(subcategory);
 	}
 
 	@Override
 	public String deleteSubCategoryById(int subCategoryId) {
-
-		return null;
+			repo.deleteById(subCategoryId);
+		return "Subcategory  with subcategoryID "+subCategoryId+" deleted.";
 	}
 
 	@Override
 	public SubCategoryDTO getSubCategoryById(int subCategoryId) {
+		SubCategory subCategory=repo.findById(subCategoryId).orElse(null);
+		SubCategoryDTO dto=new SubCategoryDTO();
+		dto.setSubCategoryId(subCategory.getSubCategoryId());
+    	dto.setSubCategoryName(subCategory.getSubCategoryName());
+    	dto.setCategory(subCategory.getCategory());
+    	dto.setProducts(subCategory.getProducts());
 		
-		return null;
+		return dto;
 	}
 
 	@Override
 	public List<SubCategory> getAllSubCategory() {
 		
-		return null;
+		return repo.findAll();
 	}
 
 }

@@ -15,42 +15,63 @@ public class OrderServiceImp implements IOrderService {
 	
 	@Override
 	public Order addOrder(OrderDTO orderDTO) {
-//		Order order=new Order();
-//		order.setOrderId(orderDTO.getOrderId());
-//		order.setOrderDate(orderDTO.getOrderDate());
-//		order.setDeliveryDate(order.getDeliveryDate());
-//		order.setStatus(orderDTO.getStatus());
-//		order.setStatusDescription(orderDTO.getStatusDescription());
-//		order.setTotalAmount(orderDTO.getTotalAmount());
-//		order.setPayment(orderDTO.getPayment());
-//		order.setCustomer(orderDTO.getCustomer());
+		Order order=new Order();
+		order.setOrderId(orderDTO.getOrderId());
+		order.setOrderDate(orderDTO.getOrderDate());
+		order.setDeliveryDate(order.getDeliveryDate());
+		order.setStatus(orderDTO.getStatus());
+		order.setStatusDescription(orderDTO.getStatusDescription());
+		order.setTotalAmount(orderDTO.getTotalAmount());
+		order.setPayment(orderDTO.getPayment());
+		order.setCustomer(orderDTO.getCustomer());
+		order.setSeller(orderDTO.getSeller());
 		
-		
-		return null;
+		return repo.save(order);
 	}
 
 	@Override
 	public Order updateOrder(OrderDTO orderDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		Order order=new Order();
+		order.setOrderId(orderDTO.getOrderId());
+		order.setOrderDate(orderDTO.getOrderDate());
+		order.setDeliveryDate(order.getDeliveryDate());
+		order.setStatus(orderDTO.getStatus());
+		order.setStatusDescription(orderDTO.getStatusDescription());
+		order.setTotalAmount(orderDTO.getTotalAmount());
+		order.setPayment(orderDTO.getPayment());
+		order.setCustomer(orderDTO.getCustomer());
+		order.setSeller(orderDTO.getSeller());
+	
+		return repo.save(order);
 	}
 
 	@Override
 	public String deleteOrderById(int orderId) {
-		// TODO Auto-generated method stub
-		return null;
+		repo.deleteById(orderId);
+		return "Order with orderId "+orderId+" deleted.";
 	}
 
 	@Override
 	public OrderDTO getOrderById(int orderId) {
-		// TODO Auto-generated method stub
-		return null;
+		Order order =repo.findById(orderId).orElse(null);
+		OrderDTO dto=new OrderDTO();
+		dto.setOrderId(order.getOrderId());
+		dto.setOrderDate(order.getOrderDate());
+		dto.setDeliveryDate(order.getDeliveryDate());
+		dto.setStatus(order.getStatus());
+		dto.setStatusDescription(order.getStatusDescription());
+		dto.setTotalAmount(order.getTotalAmount());
+		dto.setPayment(order.getPayment());
+		dto.setCustomer(order.getCustomer());
+		dto.setSeller(order.getSeller());
+		
+		return dto;
 	}
 
 	@Override
 	public List<Order> getAllOrder() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return repo.findAll();
 	}
 
 }

@@ -16,32 +16,52 @@ public class PaymentServiceImp implements IPaymentService {
 	
 	@Override
 	public Payment addPayment(PaymentDTO paymentDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		Payment payment = new Payment();
+		payment.setPaymentId(paymentDTO.getPaymentId());
+		payment.setAmount(paymentDTO.getAmount());
+		payment.setOrder(paymentDTO.getOrder());
+		payment.setPaymentDate(paymentDTO.getPaymentDate());
+		payment.setPaymentStatus(paymentDTO.getPaymentStatus());
+		payment.setPaymentMethod(paymentDTO.getPaymentMethod());
+		return repo.save(payment);
 	}
 
 	@Override
 	public Payment updatePayment(PaymentDTO paymentDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		Payment payment = new Payment();
+		payment.setPaymentId(paymentDTO.getPaymentId());
+		payment.setAmount(paymentDTO.getAmount());
+		payment.setOrder(paymentDTO.getOrder());
+		payment.setPaymentDate(paymentDTO.getPaymentDate());
+		payment.setPaymentStatus(paymentDTO.getPaymentStatus());
+		payment.setPaymentMethod(paymentDTO.getPaymentMethod());
+		return repo.save(payment);
 	}
 
 	@Override
 	public String deletePaymentById(int paymentId) {
-		// TODO Auto-generated method stub
-		return null;
+		repo.deleteById(paymentId);
+		return "Payment with paymentId "+ paymentId+ " deleted";
 	}
 
 	@Override
 	public PaymentDTO getPaymentById(int paymentId) {
-		// TODO Auto-generated method stub
-		return null;
+		Payment payment=repo.findById(paymentId).orElse(null);
+		PaymentDTO dto=new PaymentDTO();
+		dto.setPaymentId(payment.getPaymentId());
+		dto.setAmount(payment.getAmount());
+		dto.setOrder(payment.getOrder());
+		dto.setPaymentDate(payment.getPaymentDate());
+		dto.setPaymentStatus(payment.getPaymentStatus());
+		dto.setPaymentMethod(payment.getPaymentMethod());
+		
+		return dto;
 	}
 
 	@Override
 	public List<Payment> getAllPayment() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return repo.findAll();
 	}
 
 }
