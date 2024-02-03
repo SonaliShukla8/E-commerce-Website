@@ -11,28 +11,18 @@ import com.hexaware.ecommerce.entity.SubCategory;
 
 public class ProductDTO {
 
-
+    private int productId;
 	private Seller seller;
-
-	 
     private String productName;
-    
     private String productImageURL;
-    
     private String description;
-    
     private double price;
-    
     private int stockQuantity;
-    
     private String brand;
-    
     private LocalDateTime createdAt;
-    
     private LocalDateTime modifiedAt;
     private Category category;
     private SubCategory subCategory;
-
     private List<CartItem> cartitem=new ArrayList<CartItem>();
 	
     public ProductDTO() {
@@ -40,10 +30,11 @@ public class ProductDTO {
 		
 	}
 
-	public ProductDTO(Seller seller, String productName, String productImageURL, String description, double price,
-			int stockQuantity, String brand, LocalDateTime createdAt, LocalDateTime modifiedAt, Category category,
-			SubCategory subCategory, List<CartItem> cartitem) {
+	public ProductDTO(int productId, Seller seller, String productName, String productImageURL, String description,
+			double price, int stockQuantity, String brand, LocalDateTime createdAt, LocalDateTime modifiedAt,
+			Category category, SubCategory subCategory, List<CartItem> cartitem) {
 		super();
+		this.productId = productId;
 		this.seller = seller;
 		this.productName = productName;
 		this.productImageURL = productImageURL;
@@ -56,6 +47,14 @@ public class ProductDTO {
 		this.category = category;
 		this.subCategory = subCategory;
 		this.cartitem = cartitem;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public Seller getSeller() {
@@ -156,11 +155,14 @@ public class ProductDTO {
 
 	@Override
 	public String toString() {
-		return "ProductDTO [seller=" + seller + ", productName=" + productName + ", productImageURL=" + productImageURL
-				+ ", description=" + description + ", price=" + price + ", stockQuantity=" + stockQuantity + ", brand="
-				+ brand + ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + ", category=" + category
-				+ ", subCategory=" + subCategory + ", cartitem=" + cartitem + "]";
+		return "ProductDTO [productId=" + productId + ", seller=" + seller + ", productName=" + productName
+				+ ", productImageURL=" + productImageURL + ", description=" + description + ", price=" + price
+				+ ", stockQuantity=" + stockQuantity + ", brand=" + brand + ", createdAt=" + createdAt + ", modifiedAt="
+				+ modifiedAt + ", category=" + category + ", subCategory=" + subCategory + ", cartitem=" + cartitem
+				+ "]";
 	}
+    
 
+	
 	
 }
