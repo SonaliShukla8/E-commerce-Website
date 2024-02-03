@@ -7,7 +7,7 @@ import com.hexaware.ecommerce.entity.Customer;
 
 public class AddressDTO {
 		
-	    private int addressId;        // Primary Key
+	    private int addressId;   
 	    private String addressLine1;
 	    private String addressLine2;
 	    private String postalCode;
