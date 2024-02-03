@@ -15,10 +15,10 @@ public class CustomerDTO {
     private String gender;
     private String contactNumber;
     private String email;
-    private List<Address> addresses = new ArrayList<Address>();
-    private User user;
-    private Cart cart;
-    private Order order;
+    private List<AddressDTO> addresses = new ArrayList<AddressDTO>();
+    private UserDTO user;
+    private CartDTO cart;
+    private OrderDTO order;
 	
     public CustomerDTO() {
 		super();
@@ -26,7 +26,7 @@ public class CustomerDTO {
 	}
 
 	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
-			List<Address> addresses, User user, Cart cart, Order order) {
+			List<AddressDTO> addresses, UserDTO user, CartDTO cart, OrderDTO order) {
 		super();
 		this.customerId = customerId;
 		this.fullName = fullName;
@@ -79,35 +79,35 @@ public class CustomerDTO {
 		this.email = email;
 	}
 
-	public List<Address> getAddresses() {
+	public List<AddressDTO> getAddresses() {
 		return addresses;
 	}
 
-	public void setAddresses(List<Address> addresses) {
+	public void setAddresses(List<AddressDTO> addresses) {
 		this.addresses = addresses;
 	}
 
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 
-	public Cart getCart() {
+	public CartDTO getCart() {
 		return cart;
 	}
 
-	public void setCart(Cart cart) {
+	public void setCart(CartDTO cart) {
 		this.cart = cart;
 	}
 
-	public Order getOrder() {
+	public OrderDTO getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(OrderDTO order) {
 		this.order = order;
 	}
 
@@ -117,8 +117,7 @@ public class CustomerDTO {
 				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
 				+ user + ", cart=" + cart + ", order=" + order + "]";
 	}
-    
+
 	
-    
 
 }

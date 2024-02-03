@@ -20,9 +20,9 @@ public class SellerDTO {
 	 private String address;
 	 
 	 private String sellingDomain;
-	 private List<Product> product=new ArrayList<Product>();
-	 private User user;
-	 private List<Order> order=new ArrayList<Order>();
+	 private List<ProductDTO> product=new ArrayList<ProductDTO>();
+	 private UserDTO user;
+	 private List<OrderDTO> order=new ArrayList<OrderDTO>();
 	
 	 public SellerDTO() {
 		super();
@@ -30,7 +30,7 @@ public class SellerDTO {
 	}
 
 	public SellerDTO(int sellerId, String businessName, String phoneNumber, String email, String address,
-			String sellingDomain, List<Product> product, User user, List<Order> order) {
+			String sellingDomain, List<ProductDTO> product, UserDTO user, List<OrderDTO> order) {
 		super();
 		this.sellerId = sellerId;
 		this.businessName = businessName;
@@ -91,27 +91,27 @@ public class SellerDTO {
 		this.sellingDomain = sellingDomain;
 	}
 
-	public List<Product> getProduct() {
+	public List<ProductDTO> getProduct() {
 		return product;
 	}
 
-	public void setProduct(List<Product> product) {
+	public void setProduct(List<ProductDTO> product) {
 		this.product = product;
 	}
 
-	public User getUser() {
+	public UserDTO getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserDTO user) {
 		this.user = user;
 	}
 
-	public List<Order> getOrder() {
+	public List<OrderDTO> getOrder() {
 		return order;
 	}
 
-	public void setOrder(List<Order> order) {
+	public void setOrder(List<OrderDTO> order) {
 		this.order = order;
 	}
 
@@ -121,6 +121,6 @@ public class SellerDTO {
 				+ ", email=" + email + ", address=" + address + ", sellingDomain=" + sellingDomain + ", product="
 				+ product + ", user=" + user + ", order=" + order + "]";
 	}
-    
 
+	
 }

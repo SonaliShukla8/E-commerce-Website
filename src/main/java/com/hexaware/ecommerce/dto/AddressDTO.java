@@ -14,7 +14,7 @@ public class AddressDTO {
 	    private String city;
 	    private String state;
 	    private String country;
-	    private List<Customer> customers = new ArrayList<Customer>();
+	    private List<CustomerDTO> customers = new ArrayList<CustomerDTO>();
 		
 	    public AddressDTO() {
 			super();
@@ -22,7 +22,7 @@ public class AddressDTO {
 		}
 
 		public AddressDTO(int addressId, String addressLine1, String addressLine2, String postalCode, String city,
-				String state, String country, List<Customer> customers) {
+				String state, String country, List<CustomerDTO> customers) {
 			super();
 			this.addressId = addressId;
 			this.addressLine1 = addressLine1;
@@ -90,11 +90,11 @@ public class AddressDTO {
 			this.country = country;
 		}
 
-		public List<Customer> getCustomers() {
+		public List<CustomerDTO> getCustomers() {
 			return customers;
 		}
 
-		public void setCustomers(List<Customer> customers) {
+		public void setCustomers(List<CustomerDTO> customers) {
 			this.customers = customers;
 		}
 
@@ -106,7 +106,4 @@ public class AddressDTO {
 		}
 
 		
-        
-	    
-	    
 }

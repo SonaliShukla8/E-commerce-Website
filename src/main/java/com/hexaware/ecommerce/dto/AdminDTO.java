@@ -12,12 +12,12 @@ public class AdminDTO {
 	    private String phoneNumber;
 	    private String password;
 	    private LocalDate joiningDate;
-	    private User user;
+	    private UserDTO user;
 		public AdminDTO() {
 			super();
 		}
 		public AdminDTO(int adminID, String adminName, String email, String phoneNumber, String password,
-				LocalDate joiningDate, User user) {
+				LocalDate joiningDate, UserDTO user) {
 			super();
 			this.adminID = adminID;
 			this.adminName = adminName;
@@ -63,10 +63,10 @@ public class AdminDTO {
 		public void setJoiningDate(LocalDate joiningDate) {
 			this.joiningDate = joiningDate;
 		}
-		public User getUser() {
+		public UserDTO getUser() {
 			return user;
 		}
-		public void setUser(User user) {
+		public void setUser(UserDTO user) {
 			this.user = user;
 		}
 		@Override
@@ -74,7 +74,5 @@ public class AdminDTO {
 			return "AdminDTO [adminID=" + adminID + ", adminName=" + adminName + ", email=" + email + ", phoneNumber="
 					+ phoneNumber + ", password=" + password + ", joiningDate=" + joiningDate + ", user=" + user + "]";
 		}
-	    
 		
-	    
 }

@@ -11,9 +11,9 @@ public class UserDTO {
     private String email;
     private String password;
     private String userType;
-    private Seller seller;
-    private Customer customer;
-    private Admin admin;
+    private SellerDTO seller;
+    private CustomerDTO customer;
+    private AdminDTO admin;
 	
     
     public UserDTO() {
@@ -22,8 +22,8 @@ public class UserDTO {
 	}
 
 
-	public UserDTO(int userId, String username, String email, String password, String userType, Seller seller,
-			Customer customer, Admin admin) {
+	public UserDTO(int userId, String username, String email, String password, String userType, SellerDTO seller,
+			CustomerDTO customer, AdminDTO admin) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -86,32 +86,32 @@ public class UserDTO {
 	}
 
 
-	public Seller getSeller() {
+	public SellerDTO getSeller() {
 		return seller;
 	}
 
 
-	public void setSeller(Seller seller) {
+	public void setSeller(SellerDTO seller) {
 		this.seller = seller;
 	}
 
 
-	public Customer getCustomer() {
+	public CustomerDTO getCustomer() {
 		return customer;
 	}
 
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(CustomerDTO customer) {
 		this.customer = customer;
 	}
 
 
-	public Admin getAdmin() {
+	public AdminDTO getAdmin() {
 		return admin;
 	}
 
 
-	public void setAdmin(Admin admin) {
+	public void setAdmin(AdminDTO admin) {
 		this.admin = admin;
 	}
 
@@ -122,5 +122,6 @@ public class UserDTO {
 				+ ", userType=" + userType + ", seller=" + seller + ", customer=" + customer + ", admin=" + admin + "]";
 	}
 
+   
     
 }

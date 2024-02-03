@@ -10,7 +10,7 @@ import jakarta.validation.constraints.PastOrPresent;
 public class PaymentDTO {
 	
 	 private int paymentId;  
-	 private Order order;
+	 private OrderDTO order;
 	private LocalDateTime paymentDate;
 	private double amount;
 	private String paymentMethod;
@@ -21,7 +21,7 @@ public class PaymentDTO {
 		
 	}
 
-	public PaymentDTO(int paymentId, Order order, LocalDateTime paymentDate, double amount, String paymentMethod,
+	public PaymentDTO(int paymentId, OrderDTO order, LocalDateTime paymentDate, double amount, String paymentMethod,
 			String paymentStatus) {
 		super();
 		this.paymentId = paymentId;
@@ -40,11 +40,11 @@ public class PaymentDTO {
 		this.paymentId = paymentId;
 	}
 
-	public Order getOrder() {
+	public OrderDTO getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(OrderDTO order) {
 		this.order = order;
 	}
 
@@ -85,8 +85,8 @@ public class PaymentDTO {
 		return "PaymentDTO [paymentId=" + paymentId + ", order=" + order + ", paymentDate=" + paymentDate + ", amount="
 				+ amount + ", paymentMethod=" + paymentMethod + ", paymentStatus=" + paymentStatus + "]";
 	}
-	
-	
+
+
     
 	
 }

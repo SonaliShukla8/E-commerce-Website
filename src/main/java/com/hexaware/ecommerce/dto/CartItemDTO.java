@@ -10,49 +10,59 @@ public class CartItemDTO {
 	
 	 private int cartitemId;
 	 private int itemQuantity;
-	 private Cart cart;
-	 private List<Product> product=new ArrayList<Product>();
-	public CartItemDTO() {
+	 private CartDTO cart;
+	 private List<ProductDTO> product=new ArrayList<ProductDTO>();
+	
+	 public CartItemDTO() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
-	public CartItemDTO(int cartitemId, int itemQuantity, Cart cart, List<Product> product) {
+
+	public CartItemDTO(int cartitemId, int itemQuantity, CartDTO cart, List<ProductDTO> product) {
 		super();
 		this.cartitemId = cartitemId;
 		this.itemQuantity = itemQuantity;
 		this.cart = cart;
 		this.product = product;
 	}
+
 	public int getCartitemId() {
 		return cartitemId;
 	}
+
 	public void setCartitemId(int cartitemId) {
 		this.cartitemId = cartitemId;
 	}
+
 	public int getItemQuantity() {
 		return itemQuantity;
 	}
+
 	public void setItemQuantity(int itemQuantity) {
 		this.itemQuantity = itemQuantity;
 	}
-	public Cart getCart() {
+
+	public CartDTO getCart() {
 		return cart;
 	}
-	public void setCart(Cart cart) {
+
+	public void setCart(CartDTO cart) {
 		this.cart = cart;
 	}
-	public List<Product> getProduct() {
+
+	public List<ProductDTO> getProduct() {
 		return product;
 	}
-	public void setProduct(List<Product> product) {
+
+	public void setProduct(List<ProductDTO> product) {
 		this.product = product;
 	}
+
 	@Override
 	public String toString() {
 		return "CartItemDTO [cartitemId=" + cartitemId + ", itemQuantity=" + itemQuantity + ", cart=" + cart
 				+ ", product=" + product + "]";
 	}
 	 
-	 
-
+	
 }

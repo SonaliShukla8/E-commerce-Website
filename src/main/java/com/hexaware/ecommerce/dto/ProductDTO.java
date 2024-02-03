@@ -28,9 +28,9 @@ public class ProductDTO {
     private LocalDateTime createdAt;
     
     private LocalDateTime modifiedAt;
-    private Category category;
-    private SubCategory subCategory;
-    private List<CartItem> cartitem=new ArrayList<CartItem>();
+    private CategoryDTO category;
+    private SubCategoryDTO subCategory;
+    private List<CartItemDTO> cartitem=new ArrayList<CartItemDTO>();
 	
     public ProductDTO() {
 		super();
@@ -38,8 +38,8 @@ public class ProductDTO {
 	}
 
 	public ProductDTO(Seller seller, String productName, String productImageURL, String description, double price,
-			int stockQuantity, String brand, LocalDateTime createdAt, LocalDateTime modifiedAt, Category category,
-			SubCategory subCategory, List<CartItem> cartitem) {
+			int stockQuantity, String brand, LocalDateTime createdAt, LocalDateTime modifiedAt, CategoryDTO category,
+			SubCategoryDTO subCategory, List<CartItemDTO> cartitem) {
 		super();
 		this.seller = seller;
 		this.productName = productName;
@@ -127,27 +127,27 @@ public class ProductDTO {
 		this.modifiedAt = modifiedAt;
 	}
 
-	public Category getCategory() {
+	public CategoryDTO getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(CategoryDTO category) {
 		this.category = category;
 	}
 
-	public SubCategory getSubCategory() {
+	public SubCategoryDTO getSubCategory() {
 		return subCategory;
 	}
 
-	public void setSubCategory(SubCategory subCategory) {
+	public void setSubCategory(SubCategoryDTO subCategory) {
 		this.subCategory = subCategory;
 	}
 
-	public List<CartItem> getCartitem() {
+	public List<CartItemDTO> getCartitem() {
 		return cartitem;
 	}
 
-	public void setCartitem(List<CartItem> cartitem) {
+	public void setCartitem(List<CartItemDTO> cartitem) {
 		this.cartitem = cartitem;
 	}
 
@@ -158,9 +158,8 @@ public class ProductDTO {
 				+ brand + ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + ", category=" + category
 				+ ", subCategory=" + subCategory + ", cartitem=" + cartitem + "]";
 	}
-    
-    
-    
+
+	
     
 
 }
