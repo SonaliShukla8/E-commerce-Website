@@ -3,6 +3,7 @@ package com.hexaware.ecommerce.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.User;
 
@@ -21,6 +22,7 @@ public class SellerDTO {
 	 private String sellingDomain;
 	 private List<Product> product=new ArrayList<Product>();
 	 private User user;
+	 private List<Order> order=new ArrayList<Order>();
 	
 	 public SellerDTO() {
 		super();
@@ -28,7 +30,7 @@ public class SellerDTO {
 	}
 
 	public SellerDTO(int sellerId, String businessName, String phoneNumber, String email, String address,
-			String sellingDomain, List<Product> product, User user) {
+			String sellingDomain, List<Product> product, User user, List<Order> order) {
 		super();
 		this.sellerId = sellerId;
 		this.businessName = businessName;
@@ -38,6 +40,7 @@ public class SellerDTO {
 		this.sellingDomain = sellingDomain;
 		this.product = product;
 		this.user = user;
+		this.order = order;
 	}
 
 	public int getSellerId() {
@@ -104,14 +107,20 @@ public class SellerDTO {
 		this.user = user;
 	}
 
+	public List<Order> getOrder() {
+		return order;
+	}
+
+	public void setOrder(List<Order> order) {
+		this.order = order;
+	}
+
 	@Override
 	public String toString() {
 		return "SellerDTO [sellerId=" + sellerId + ", businessName=" + businessName + ", phoneNumber=" + phoneNumber
 				+ ", email=" + email + ", address=" + address + ", sellingDomain=" + sellingDomain + ", product="
-				+ product + ", user=" + user + "]";
+				+ product + ", user=" + user + ", order=" + order + "]";
 	}
-	 
-	 
-	 
+    
 
 }

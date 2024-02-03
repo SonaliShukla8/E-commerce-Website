@@ -34,17 +34,20 @@ public class Seller {
 	 
 	 @OneToOne(mappedBy="seller",cascade=CascadeType.ALL)
 	 private User user;
+	 
+	 @OneToMany(cascade=CascadeType.ALL, mappedBy="order")
+	 private List<Order> order=new ArrayList<Order>();
 
 	public Seller() {
 		super();
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	public Seller(int sellerId, @NotBlank String businessName, @Pattern(regexp = "[0-9]{10}") String phoneNumber,
 			@Email(message = "Invalid email address") @NotBlank(message = "Email cannot be blank") String email,
 			@NotBlank(message = "Address cannot be blank") String address,
 			@NotBlank(message = "Selling domain cannot be blank") String sellingDomain, List<Product> product,
-			User user) {
+			User user, List<Order> order) {
 		super();
 		this.sellerId = sellerId;
 		this.businessName = businessName;
@@ -54,6 +57,7 @@ public class Seller {
 		this.sellingDomain = sellingDomain;
 		this.product = product;
 		this.user = user;
+		this.order = order;
 	}
 
 	public int getSellerId() {
@@ -120,12 +124,22 @@ public class Seller {
 		this.user = user;
 	}
 
+	public List<Order> getOrder() {
+		return order;
+	}
+
+	public void setOrder(List<Order> order) {
+		this.order = order;
+	}
+
 	@Override
 	public String toString() {
 		return "Seller [sellerId=" + sellerId + ", businessName=" + businessName + ", phoneNumber=" + phoneNumber
 				+ ", email=" + email + ", address=" + address + ", sellingDomain=" + sellingDomain + ", product="
-				+ product + ", user=" + user + "]";
+				+ product + ", user=" + user + ", order=" + order + "]";
 	}
+	
+
 	 
-	 
+	
 }
