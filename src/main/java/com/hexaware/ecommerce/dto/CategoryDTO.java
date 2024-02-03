@@ -9,8 +9,8 @@ public class CategoryDTO {
 	
 	private int categoryId;        // Primary Key
     private String categoryName;
-    private List<SubCategory> subCategories;
-    private List<Product> products;
+    private List<SubCategoryDTO> subCategories;
+    private List<ProductDTO> products;
     
 
 }

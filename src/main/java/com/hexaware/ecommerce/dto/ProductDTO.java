@@ -12,7 +12,7 @@ public class ProductDTO {
 	
 	
 	
-	private Seller seller;
+	private SellerDTO seller;
 	 
     private String productName;
     
@@ -29,8 +29,8 @@ public class ProductDTO {
     private LocalDateTime createdAt;
     
     private LocalDateTime modifiedAt;
-    private Category category;
-    private SubCategory subCategory;
-    private List<CartItem> cartitem;
+    private CategoryDTO category;
+    private SubCategoryDTO subCategory;
+    private List<CartItemDTO> cartitem;
 
 }

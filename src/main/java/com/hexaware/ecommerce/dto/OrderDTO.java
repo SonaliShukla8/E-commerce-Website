@@ -8,12 +8,12 @@ import com.hexaware.ecommerce.entity.Payment;
 public class OrderDTO {
 	
 	private int orderId; 
-	 private Customer customer;
+	 private CustomerDTO customer;
 	    private LocalDate orderDate;
 	    private double totalAmount;
 	    private String status;
 	    private String statusDescription;
-	    private Payment payment;
+	    private PaymentDTO payment;
 	    private LocalDate deliveryDate;
 
 }

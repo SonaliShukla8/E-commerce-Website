@@ -9,7 +9,7 @@ public class SubCategoryDTO {
 	
 	 private int subCategoryId;        // Primary Key
 	    private String subCategoryName;
-	    private Category category;
-	    private List<Product> products;
+	    private CategoryDTO category;
+	    private List<ProductDTO> products;
 
 }

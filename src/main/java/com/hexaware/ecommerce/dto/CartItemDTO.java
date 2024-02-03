@@ -9,7 +9,7 @@ public class CartItemDTO {
 	
 	 private int cartitemId;
 	 private int itemQuantity;
-	 private Cart cart;
-	 private List<Product> product;
+	 private CartDTO cart;
+	 private List<ProductDTO> product;
 
 }

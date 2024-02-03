@@ -10,7 +10,7 @@ import jakarta.validation.constraints.PastOrPresent;
 public class PaymentDTO {
 	
 	 private int paymentId;  
-	 private Order order;
+	 private OrderDTO order;
 	
 	private LocalDateTime paymentDate;
 	private double amount;

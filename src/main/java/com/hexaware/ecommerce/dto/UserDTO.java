@@ -11,8 +11,8 @@ public class UserDTO {
     private String email;
     private String password;
     private String userType;
-    private Seller seller;
-    private Customer customer;
-    private Admin admin;
+    private SellerDTO seller;
+    private CustomerDTO customer;
+    private AdminDTO admin;
 
 }

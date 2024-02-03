@@ -12,5 +12,5 @@ public class AdminDTO {
 	    private String phoneNumber;
 	    private String password;
 	    private LocalDate joiningDate;
-	    private User user;
+	    private UserDTO user;
 }
