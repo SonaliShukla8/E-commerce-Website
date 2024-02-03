@@ -21,9 +21,9 @@ public class SellerDTO {
 	 
 	 private String sellingDomain;
 
-	 private List<ProductDTO> product=new ArrayList<ProductDTO>();
-	 private UserDTO user;
-	 private List<OrderDTO> order=new ArrayList<OrderDTO>();
+	 private List<Product> product=new ArrayList<Product>();
+	 private User user;
+	 private List<Order> order=new ArrayList<Order>();
 	
 	 public SellerDTO() {
 		super();
@@ -31,7 +31,7 @@ public class SellerDTO {
 	}
 
 	public SellerDTO(int sellerId, String businessName, String phoneNumber, String email, String address,
-			String sellingDomain, List<ProductDTO> product, UserDTO user, List<OrderDTO> order) {
+			String sellingDomain, List<Product> product, User user, List<Order> order) {
 		super();
 		this.sellerId = sellerId;
 		this.businessName = businessName;
@@ -92,27 +92,27 @@ public class SellerDTO {
 		this.sellingDomain = sellingDomain;
 	}
 
-	public List<ProductDTO> getProduct() {
+	public List<Product> getProduct() {
 		return product;
 	}
 
-	public void setProduct(List<ProductDTO> product) {
+	public void setProduct(List<Product> product) {
 		this.product = product;
 	}
 
-	public UserDTO getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserDTO user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public List<OrderDTO> getOrder() {
+	public List<Order> getOrder() {
 		return order;
 	}
 
-	public void setOrder(List<OrderDTO> order) {
+	public void setOrder(List<Order> order) {
 		this.order = order;
 	}
 

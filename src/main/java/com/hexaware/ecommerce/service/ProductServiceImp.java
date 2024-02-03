@@ -16,32 +16,73 @@ public class ProductServiceImp implements IProductService {
 	
 	@Override
 	public Product addProduct(ProductDTO productDTO) {
-	
-		return null;
+	    Product product = new Product();
+	    product.setProductId(productDTO.getProductId());
+	    product.setBrand(productDTO.getBrand());
+	    product.setCartitem(productDTO.getCartitem());
+	    product.setCategory(productDTO.getCategory());
+	    product.setCreatedAt(productDTO.getCreatedAt());
+	    product.setDescription(productDTO.getDescription());
+	    product.setModifiedAt(productDTO.getModifiedAt());
+	    product.setPrice(productDTO.getPrice());
+	    product.setProductImageURL(productDTO.getProductImageURL());
+	    product.setProductName(productDTO.getProductName());
+	    product.setSeller(productDTO.getSeller());
+	    product.setStockQuantity(productDTO.getStockQuantity());
+	    product.setSubCategory(productDTO.getSubCategory());
+		return repo.save(product);
 	}
 
 	@Override
 	public Product updateProduct(ProductDTO productDTO) {
+		 Product product = new Product();
+		    product.setProductId(productDTO.getProductId());
+		    product.setBrand(productDTO.getBrand());
+		    product.setCartitem(productDTO.getCartitem());
+		    product.setCategory(productDTO.getCategory());
+		    product.setCreatedAt(productDTO.getCreatedAt());
+		    product.setDescription(productDTO.getDescription());
+		    product.setModifiedAt(productDTO.getModifiedAt());
+		    product.setPrice(productDTO.getPrice());
+		    product.setProductImageURL(productDTO.getProductImageURL());
+		    product.setProductName(productDTO.getProductName());
+		    product.setSeller(productDTO.getSeller());
+		    product.setStockQuantity(productDTO.getStockQuantity());
+		    product.setSubCategory(productDTO.getSubCategory());
+			return repo.save(product);
 		
-		return null;
 	}
 
 	@Override
 	public String deleteProductById(int productId) {
-		
-		return null;
+		repo.deleteById(productId);
+		return "Product with productId "+productId+" deleted.";
 	}
 
 	@Override
 	public ProductDTO getProductById(int productId) {
-		
-		return null;
+		Product product=repo.findById(productId).orElse(null);
+		ProductDTO dto=new ProductDTO();
+		dto.setProductId(product.getProductId());
+	    dto.setBrand(product.getBrand());
+	    dto.setCartitem(product.getCartitem());
+	    dto.setCategory(product.getCategory());
+	    dto.setCreatedAt(product.getCreatedAt());
+	   dto.setDescription(product.getDescription());
+	    dto.setModifiedAt(product.getModifiedAt());
+	    dto.setPrice(product.getPrice());
+	    dto.setProductImageURL(product.getProductImageURL());
+	   dto.setProductName(product.getProductName());
+	    dto.setSeller(product.getSeller());
+	    dto.setStockQuantity(product.getStockQuantity());
+	    dto.setSubCategory(product.getSubCategory());
+		return dto;
 	}
 
 	@Override
 	public List<Product> getAllProduct() {
 
-		return null;
+		return repo.findAll();
 	}
 
 }

@@ -22,7 +22,9 @@ import jakarta.validation.constraints.Positive;
 @Entity
 public class Product {
 	@Id
-	 private int productId;        // Primary Key
+	 
+	
+	private int productId;        // Primary Key
 	
 	 @ManyToOne(cascade=CascadeType.ALL)
 	 @JoinColumn(name = "seller_Id")

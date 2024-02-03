@@ -15,32 +15,58 @@ public class UserServiceImp implements IUserService {
 	
 	@Override
 	public User addUser(UserDTO userDTO) {
-
-		return null;
+       User user = new User();
+       user.setAdmin(userDTO.getAdmin());
+       user.setCustomer(userDTO.getCustomer());
+       user.setEmail(userDTO.getEmail());
+       user.setPassword(userDTO.getPassword());
+       user.setSeller(userDTO.getSeller());
+       user.setUserId(userDTO.getUserId());
+       user.setUsername(userDTO.getUsername());
+       user.setUserType(userDTO.getUserType());
+		return repo.save(user);
 	}
 
 	@Override
 	public User updateUser(UserDTO userDTO) {
-	
-		return null;
+		 User user = new User();
+	       user.setAdmin(userDTO.getAdmin());
+	       user.setCustomer(userDTO.getCustomer());
+	       user.setEmail(userDTO.getEmail());
+	       user.setPassword(userDTO.getPassword());
+	       user.setSeller(userDTO.getSeller());
+	       user.setUserId(userDTO.getUserId());
+	       user.setUsername(userDTO.getUsername());
+	       user.setUserType(userDTO.getUserType());
+			return repo.save(user);
+		
 	}
 
 	@Override
 	public String deleteUserById(int userId) {
-		
-		return null;
+		repo.deleteById(userId);
+		return "User with userId "+userId+" deleted.";
 	}
 
 	@Override
 	public UserDTO getUserById(int userId) {
-	
-		return null;
+	    User user=repo.findById(userId).orElse(null);
+	    UserDTO dto=new UserDTO();
+	    dto.setAdmin(user.getAdmin());
+	       dto.setCustomer(user.getCustomer());
+	       dto.setEmail(user.getEmail());
+	       dto.setPassword(user.getPassword());
+	       dto.setSeller(user.getSeller());
+	       dto.setUserId(user.getUserId());
+	       dto.setUsername(user.getUsername());
+	       dto.setUserType(user.getUserType());
+		return dto;
 	}
 
 	@Override
 	public List<User> getAllUser() {
 	
-		return null;
+		return repo.findAll();
 	}
 
 }

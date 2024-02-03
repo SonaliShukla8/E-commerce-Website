@@ -9,6 +9,7 @@ public interface ISellerService {
 	public Seller addSeller(SellerDTO sellerDTO);
     public Seller updateSeller(SellerDTO sellerDTO);
     public String deleteSellerById(int sellerId);
-    public SellerDTO getSelleeById(int sellerId);
+   
     public List<Seller> getAllSeller();
+	SellerDTO getSellerById(int sellerId);
 }

@@ -11,39 +11,30 @@ import com.hexaware.ecommerce.entity.SubCategory;
 
 public class ProductDTO {
 
-
-	private SellerDTO seller;
-
-	 
+    private int productId;
+	private Seller seller;
     private String productName;
-    
     private String productImageURL;
-    
     private String description;
-    
     private double price;
-    
     private int stockQuantity;
-    
     private String brand;
-    
     private LocalDateTime createdAt;
-    
     private LocalDateTime modifiedAt;
-    private CategoryDTO category;
-    private SubCategoryDTO subCategory;
-
-    private List<CartItemDTO> cartitem=new ArrayList<CartItemDTO>();
+    private Category category;
+    private SubCategory subCategory;
+    private List<CartItem> cartitem=new ArrayList<CartItem>();
 	
     public ProductDTO() {
 		super();
 		
 	}
 
-	public ProductDTO(SellerDTO seller, String productName, String productImageURL, String description, double price,
-			int stockQuantity, String brand, LocalDateTime createdAt, LocalDateTime modifiedAt, CategoryDTO category,
-			SubCategoryDTO subCategory, List<CartItemDTO> cartitem) {
+	public ProductDTO(int productId, Seller seller, String productName, String productImageURL, String description,
+			double price, int stockQuantity, String brand, LocalDateTime createdAt, LocalDateTime modifiedAt,
+			Category category, SubCategory subCategory, List<CartItem> cartitem) {
 		super();
+		this.productId = productId;
 		this.seller = seller;
 		this.productName = productName;
 		this.productImageURL = productImageURL;
@@ -58,11 +49,19 @@ public class ProductDTO {
 		this.cartitem = cartitem;
 	}
 
-	public SellerDTO getSeller() {
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+	public Seller getSeller() {
 		return seller;
 	}
 
-	public void setSeller(SellerDTO seller) {
+	public void setSeller(Seller seller) {
 		this.seller = seller;
 	}
 
@@ -130,40 +129,40 @@ public class ProductDTO {
 		this.modifiedAt = modifiedAt;
 	}
 
-	public CategoryDTO getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(CategoryDTO category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
-	public SubCategoryDTO getSubCategory() {
+	public SubCategory getSubCategory() {
 		return subCategory;
 	}
 
-	public void setSubCategory(SubCategoryDTO subCategory) {
+	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
 	}
 
-	public List<CartItemDTO> getCartitem() {
+	public List<CartItem> getCartitem() {
 		return cartitem;
 	}
 
-	public void setCartitem(List<CartItemDTO> cartitem) {
+	public void setCartitem(List<CartItem> cartitem) {
 		this.cartitem = cartitem;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductDTO [seller=" + seller + ", productName=" + productName + ", productImageURL=" + productImageURL
-				+ ", description=" + description + ", price=" + price + ", stockQuantity=" + stockQuantity + ", brand="
-				+ brand + ", createdAt=" + createdAt + ", modifiedAt=" + modifiedAt + ", category=" + category
-				+ ", subCategory=" + subCategory + ", cartitem=" + cartitem + "]";
+		return "ProductDTO [productId=" + productId + ", seller=" + seller + ", productName=" + productName
+				+ ", productImageURL=" + productImageURL + ", description=" + description + ", price=" + price
+				+ ", stockQuantity=" + stockQuantity + ", brand=" + brand + ", createdAt=" + createdAt + ", modifiedAt="
+				+ modifiedAt + ", category=" + category + ", subCategory=" + subCategory + ", cartitem=" + cartitem
+				+ "]";
 	}
-
-	
     
 
-
+	
+	
 }
