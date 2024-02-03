@@ -35,7 +35,7 @@ public class Seller {
 	 @OneToOne(mappedBy="seller",cascade=CascadeType.ALL)
 	 private User user;
 	 
-	 @OneToMany(cascade=CascadeType.ALL, mappedBy="order")
+	 @OneToMany(cascade=CascadeType.ALL, mappedBy="seller")
 	 private List<Order> order=new ArrayList<Order>();
 
 	public Seller() {
