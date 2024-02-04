@@ -3,8 +3,11 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -18,9 +21,10 @@ public class SubCategory {
 	@NotBlank(message = "Subcategory name cannot be blank")
     private String subCategoryName;
     
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="categoryID")
-    private Category category;
+	@ManyToOne
+    @JoinColumn(name = "categoryID", nullable = false)
+	private Category category;
+
     
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<Product>();
@@ -29,9 +33,19 @@ public class SubCategory {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public SubCategory(int subCategoryId,
-			@NotBlank(message = "Subcategory name cannot be blank") String subCategoryName, Category category,
+			@NotBlank(message = "Subcategory name cannot be blank") String subCategoryName,  Category category) {
+		super();
+		this.subCategoryId = subCategoryId;
+		this.subCategoryName = subCategoryName;
+		this.category = category;
+	}
+
+
+	public SubCategory(int subCategoryId,
+			@NotBlank(message = "Subcategory name cannot be blank") String subCategoryName,  Category category,
 			List<Product> products) {
 		super();
 		this.subCategoryId = subCategoryId;

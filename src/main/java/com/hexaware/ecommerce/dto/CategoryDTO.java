@@ -10,19 +10,27 @@ public class CategoryDTO {
 	
 	private int categoryId;        // Primary Key
     private String categoryName;
-    private List<SubCategory> subCategories = new ArrayList<SubCategory>();
-    private List<Product> products=new ArrayList<Product>();
+  //  private List<SubCategory> subCategories = new ArrayList<SubCategory>();
+  //  private List<Product> products=new ArrayList<Product>();
 	
     public CategoryDTO() {
 		super();
 	}
+    
 
-	public CategoryDTO(int categoryId, String categoryName, List<SubCategory> subCategories, List<Product> products) {
+	public CategoryDTO(int categoryId, String categoryName) {
+	super();
+	this.categoryId = categoryId;
+	this.categoryName = categoryName;
+}
+
+
+	public CategoryDTO(int categoryId, String categoryName, List<SubCategory> subCategories) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.subCategories = subCategories;
-		this.products = products;
+	//	this.subCategories = subCategories;
+	
 	}
 
 	public int getCategoryId() {
@@ -40,27 +48,17 @@ public class CategoryDTO {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	/*
+	 * public List<SubCategory> getSubCategories() { return subCategories; }
+	 * 
+	 * public void setSubCategories(List<SubCategory> subCategories) {
+	 * this.subCategories = subCategories; }
+	 */
 
-	public List<SubCategory> getSubCategories() {
-		return subCategories;
-	}
-
-	public void setSubCategories(List<SubCategory> subCategories) {
-		this.subCategories = subCategories;
-	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
 
 	@Override
 	public String toString() {
-		return "CategoryDTO [categoryId=" + categoryId + ", categoryName=" + categoryName + ", subCategories="
-				+ subCategories + ", products=" + products + "]";
+		return "CategoryDTO [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
 	}
 
 	

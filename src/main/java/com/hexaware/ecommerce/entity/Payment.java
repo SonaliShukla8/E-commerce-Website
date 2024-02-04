@@ -30,6 +30,18 @@ public class Payment {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public Payment(int paymentId, @PastOrPresent LocalDateTime paymentDate, @Positive double amount,
+			@NotBlank String paymentMethod, @NotBlank String paymentStatus) {
+		super();
+		this.paymentId = paymentId;
+		this.paymentDate = paymentDate;
+		this.amount = amount;
+		this.paymentMethod = paymentMethod;
+		this.paymentStatus = paymentStatus;
+	}
+
 
 	public Payment(int paymentId, Order order, @PastOrPresent LocalDateTime paymentDate, @Positive double amount,
 			@NotBlank String paymentMethod, @NotBlank String paymentStatus) {

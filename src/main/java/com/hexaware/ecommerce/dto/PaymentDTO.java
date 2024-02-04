@@ -20,6 +20,24 @@ public class PaymentDTO {
 		super();
 		
 	}
+	
+	
+	
+	
+
+	public PaymentDTO(int paymentId, LocalDateTime paymentDate, double amount, String paymentMethod,
+			String paymentStatus) {
+		super();
+		this.paymentId = paymentId;
+		this.paymentDate = paymentDate;
+		this.amount = amount;
+		this.paymentMethod = paymentMethod;
+		this.paymentStatus = paymentStatus;
+	}
+
+
+
+
 
 	public PaymentDTO(int paymentId, Order order, LocalDateTime paymentDate, double amount, String paymentMethod,
 			String paymentStatus) {

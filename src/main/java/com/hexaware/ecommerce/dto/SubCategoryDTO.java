@@ -16,6 +16,15 @@ public class SubCategoryDTO {
 	    public SubCategoryDTO() {
 			super();
 		}
+	    
+
+		public SubCategoryDTO(int subCategoryId, String subCategoryName, Category category) {
+			super();
+			this.subCategoryId = subCategoryId;
+			this.subCategoryName = subCategoryName;
+			this.category = category;
+		}
+
 
 		public int getSubCategoryId() {
 			return subCategoryId;

@@ -3,8 +3,11 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -18,24 +21,32 @@ public class Category {
     @NotBlank
     private String categoryName;
     
-    @OneToMany(cascade = CascadeType.ALL,mappedBy="category")
-    private List<SubCategory> subCategories =new ArrayList<SubCategory>();
+    public Category(int categoryId, @NotBlank String categoryName) {
+		super();
+		this.categoryId = categoryId;
+		this.categoryName = categoryName;
+	}
+
+
+
+	//@OneToMany(cascade = CascadeType.ALL,mappedBy="category", fetch = FetchType.LAZY)
+   // private List<SubCategory> subCategories =new ArrayList<SubCategory>();
     
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Product> products =new ArrayList<Product>();
+	/*
+	 * @OneToMany(mappedBy = "category", cascade = CascadeType.ALL) private
+	 * List<Product> products =new ArrayList<Product>();
+	 */
 
 	public Category() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Category(int categoryId, @NotBlank String categoryName, List<SubCategory> subCategories,
-			List<Product> products) {
+	public Category(int categoryId, @NotBlank String categoryName, List<SubCategory> subCategories) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.subCategories = subCategories;
-		this.products = products;
+		//this.subCategories = subCategories;
 	}
 
 	public int getCategoryId() {
@@ -54,26 +65,18 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
-	public List<SubCategory> getSubCategories() {
-		return subCategories;
-	}
+	/*
+	 * public List<SubCategory> getSubCategories() { return subCategories; }
+	 * 
+	 * public void setSubCategories(List<SubCategory> subCategories) {
+	 * this.subCategories = subCategories; }
+	 */
 
-	public void setSubCategories(List<SubCategory> subCategories) {
-		this.subCategories = subCategories;
-	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+	
 
 	@Override
 	public String toString() {
-		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", subCategories="
-				+ subCategories + ", products=" + products + "]";
+		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
 	}
     
     

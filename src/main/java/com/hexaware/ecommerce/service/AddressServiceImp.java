@@ -18,7 +18,7 @@ public class AddressServiceImp implements IAddressService {
 		Address address = new Address();
 		address.setAddressId(addressDTO.getAddressId());
 		address.setAddressLine1(addressDTO.getAddressLine1());
-		address.setAddressLine2(address.getAddressLine2());
+		address.setAddressLine2(addressDTO.getAddressLine2());
 		address.setCity(addressDTO.getCity());
 		address.setCountry(addressDTO.getCountry());
 		address.setCustomers(addressDTO.getCustomers());
@@ -34,7 +34,7 @@ public class AddressServiceImp implements IAddressService {
 		Address address = new Address();
 		address.setAddressId(addressDTO.getAddressId());
 		address.setAddressLine1(addressDTO.getAddressLine1());
-		address.setAddressLine2(address.getAddressLine2());
+		address.setAddressLine2(addressDTO.getAddressLine2());
 		address.setCity(addressDTO.getCity());
 		address.setCountry(addressDTO.getCountry());
 		address.setCustomers(addressDTO.getCustomers());

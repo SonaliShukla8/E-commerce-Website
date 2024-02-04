@@ -28,6 +28,7 @@ public class Address {
 		@NotBlank
 	    @Size(max = 255)
 	    private String addressLine1;
+		@NotBlank
 		@Size(max = 255)
 	    private String addressLine2;
 		@NotBlank
@@ -46,9 +47,24 @@ public class Address {
 			super();
 			// TODO Auto-generated constructor stub
 		}
+	    
 
 		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
-				@Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
+				@NotBlank @Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
+				@NotBlank String city, @NotBlank String state, @NotBlank String country) {
+			super();
+			this.addressId = addressId;
+			this.addressLine1 = addressLine1;
+			this.addressLine2 = addressLine2;
+			this.postalCode = postalCode;
+			this.city = city;
+			this.state = state;
+			this.country = country;
+		}
+
+
+		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
+				@NotBlank @Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
 				@NotBlank String city, @NotBlank String state, @NotBlank String country, List<Customer> customers) {
 			super();
 			this.addressId = addressId;
