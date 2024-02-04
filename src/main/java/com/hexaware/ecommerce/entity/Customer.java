@@ -42,9 +42,10 @@ public class Customer {
     @JoinColumn(name="cartId")
     private Cart cart;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="order_id")
-    private Order order;
+    @ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="customer_order_detail", joinColumns= {@JoinColumn(name="customerId")},
+	inverseJoinColumns= {@JoinColumn(name="orderId")})
+    private List<Order> orders=new ArrayList<Order>();
 
 	public Customer() {
 		super();
@@ -53,7 +54,7 @@ public class Customer {
 
 	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
 			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
-			List<Address> addresses, User user, Cart cart, Order order) {
+			List<Address> addresses, User user, Cart cart, List<Order> orders) {
 		super();
 		this.customerId = customerId;
 		this.fullName = fullName;
@@ -63,7 +64,7 @@ public class Customer {
 		this.addresses = addresses;
 		this.user = user;
 		this.cart = cart;
-		this.order = order;
+		this.orders = orders;
 	}
 
 	public int getCustomerId() {
@@ -130,21 +131,21 @@ public class Customer {
 		this.cart = cart;
 	}
 
-	public Order getOrder() {
-		return order;
+	public List<Order> getOrders() {
+		return orders;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
 				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
-				+ user + ", cart=" + cart + ", order=" + order + "]";
+				+ user + ", cart=" + cart + ", orders=" + orders + "]";
 	}
-    
+
     
 }
 

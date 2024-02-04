@@ -1,11 +1,15 @@
 package com.hexaware.ecommerce.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -22,8 +26,8 @@ public class Order {
 	@Id
 	private int orderId;        // Primary Key
 	
-	   @OneToOne(cascade=CascadeType.ALL,mappedBy="order")
-	    private Customer customer;
+	 @ManyToMany(mappedBy="orders" ,fetch = FetchType.LAZY)
+	    private List<Customer> customer  = new ArrayList<Customer>();
 	   @NotNull
 	    private LocalDate orderDate;
 	   @Positive
@@ -48,7 +52,7 @@ public class Order {
 
 		}
 
-		public Order(int orderId, Customer customer, @NotNull LocalDate orderDate, @Positive double totalAmount,
+		public Order(int orderId, List<Customer> customer, @NotNull LocalDate orderDate, @Positive double totalAmount,
 				@NotBlank String status, @NotBlank String statusDescription, @FutureOrPresent LocalDate deliveryDate,
 				Payment payment, Seller seller) {
 			super();
@@ -71,11 +75,11 @@ public class Order {
 			this.orderId = orderId;
 		}
 
-		public Customer getCustomer() {
+		public List<Customer> getCustomer() {
 			return customer;
 		}
 
-		public void setCustomer(Customer customer) {
+		public void setCustomer(List<Customer> customer) {
 			this.customer = customer;
 		}
 
@@ -141,7 +145,6 @@ public class Order {
 					+ ", totalAmount=" + totalAmount + ", status=" + status + ", statusDescription=" + statusDescription
 					+ ", deliveryDate=" + deliveryDate + ", payment=" + payment + ", seller=" + seller + "]";
 		}
+
 		
-	    
-	    
 }
