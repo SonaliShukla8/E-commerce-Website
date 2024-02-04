@@ -3,8 +3,11 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.sql.ast.tree.from.MappedByTableGroup;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -35,7 +38,8 @@ public class Customer {
             inverseJoinColumns = {@JoinColumn(name = "address_id")})
     private List<Address> addresses =new ArrayList<Address>();
     
-    @OneToOne(cascade=CascadeType.ALL, mappedBy="customer")
+    @OneToOne(cascade=CascadeType.ALL, targetEntity = User.class)
+    @JoinColumn(name="userId", nullable = false)
     private User user;
     
     @OneToOne(cascade = CascadeType.ALL)
