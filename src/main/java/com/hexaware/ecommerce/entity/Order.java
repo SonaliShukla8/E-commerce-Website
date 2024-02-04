@@ -26,9 +26,10 @@ public class Order {
 	@Id
 	private int orderId;        // Primary Key
 	
-	 @ManyToMany(mappedBy="order" ,fetch = FetchType.LAZY)
-	    private List<Customer> customer  = new ArrayList<Customer>();
-	   @NotNull
+	@ManyToOne(cascade=CascadeType.ALL)
+	 @JoinColumn(name="customerId")
+	    private Customer customer;
+	@NotNull
 	    private LocalDate orderDate;
 	   @Positive
 	    private double totalAmount;
@@ -52,21 +53,6 @@ public class Order {
 
 		}
 
-		public Order(int orderId, List<Customer> customer, @NotNull LocalDate orderDate, @Positive double totalAmount,
-				@NotBlank String status, @NotBlank String statusDescription, @FutureOrPresent LocalDate deliveryDate,
-				Payment payment, Seller seller) {
-			super();
-			this.orderId = orderId;
-			this.customer = customer;
-			this.orderDate = orderDate;
-			this.totalAmount = totalAmount;
-			this.status = status;
-			this.statusDescription = statusDescription;
-			this.deliveryDate = deliveryDate;
-			this.payment = payment;
-			this.seller = seller;
-		}
-
 		public int getOrderId() {
 			return orderId;
 		}
@@ -75,11 +61,11 @@ public class Order {
 			this.orderId = orderId;
 		}
 
-		public List<Customer> getCustomer() {
+		public Customer getCustomer() {
 			return customer;
 		}
 
-		public void setCustomer(List<Customer> customer) {
+		public void setCustomer(Customer customer) {
 			this.customer = customer;
 		}
 
@@ -136,6 +122,21 @@ public class Order {
 		}
 
 		public void setSeller(Seller seller) {
+			this.seller = seller;
+		}
+
+		public Order(int orderId, Customer customer, @NotNull LocalDate orderDate, @Positive double totalAmount,
+				@NotBlank String status, @NotBlank String statusDescription, @FutureOrPresent LocalDate deliveryDate,
+				Payment payment, Seller seller) {
+			super();
+			this.orderId = orderId;
+			this.customer = customer;
+			this.orderDate = orderDate;
+			this.totalAmount = totalAmount;
+			this.status = status;
+			this.statusDescription = statusDescription;
+			this.deliveryDate = deliveryDate;
+			this.payment = payment;
 			this.seller = seller;
 		}
 
