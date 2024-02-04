@@ -42,9 +42,7 @@ public class Customer {
     @JoinColumn(name="cartId")
     private Cart cart;
     
-    @ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="customer_order_detail", joinColumns= {@JoinColumn(name="customerId")},
-	inverseJoinColumns= {@JoinColumn(name="orderId")})
+    @OneToMany( cascade = CascadeType.ALL, mappedBy="customer")
     private List<Order> order=new ArrayList<Order>();
 
 	public Customer() {

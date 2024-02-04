@@ -11,7 +11,7 @@ import com.hexaware.ecommerce.entity.Seller;
 public class OrderDTO {
 	
 	private int orderId; 
-	 private List<Customer> customer = new ArrayList<Customer>();
+	 private Customer customer;
 	    private LocalDate orderDate;
 	    private double totalAmount;
 	    private String status;
@@ -29,10 +29,10 @@ public class OrderDTO {
 		public void setOrderId(int orderId) {
 			this.orderId = orderId;
 		}
-		public List<Customer> getCustomer() {
+		public Customer getCustomer() {
 			return customer;
 		}
-		public void setCustomer(List<Customer> customer) {
+		public void setCustomer(Customer customer) {
 			this.customer = customer;
 		}
 		public LocalDate getOrderDate() {
@@ -77,7 +77,13 @@ public class OrderDTO {
 		public void setSeller(Seller seller) {
 			this.seller = seller;
 		}
-		public OrderDTO(int orderId, List<Customer> customer, LocalDate orderDate, double totalAmount, String status,
+		@Override
+		public String toString() {
+			return "OrderDTO [orderId=" + orderId + ", customer=" + customer + ", orderDate=" + orderDate
+					+ ", totalAmount=" + totalAmount + ", status=" + status + ", statusDescription=" + statusDescription
+					+ ", payment=" + payment + ", deliveryDate=" + deliveryDate + ", seller=" + seller + "]";
+		}
+		public OrderDTO(int orderId, Customer customer, LocalDate orderDate, double totalAmount, String status,
 				String statusDescription, Payment payment, LocalDate deliveryDate, Seller seller) {
 			super();
 			this.orderId = orderId;
@@ -89,12 +95,6 @@ public class OrderDTO {
 			this.payment = payment;
 			this.deliveryDate = deliveryDate;
 			this.seller = seller;
-		}
-		@Override
-		public String toString() {
-			return "OrderDTO [orderId=" + orderId + ", customer=" + customer + ", orderDate=" + orderDate
-					+ ", totalAmount=" + totalAmount + ", status=" + status + ", statusDescription=" + statusDescription
-					+ ", payment=" + payment + ", deliveryDate=" + deliveryDate + ", seller=" + seller + "]";
 		}
 		
 }
