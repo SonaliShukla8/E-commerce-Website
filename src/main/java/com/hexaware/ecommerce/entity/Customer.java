@@ -45,26 +45,18 @@ public class Customer {
     @ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="customer_order_detail", joinColumns= {@JoinColumn(name="customerId")},
 	inverseJoinColumns= {@JoinColumn(name="orderId")})
-    private List<Order> orders=new ArrayList<Order>();
+    private List<Order> order=new ArrayList<Order>();
 
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
-			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
-			List<Address> addresses, User user, Cart cart, List<Order> orders) {
-		super();
-		this.customerId = customerId;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.addresses = addresses;
-		this.user = user;
-		this.cart = cart;
-		this.orders = orders;
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
+				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
+				+ user + ", cart=" + cart + ", order=" + order + "]";
 	}
 
 	public int getCustomerId() {
@@ -131,21 +123,29 @@ public class Customer {
 		this.cart = cart;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
+	public List<Order> getOrder() {
+		return order;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public void setOrder(List<Order> order) {
+		this.order = order;
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
-				+ user + ", cart=" + cart + ", orders=" + orders + "]";
+	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
+			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
+			List<Address> addresses, User user, Cart cart, List<Order> order) {
+		super();
+		this.customerId = customerId;
+		this.fullName = fullName;
+		this.gender = gender;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.addresses = addresses;
+		this.user = user;
+		this.cart = cart;
+		this.order = order;
 	}
 
-    
+	
 }
 
