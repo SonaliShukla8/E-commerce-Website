@@ -26,7 +26,7 @@ public class Order {
 	@Id
 	private int orderId;        // Primary Key
 	
-	 @ManyToMany(mappedBy="orders" ,fetch = FetchType.LAZY)
+	 @ManyToMany(mappedBy="order" ,fetch = FetchType.LAZY)
 	    private List<Customer> customer  = new ArrayList<Customer>();
 	   @NotNull
 	    private LocalDate orderDate;
