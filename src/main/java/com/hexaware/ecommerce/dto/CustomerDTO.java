@@ -21,25 +21,12 @@ public class CustomerDTO {
     private List<Address> addresses = new ArrayList<Address>();
     private User user;
     private Cart cart;
-    private Order order;
+    
+    private List<Order> orders = new ArrayList<Order>();
 	
     public CustomerDTO() {
 		super();
 		
-	}
-
-	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
-			List<Address> addresses, User user, Cart cart, Order order) {
-		super();
-		this.customerId = customerId;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.addresses = addresses;
-		this.user = user;
-		this.cart = cart;
-		this.order = order;
 	}
 
 	public int getCustomerId() {
@@ -106,22 +93,34 @@ public class CustomerDTO {
 		this.cart = cart;
 	}
 
-	public Order getOrder() {
-		return order;
+	public List<Order> getOrders() {
+		return orders;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	@Override
 	public String toString() {
 		return "CustomerDTO [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
 				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
-				+ user + ", cart=" + cart + ", order=" + order + "]";
+				+ user + ", cart=" + cart + ", orders=" + orders + "]";
 	}
-    
+
+	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
+			List<Address> addresses, User user, Cart cart, List<Order> orders) {
+		super();
+		this.customerId = customerId;
+		this.fullName = fullName;
+		this.gender = gender;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.addresses = addresses;
+		this.user = user;
+		this.cart = cart;
+		this.orders = orders;
+	}
+
 	
-
-
 }
