@@ -3,6 +3,7 @@ package com.hexaware.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.service.IProductService;
@@ -35,12 +38,19 @@ public class ProductRestController {
 	
 	@DeleteMapping("/delete/{productId}")
     public String deleteProductById(@PathVariable int productId) {
+		
 		return service.deleteProductById(productId);
+	
 	}
      
 	@GetMapping("/getbyId/{productId}")
 	public ProductDTO getProductById(@PathVariable int productId) {
+		try {
 		return service.getProductById(productId);
+	}
+	catch(NullPointerException exc) {
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Sorry,product does not exist",exc);
+	}
 	}
 	
 	@GetMapping("/getall")
