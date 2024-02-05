@@ -17,9 +17,10 @@ public class CartItemServiceImp implements ICartItemService {
 	public CartItem addCartItem(CartItemDTO cartItemDTO) {
 		CartItem cartItem = new CartItem();
 		cartItem.setCart(cartItemDTO.getCart());
+		cartItem.setProductId(cartItemDTO.getProductId());
 		cartItem.setCartitemId(cartItemDTO.getCartitemId());
 		cartItem.setItemQuantity(cartItemDTO.getItemQuantity());
-		cartItem.setProduct(cartItemDTO.getProduct());
+		
 	
 		return repo.save(cartItem);
 	}
@@ -29,9 +30,10 @@ public class CartItemServiceImp implements ICartItemService {
 		
 		CartItem cartItem = new CartItem();
 		cartItem.setCart(cartItemDTO.getCart());
+		cartItem.setProductId(cartItemDTO.getProductId());
 		cartItem.setCartitemId(cartItemDTO.getCartitemId());
 		cartItem.setItemQuantity(cartItemDTO.getItemQuantity());
-		cartItem.setProduct(cartItemDTO.getProduct());
+		
 	
 		return repo.save(cartItem);
 	}
@@ -48,9 +50,10 @@ public class CartItemServiceImp implements ICartItemService {
 		CartItem cartItem = repo.findById(cartitemId).orElse(null);
 		CartItemDTO dto = new CartItemDTO();
 		dto.setCart(cartItem.getCart());
+		dto.setProductId(cartItem.getProductId());
 		dto.setCartitemId(cartItem.getCartitemId());
 		dto.setItemQuantity(cartItem.getItemQuantity());
-		dto.setProduct(cartItem.getProduct());
+		
 		
 		
 		return dto;

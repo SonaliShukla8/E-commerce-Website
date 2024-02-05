@@ -29,7 +29,7 @@ public class Admin {
     private String password;
     @NotNull
     private LocalDate joiningDate;
-    @OneToOne(mappedBy="admin",cascade=CascadeType.ALL)
+    @OneToOne(cascade=CascadeType.ALL)
     private User user;
 	
     public Admin() {

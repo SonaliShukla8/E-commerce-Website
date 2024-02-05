@@ -10,21 +10,22 @@ public class CartItemDTO {
 	
 	 private int cartitemId;
 	 private int itemQuantity;
+	 private Product productId;
 	 private Cart cart;
 
-	 private List<Product> product=new ArrayList<Product>();
 	
 	 public CartItemDTO() {
 		super();
 		
 	}
 
-	public CartItemDTO(int cartitemId, int itemQuantity, Cart cart, List<Product> product) {
+	public CartItemDTO(int cartitemId, int itemQuantity, Product productId, Cart cart, List<Product> product) {
 		super();
 		this.cartitemId = cartitemId;
 		this.itemQuantity = itemQuantity;
+		this.productId = productId;
 		this.cart = cart;
-		this.product = product;
+		
 	}
 
 	public int getCartitemId() {
@@ -43,6 +44,14 @@ public class CartItemDTO {
 		this.itemQuantity = itemQuantity;
 	}
 
+	public Product getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Product productId) {
+		this.productId = productId;
+	}
+
 	public Cart getCart() {
 		return cart;
 	}
@@ -51,20 +60,13 @@ public class CartItemDTO {
 		this.cart = cart;
 	}
 
-	public List<Product> getProduct() {
-		return product;
-	}
-
-	public void setProduct(List<Product> product) {
-		this.product = product;
-	}
-
 	@Override
 	public String toString() {
-		return "CartItemDTO [cartitemId=" + cartitemId + ", itemQuantity=" + itemQuantity + ", cart=" + cart
-				+ ", product=" + product + "]";
+		return "CartItemDTO [cartitemId=" + cartitemId + ", itemQuantity=" + itemQuantity + ", productId=" + productId
+				+ ", cart=" + cart + "]";
 	}
 
+
 	
-	
+
 }
