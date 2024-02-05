@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -42,27 +43,11 @@ public class Customer {
     @JoinColumn(name="cartId", nullable =false)
     private Cart cart;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="order_id")
-    private Order order;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
+    private List<Order> order= new ArrayList<Order>();
 
 	public Customer() {
 		super();
-	}
-
-	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
-			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
-			List<Address> addresses, User user, Cart cart, Order order) {
-		super();
-		this.customerId = customerId;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.addresses = addresses;
-		this.user = user;
-		this.cart = cart;
-		this.order = order;
 	}
 
 	public int getCustomerId() {
@@ -129,11 +114,11 @@ public class Customer {
 		this.cart = cart;
 	}
 
-	public Order getOrder() {
+	public List<Order> getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(List<Order> order) {
 		this.order = order;
 	}
 
@@ -143,7 +128,23 @@ public class Customer {
 				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
 				+ user + ", cart=" + cart + ", order=" + order + "]";
 	}
-    
+
+	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
+			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
+			List<Address> addresses, User user, Cart cart, List<Order> order) {
+		super();
+		this.customerId = customerId;
+		this.fullName = fullName;
+		this.gender = gender;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.addresses = addresses;
+		this.user = user;
+		this.cart = cart;
+		this.order = order;
+	}
+
+	
     
 }
 

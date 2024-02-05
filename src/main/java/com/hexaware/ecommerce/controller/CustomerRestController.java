@@ -3,6 +3,7 @@ package com.hexaware.ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.entity.Customer;
@@ -36,13 +38,21 @@ public class CustomerRestController {
     }
     
 	@DeleteMapping("/delete/{customerId}")
-    public String deleteCustomerById(@PathVariable int customerId) {
+    public String deleteCustomerById(@PathVariable int customerId) {	
+	
+			
     	return service.deleteCustomerById(customerId);
+
     }
     
 	@GetMapping("/getbyId/{customerId}")
     public CustomerDTO getCustomerById(@PathVariable int customerId) {
+		try {
     	return service.getCustomerById(customerId);
+	}
+	catch(NullPointerException exc) {
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Sorry, customer does not exist",exc);
+	}
     }
     
 	@GetMapping("/getall")
