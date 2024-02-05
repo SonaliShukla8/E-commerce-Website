@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -28,7 +29,7 @@ public class Cart {
 	    @OneToMany( cascade = CascadeType.ALL, mappedBy="cart")
 	    private List<CartItem> cartItems= new ArrayList<CartItem>();
 
-	    @Positive
+	    @Min(0)
 	    @Column(name="cart_total_price")
 	    private double totalPrice;
 

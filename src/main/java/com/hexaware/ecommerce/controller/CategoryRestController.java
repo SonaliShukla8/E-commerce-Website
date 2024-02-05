@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
+import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.service.ICategoryService;
+import com.hexaware.ecommerce.service.ISubCategoryService;
 
 import jakarta.validation.Valid;
 
@@ -25,6 +27,7 @@ public class CategoryRestController {
 	
 	@Autowired
 	ICategoryService service;
+
 	
 	 @PostMapping("/add")
 	 public Category addCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
@@ -51,5 +54,12 @@ public class CategoryRestController {
     	 return service.getAllCategory();
     	 
      }
+	 
+	 @GetMapping("/{categoryId}/subCategories")
+	 public List<SubCategory> getSubCategoryIdByCategoryId(@RequestBody @PathVariable int categoryId){
+		 
+		 return service.getSubCategoryIdByCategoryId(categoryId);
+		 
+	 }
 
 }

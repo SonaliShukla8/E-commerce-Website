@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.context.annotation.Lazy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,11 +28,10 @@ public class Category {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 	}
-
-
-
-	//@OneToMany(cascade = CascadeType.ALL,mappedBy="category", fetch = FetchType.LAZY)
-   // private List<SubCategory> subCategories =new ArrayList<SubCategory>();
+    
+    @JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="category", fetch = FetchType.LAZY)
+   private List<SubCategory> subCategories =new ArrayList<SubCategory>();
     
 	/*
 	 * @OneToMany(mappedBy = "category", cascade = CascadeType.ALL) private
@@ -46,7 +47,7 @@ public class Category {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		//this.subCategories = subCategories;
+		this.subCategories = subCategories;
 	}
 
 	public int getCategoryId() {
@@ -65,19 +66,20 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
-	/*
-	 * public List<SubCategory> getSubCategories() { return subCategories; }
-	 * 
-	 * public void setSubCategories(List<SubCategory> subCategories) {
-	 * this.subCategories = subCategories; }
-	 */
-
 	
+	  public List<SubCategory> getSubCategories() { return subCategories; }
+	  
+	  public void setSubCategories(List<SubCategory> subCategories) {
+	  this.subCategories = subCategories; }
 
 	@Override
 	public String toString() {
-		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
+		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", subCategories="
+				+ subCategories + "]";
 	}
+	 
+
+	
     
     
 }

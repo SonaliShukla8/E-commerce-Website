@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
+import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.repository.CategoryRepository;
 @Service
 public class CategoryServiceImp implements ICategoryService {
@@ -61,6 +62,12 @@ public class CategoryServiceImp implements ICategoryService {
 	public List<Category> getAllCategory() {
 
 		return repo.findAll();
+	}
+
+	@Override
+	public List<SubCategory> getSubCategoryIdByCategoryId(int categoryId) {
+		// TODO Auto-generated method stub
+		return repo.getSubCategoryIdByCategoryId(categoryId);
 	}
 
 }
