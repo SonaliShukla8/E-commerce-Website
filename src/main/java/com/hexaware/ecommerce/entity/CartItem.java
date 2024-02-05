@@ -26,33 +26,26 @@ public class CartItem {
 	@Id
 	@NotNull
     private int cartitemId;
+	
 	@Positive
 	private int itemQuantity;
+	
+	@OneToOne(cascade=CascadeType.ALL, targetEntity = Product.class)
+    @JoinColumn(name="productId", nullable = false)
+	private Product productId;
 	
 	 @ManyToOne(cascade=CascadeType.ALL)
 	 @JoinColumn(name="cartId")
 	 private Cart cart;
 	
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="product_cart_detail", joinColumns= {@JoinColumn(name="cartitemId")},
-	inverseJoinColumns= {@JoinColumn(name="productId")})
-    private List<Product> product=new ArrayList<Product>();
 
 
 	public CartItem() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 
-	public CartItem(@NotNull int cartitemId, @Positive int itemQuantity, Cart cart, List<Product> product) {
-		super();
-		this.cartitemId = cartitemId;
-		this.itemQuantity = itemQuantity;
-		this.cart = cart;
-		this.product = product;
-	}
 
 
 	public int getCartitemId() {
@@ -60,9 +53,13 @@ public class CartItem {
 	}
 
 
+
+
 	public void setCartitemId(int cartitemId) {
 		this.cartitemId = cartitemId;
 	}
+
+
 
 
 	public int getItemQuantity() {
@@ -70,9 +67,27 @@ public class CartItem {
 	}
 
 
+
+
 	public void setItemQuantity(int itemQuantity) {
 		this.itemQuantity = itemQuantity;
 	}
+
+
+
+
+	public Product getProductId() {
+		return productId;
+	}
+
+
+
+
+	public void setProductId(Product productId) {
+		this.productId = productId;
+	}
+
+
 
 
 	public Cart getCart() {
@@ -80,28 +95,33 @@ public class CartItem {
 	}
 
 
+
+
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
 
 
-	public List<Product> getProduct() {
-		return product;
+
+
+	public CartItem(@NotNull int cartitemId, @Positive int itemQuantity, Product productId, Cart cart) {
+		super();
+		this.cartitemId = cartitemId;
+		this.itemQuantity = itemQuantity;
+		this.productId = productId;
+		this.cart = cart;
 	}
 
 
-	public void setProduct(List<Product> product) {
-		this.product = product;
-	}
 
 
 	@Override
 	public String toString() {
-		return "CartItem [cartitemId=" + cartitemId + ", itemQuantity=" + itemQuantity + ", cart=" + cart + ", product="
-				+ product + "]";
+		return "CartItem [cartitemId=" + cartitemId + ", itemQuantity=" + itemQuantity + ", productId=" + productId
+				+ ", cart=" + cart + "]";
 	}
-	
-	
- 
+
+
     
+	
 }

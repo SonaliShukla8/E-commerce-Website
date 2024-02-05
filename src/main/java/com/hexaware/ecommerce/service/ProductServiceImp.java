@@ -19,7 +19,7 @@ public class ProductServiceImp implements IProductService {
 	    Product product = new Product();
 	    product.setProductId(productDTO.getProductId());
 	    product.setBrand(productDTO.getBrand());
-	    product.setCartitem(productDTO.getCartitem());
+	    product.setCart(productDTO.getCart());
 	    product.setCategory(productDTO.getCategory());
 	    product.setCreatedAt(productDTO.getCreatedAt());
 	    product.setDescription(productDTO.getDescription());
@@ -38,7 +38,7 @@ public class ProductServiceImp implements IProductService {
 		 Product product = new Product();
 		    product.setProductId(productDTO.getProductId());
 		    product.setBrand(productDTO.getBrand());
-		    product.setCartitem(productDTO.getCartitem());
+		    product.setCart(productDTO.getCart());
 		    product.setCategory(productDTO.getCategory());
 		    product.setCreatedAt(productDTO.getCreatedAt());
 		    product.setDescription(productDTO.getDescription());
@@ -65,7 +65,7 @@ public class ProductServiceImp implements IProductService {
 		ProductDTO dto=new ProductDTO();
 		dto.setProductId(product.getProductId());
 	    dto.setBrand(product.getBrand());
-	    dto.setCartitem(product.getCartitem());
+	    dto.setCart(product.getCart());
 	    dto.setCategory(product.getCategory());
 	    dto.setCreatedAt(product.getCreatedAt());
 	   dto.setDescription(product.getDescription());

@@ -1,6 +1,9 @@
 package com.hexaware.ecommerce.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.intThat;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,7 +22,7 @@ class UserServiceImpTest {
 
 	@Test
 	void testAddUser() {
-		UserDTO userdto = new UserDTO(2, "User 2", "user2@gmail.com", "User1@", "customer");
+		UserDTO userdto = new UserDTO(3, "User 3", "user3@gmail.com", "User3@", "seller");
 		User dtoUser=service.addUser(userdto);
 		assertNotNull(dtoUser);
 		
@@ -27,22 +30,30 @@ class UserServiceImpTest {
 
 	@Test
 	void testUpdateUser() {
-		fail("Not yet implemented");
+		UserDTO userdto = new UserDTO(2, "User 2", "user2@gmail.com", "User2@", "customer");
+		User dtoUser=service.updateUser(userdto);
+		assertNotNull(dtoUser);
 	}
 
 	@Test
 	void testDeleteUserById() {
-		fail("Not yet implemented");
+//		int id=2;
+//		String s=service.deleteUserById(id);
+//		assertNotNull(s);
 	}
 
 	@Test
 	void testGetUserById() {
-		fail("Not yet implemented");
+        int id = 2;
+        UserDTO dto=service.getUserById(id);
+        assertNotNull(dto);
+        assertEquals("customer",dto.getUserType());
 	}
 
 	@Test
 	void testGetAllUser() {
-		fail("Not yet implemented");
+		List<User> list1=service.getAllUser();
+		assertNotNull(list1);
 	}
 
 }

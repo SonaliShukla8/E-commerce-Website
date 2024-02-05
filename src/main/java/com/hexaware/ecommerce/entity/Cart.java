@@ -10,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
@@ -22,8 +24,7 @@ public class Cart {
 	  	@NotNull
 	    private int cartId;
 	  
-	  @OneToOne(cascade=CascadeType.ALL, mappedBy="cart")
-	  private Customer customer;
+	  
 
 	    @OneToMany( cascade = CascadeType.ALL, mappedBy="cart")
 	    private List<CartItem> cartItems= new ArrayList<CartItem>();
@@ -32,17 +33,15 @@ public class Cart {
 	    @Column(name="cart_total_price")
 	    private double totalPrice;
 
+
+		@ManyToMany(cascade=CascadeType.ALL)
+		@JoinTable(name="product_cart_detail", joinColumns= {@JoinColumn(name="cartId")},
+		inverseJoinColumns= {@JoinColumn(name="productId")})
+	    private List<Product> product=new ArrayList<Product>();
+		
 		public Cart() {
 			super();
 			// TODO Auto-generated constructor stub
-		}
-
-		public Cart(@NotNull int cartId, Customer customer, List<CartItem> cartItems, @Positive double totalPrice) {
-			super();
-			this.cartId = cartId;
-			this.customer = customer;
-			this.cartItems = cartItems;
-			this.totalPrice = totalPrice;
 		}
 
 		public int getCartId() {
@@ -51,14 +50,6 @@ public class Cart {
 
 		public void setCartId(int cartId) {
 			this.cartId = cartId;
-		}
-
-		public Customer getCustomer() {
-			return customer;
-		}
-
-		public void setCustomer(Customer customer) {
-			this.customer = customer;
 		}
 
 		public List<CartItem> getCartItems() {
@@ -77,13 +68,34 @@ public class Cart {
 			this.totalPrice = totalPrice;
 		}
 
+		public List<Product> getProduct() {
+			return product;
+		}
+
+		public void setProduct(List<Product> product) {
+			this.product = product;
+		}
+
 		@Override
 		public String toString() {
-			return "Cart [cartId=" + cartId + ", customer=" + customer + ", cartItems=" + cartItems + ", totalPrice="
-					+ totalPrice + "]";
+			return "Cart [cartId=" + cartId + ", cartItems=" + cartItems + ", totalPrice=" + totalPrice + ", product="
+					+ product + "]";
 		}
-	    
-	    
-	    
+
+		public Cart(@NotNull int cartId, List<CartItem> cartItems, @Positive double totalPrice, List<Product> product) {
+			super();
+			this.cartId = cartId;
+			this.cartItems = cartItems;
+			this.totalPrice = totalPrice;
+			this.product = product;
+		}
+		public Cart(@NotNull int cartId,  @Positive double totalPrice) {
+			super();
+			this.cartId = cartId;
+//			this.cartItems = cartItems;
+			this.totalPrice = totalPrice;
+//			this.product = product;
+		}
+
 	    
 }

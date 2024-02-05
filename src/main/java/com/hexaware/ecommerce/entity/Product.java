@@ -56,31 +56,11 @@ public class Product {
 	    private SubCategory subCategory;
 	    
 	    @ManyToMany(mappedBy="product" ,fetch = FetchType.LAZY)
-	    private List<CartItem> cartitem=new ArrayList<CartItem>();
+	    private List<Cart> cart=new ArrayList<Cart>();
 
 		public Product() {
 			super();
 			// TODO Auto-generated constructor stub
-		}
-
-		public Product(int productId, Seller seller, @NotBlank String productName, @NotBlank String productImageURL,
-				@NotBlank String description, @Positive double price, @Min(1) int stockQuantity, @NotBlank String brand,
-				@PastOrPresent LocalDateTime createdAt, @PastOrPresent LocalDateTime modifiedAt, Category category,
-				SubCategory subCategory, List<CartItem> cartitem) {
-			super();
-			this.productId = productId;
-			this.seller = seller;
-			this.productName = productName;
-			this.productImageURL = productImageURL;
-			this.description = description;
-			this.price = price;
-			this.stockQuantity = stockQuantity;
-			this.brand = brand;
-			this.createdAt = createdAt;
-			this.modifiedAt = modifiedAt;
-			this.category = category;
-			this.subCategory = subCategory;
-			this.cartitem = cartitem;
 		}
 
 		public int getProductId() {
@@ -179,12 +159,12 @@ public class Product {
 			this.subCategory = subCategory;
 		}
 
-		public List<CartItem> getCartitem() {
-			return cartitem;
+		public List<Cart> getCart() {
+			return cart;
 		}
 
-		public void setCartitem(List<CartItem> cartitem) {
-			this.cartitem = cartitem;
+		public void setCart(List<Cart> cart) {
+			this.cart = cart;
 		}
 
 		@Override
@@ -193,8 +173,28 @@ public class Product {
 					+ ", productImageURL=" + productImageURL + ", description=" + description + ", price=" + price
 					+ ", stockQuantity=" + stockQuantity + ", brand=" + brand + ", createdAt=" + createdAt
 					+ ", modifiedAt=" + modifiedAt + ", category=" + category + ", subCategory=" + subCategory
-					+ ", cartitem=" + cartitem + "]";
+					+ ", cart=" + cart + "]";
 		}
-	    
-	    
+
+		public Product(int productId, Seller seller, @NotBlank String productName, @NotBlank String productImageURL,
+				@NotBlank String description, @Positive double price, @Min(1) int stockQuantity, @NotBlank String brand,
+				@PastOrPresent LocalDateTime createdAt, @PastOrPresent LocalDateTime modifiedAt, Category category,
+				SubCategory subCategory, List<Cart> cart) {
+			super();
+			this.productId = productId;
+			this.seller = seller;
+			this.productName = productName;
+			this.productImageURL = productImageURL;
+			this.description = description;
+			this.price = price;
+			this.stockQuantity = stockQuantity;
+			this.brand = brand;
+			this.createdAt = createdAt;
+			this.modifiedAt = modifiedAt;
+			this.category = category;
+			this.subCategory = subCategory;
+			this.cart = cart;
+		}
+
+		
 }

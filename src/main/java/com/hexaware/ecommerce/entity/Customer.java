@@ -3,16 +3,12 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.sql.ast.tree.from.MappedByTableGroup;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -38,27 +34,35 @@ public class Customer {
             inverseJoinColumns = {@JoinColumn(name = "address_id")})
     private List<Address> addresses =new ArrayList<Address>();
     
-    @OneToOne(cascade=CascadeType.ALL, targetEntity = User.class)
-    @JoinColumn(name="userId", nullable = false)
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(nullable=false , name="userId")
     private User user;
     
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="cartId")
+    @JoinColumn(name="cartId", nullable =false)
     private Cart cart;
     
-    @OneToMany( cascade = CascadeType.ALL, mappedBy="customer")
-    private List<Order> order=new ArrayList<Order>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="order_id")
+    private Order order;
 
 	public Customer() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
-				+ user + ", cart=" + cart + ", order=" + order + "]";
+	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
+			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
+			List<Address> addresses, User user, Cart cart, Order order) {
+		super();
+		this.customerId = customerId;
+		this.fullName = fullName;
+		this.gender = gender;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.addresses = addresses;
+		this.user = user;
+		this.cart = cart;
+		this.order = order;
 	}
 
 	public int getCustomerId() {
@@ -125,29 +129,21 @@ public class Customer {
 		this.cart = cart;
 	}
 
-	public List<Order> getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(List<Order> order) {
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 
-	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
-			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
-			List<Address> addresses, User user, Cart cart, List<Order> order) {
-		super();
-		this.customerId = customerId;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.addresses = addresses;
-		this.user = user;
-		this.cart = cart;
-		this.order = order;
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
+				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
+				+ user + ", cart=" + cart + ", order=" + order + "]";
 	}
-
-	
+    
+    
 }
 
