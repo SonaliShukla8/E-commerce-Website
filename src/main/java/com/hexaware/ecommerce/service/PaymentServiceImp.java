@@ -2,6 +2,8 @@ package com.hexaware.ecommerce.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,11 @@ public class PaymentServiceImp implements IPaymentService {
     @Autowired
 	PaymentRepository repo;
 	
+    private static final Logger logger = LoggerFactory.getLogger(PaymentServiceImp.class);
 	
 	@Override
 	public Payment addPayment(PaymentDTO paymentDTO) {
+		logger.info("Adding new Payment..");
 		Payment payment = new Payment();
 		payment.setPaymentId(paymentDTO.getPaymentId());
 		payment.setAmount(paymentDTO.getAmount());
@@ -28,6 +32,7 @@ public class PaymentServiceImp implements IPaymentService {
 
 	@Override
 	public Payment updatePayment(PaymentDTO paymentDTO) {
+		logger.info("Updating the Payment");
 		Payment payment = new Payment();
 		payment.setPaymentId(paymentDTO.getPaymentId());
 		payment.setAmount(paymentDTO.getAmount());
@@ -40,6 +45,7 @@ public class PaymentServiceImp implements IPaymentService {
 
 	@Override
 	public String deletePaymentById(int paymentId) {
+		logger.info("Deleting Payment with PaymentId: "+paymentId);
 		repo.deleteById(paymentId);
 		return "Payment with paymentId "+ paymentId+ " deleted";
 	}
@@ -47,6 +53,10 @@ public class PaymentServiceImp implements IPaymentService {
 	@Override
 	public PaymentDTO getPaymentById(int paymentId) {
 		Payment payment=repo.findById(paymentId).orElse(null);
+		if(payment == null) {
+			logger.warn("Payment with "+paymentId+" not found.");
+			return null;
+		}
 		PaymentDTO dto=new PaymentDTO();
 		dto.setPaymentId(payment.getPaymentId());
 		dto.setAmount(payment.getAmount());
@@ -60,7 +70,7 @@ public class PaymentServiceImp implements IPaymentService {
 
 	@Override
 	public List<Payment> getAllPayment() {
-		
+		logger.info("Fetching all Payments...");
 		return repo.findAll();
 	}
 
