@@ -2,6 +2,8 @@ package com.hexaware.ecommerce.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,12 @@ import com.hexaware.ecommerce.repository.OrderRepository;
 public class OrderServiceImp implements IOrderService {
     @Autowired
 	OrderRepository repo;
+    
+    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImp.class);
 	
 	@Override
 	public Order addOrder(OrderDTO orderDTO) {
+		logger.info("Adding new Order");
 		Order order=new Order();
 		order.setOrderId(orderDTO.getOrderId());
 		order.setOrderDate(orderDTO.getOrderDate());
@@ -31,6 +36,7 @@ public class OrderServiceImp implements IOrderService {
 
 	@Override
 	public Order updateOrder(OrderDTO orderDTO) {
+		logger.info("Updating new Order");
 		Order order=new Order();
 		order.setOrderId(orderDTO.getOrderId());
 		order.setOrderDate(orderDTO.getOrderDate());
@@ -47,6 +53,7 @@ public class OrderServiceImp implements IOrderService {
 
 	@Override
 	public String deleteOrderById(int orderId) {
+		logger.info("Deleting Order with orderId: "+orderId);
 		repo.deleteById(orderId);
 		return "Order with orderId "+orderId+" deleted.";
 	}
@@ -54,6 +61,10 @@ public class OrderServiceImp implements IOrderService {
 	@Override
 	public OrderDTO getOrderById(int orderId) {
 		Order order =repo.findById(orderId).orElse(null);
+		if(order == null) {
+			logger.warn("Order with "+orderId+" not found.");
+			return null;
+		}
 		OrderDTO dto=new OrderDTO();
 		dto.setOrderId(order.getOrderId());
 		dto.setOrderDate(order.getOrderDate());
@@ -70,7 +81,7 @@ public class OrderServiceImp implements IOrderService {
 
 	@Override
 	public List<Order> getAllOrder() {
-		
+		logger.info("Fetching all Orders..");
 		return repo.findAll();
 	}
 

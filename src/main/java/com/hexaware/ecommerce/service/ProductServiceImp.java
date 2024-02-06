@@ -2,6 +2,8 @@ package com.hexaware.ecommerce.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,11 @@ public class ProductServiceImp implements IProductService {
 	@Autowired
 	ProductRepository repo;
 	
+	 private static final Logger logger = LoggerFactory.getLogger(ProductServiceImp.class);
+	
 	@Override
 	public Product addProduct(ProductDTO productDTO) {
+		logger.info("Adding new Product");
 	    Product product = new Product();
 	    product.setProductId(productDTO.getProductId());
 	    product.setBrand(productDTO.getBrand());
@@ -35,6 +40,7 @@ public class ProductServiceImp implements IProductService {
 
 	@Override
 	public Product updateProduct(ProductDTO productDTO) {
+		logger.info("Updating the Product...");
 		 Product product = new Product();
 		    product.setProductId(productDTO.getProductId());
 		    product.setBrand(productDTO.getBrand());
@@ -55,6 +61,7 @@ public class ProductServiceImp implements IProductService {
 
 	@Override
 	public String deleteProductById(int productId) {
+		logger.info("Deleting the product with productId: "+productId);
 		repo.deleteById(productId);
 		return "Product with productId "+productId+" deleted.";
 	}
@@ -62,6 +69,9 @@ public class ProductServiceImp implements IProductService {
 	@Override
 	public ProductDTO getProductById(int productId) {
 		Product product=repo.findById(productId).orElse(null);
+		if(product == null) {
+			logger.warn("Product with productId: "+productId+" not found.");
+			return null;}
 		ProductDTO dto=new ProductDTO();
 		dto.setProductId(product.getProductId());
 	    dto.setBrand(product.getBrand());
@@ -81,6 +91,8 @@ public class ProductServiceImp implements IProductService {
 
 	@Override
 	public List<Product> getAllProduct() {
+		
+		logger.info("Fetching all products...");
 
 		return repo.findAll();
 	}
