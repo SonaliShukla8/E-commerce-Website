@@ -16,6 +16,7 @@ import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.CategoryNotFoundException;
 import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 
+import ch.qos.logback.classic.Logger;
 import jakarta.transaction.Transactional;
 @SpringBootTest
 class SubCategoryServiceImpTest {
@@ -75,7 +76,8 @@ class SubCategoryServiceImpTest {
 		//fail("Not yet implemented");
 		List list = service.getAllSubCategory();
 		boolean flag = list.isEmpty();
-		assertFalse(flag);
+		//System.out.println(flag);
+		assertEquals(false,flag);
 	}
 
 }

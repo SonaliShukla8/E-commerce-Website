@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -46,11 +48,10 @@ public class Product {
 	    @PastOrPresent
 	    private LocalDateTime modifiedAt;
 	    
-	    
-	    @ManyToOne(cascade=CascadeType.ALL)
-	    @JoinColumn(name = "categoryId")
-	    private Category category;
-	    
+//	    @JsonBackReference
+//	    @ManyToOne(cascade=CascadeType.ALL)
+//	    @JoinColumn(name = "categoryId")
+//	    private Category category;
 	    @ManyToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="subcategory_Id")
 	    private SubCategory subCategory;
@@ -143,13 +144,13 @@ public class Product {
 			this.modifiedAt = modifiedAt;
 		}
 
-		public Category getCategory() {
-			return category;
-		}
-
-		public void setCategory(Category category) {
-			this.category = category;
-		}
+//		public Category getCategory() {
+//			return category;
+//		}
+//
+//		public void setCategory(Category category) {
+//			this.category = category;
+//		}
 
 		public SubCategory getSubCategory() {
 			return subCategory;
@@ -172,13 +173,13 @@ public class Product {
 			return "Product [productId=" + productId + ", seller=" + seller + ", productName=" + productName
 					+ ", productImageURL=" + productImageURL + ", description=" + description + ", price=" + price
 					+ ", stockQuantity=" + stockQuantity + ", brand=" + brand + ", createdAt=" + createdAt
-					+ ", modifiedAt=" + modifiedAt + ", category=" + category + ", subCategory=" + subCategory
+					+ ", modifiedAt=" + modifiedAt +", subCategory=" + subCategory
 					+ ", cart=" + cart + "]";
 		}
 
 		public Product(int productId, Seller seller, @NotBlank String productName, @NotBlank String productImageURL,
 				@NotBlank String description, @Positive double price, @Min(1) int stockQuantity, @NotBlank String brand,
-				@PastOrPresent LocalDateTime createdAt, @PastOrPresent LocalDateTime modifiedAt, Category category,
+				@PastOrPresent LocalDateTime createdAt, @PastOrPresent LocalDateTime modifiedAt,
 				SubCategory subCategory, List<Cart> cart) {
 			super();
 			this.productId = productId;
@@ -191,7 +192,6 @@ public class Product {
 			this.brand = brand;
 			this.createdAt = createdAt;
 			this.modifiedAt = modifiedAt;
-			this.category = category;
 			this.subCategory = subCategory;
 			this.cart = cart;
 		}
