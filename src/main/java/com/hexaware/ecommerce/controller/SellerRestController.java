@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.hexaware.ecommerce.dto.SellerDTO;
 import com.hexaware.ecommerce.entity.Seller;
+import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.service.ISellerService;
 
 import jakarta.validation.Valid;
@@ -33,19 +34,19 @@ public class SellerRestController {
 	}
 	
 	@PutMapping("/update")
-    public Seller updateSeller(@RequestBody @Valid  SellerDTO sellerDTO) {
+    public Seller updateSeller(@RequestBody @Valid  SellerDTO sellerDTO) throws SellerNotFoundException{
 		return service.updateSeller(sellerDTO);
 	}
 	
 	@DeleteMapping("/delete/{sellerId}")
-    public String deleteSellerById(@PathVariable int sellerId) {
+    public String deleteSellerById(@PathVariable int sellerId) throws SellerNotFoundException{
 		
 		return service.deleteSellerById(sellerId);
 		}
 	
      
 	@GetMapping("/getbyId/{sellerId}")
-	public SellerDTO getSellerById(@PathVariable int sellerId) {
+	public SellerDTO getSellerById(@PathVariable int sellerId) throws SellerNotFoundException{
 		try {
 		return service.getSellerById(sellerId);
 	}

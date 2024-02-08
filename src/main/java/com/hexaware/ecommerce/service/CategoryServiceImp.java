@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.CategoryNotFoundException;
 import com.hexaware.ecommerce.repository.CategoryRepository;
 @Service
 public class CategoryServiceImp implements ICategoryService {
@@ -30,10 +31,14 @@ public class CategoryServiceImp implements ICategoryService {
 	}
 
 	@Override
-	public Category updateCategory(CategoryDTO categoryDTO) {
+	public Category updateCategory(CategoryDTO categoryDTO) throws CategoryNotFoundException{
+		
+		Category category = repo.findById(categoryDTO.getCategoryId()).orElse(null);
+		if(category == null) {
+			throw new CategoryNotFoundException("Category with ID " +categoryDTO.getCategoryId()+ "not found.");
+		}
+		
 		logger.info("Updating the Category");
-
-		Category category = new Category();
 		category.setCategoryId(categoryDTO.getCategoryId());
 		category.setCategoryName(categoryDTO.getCategoryName());
 		//category.setSubCategories(categoryDTO.getSubCategories());
@@ -42,7 +47,12 @@ public class CategoryServiceImp implements ICategoryService {
 	}
 
 	@Override
-	public String deleteCategoryById(int categoryId) {
+	public String deleteCategoryById(int categoryId) throws CategoryNotFoundException {
+		
+		Category category = repo.findById(categoryId).orElse(null);
+		if(category == null) {
+			throw new CategoryNotFoundException("Category with ID " +categoryId+ "not found.");
+		}
 		
 		logger.info("Deleting the category with category Id: "+categoryId);
 		
@@ -53,11 +63,11 @@ public class CategoryServiceImp implements ICategoryService {
 	}
 
 	@Override
-	public CategoryDTO getCategoryById(int categoryId) {
+	public CategoryDTO getCategoryById(int categoryId) throws CategoryNotFoundException{
 		
 		Category category = repo.findById(categoryId).orElse(null);
 		if(category == null) {
-			logger.warn("Category with ID " +categoryId+ "not found.");
+			throw new CategoryNotFoundException("Category with ID " +categoryId+ "not found.");
 		}
 		CategoryDTO dto = new CategoryDTO();
 		dto.setCategoryId(category.getCategoryId());
@@ -74,8 +84,11 @@ public class CategoryServiceImp implements ICategoryService {
 	}
 
 	@Override
-	public List<SubCategory> getSubCategoryIdByCategoryId(int categoryId) {
-		// TODO Auto-generated method stub
+	public List<SubCategory> getSubCategoryIdByCategoryId(int categoryId) throws CategoryNotFoundException{
+		Category category = repo.findById(categoryId).orElse(null);
+		if(category == null) {
+			throw new CategoryNotFoundException("Category with ID " +categoryId+ "not found.");
+		}
 		logger.info("Displaying sub categories with categoryId "+ categoryId);
 		return repo.getSubCategoryIdByCategoryId(categoryId);
 	}

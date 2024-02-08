@@ -7,12 +7,13 @@ import org.springframework.data.repository.query.Param;
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.CategoryNotFoundException;
 
 public interface ICategoryService {
 	 public Category addCategory(CategoryDTO categoryDTO);
-     public Category updateCategory(CategoryDTO categoryDTO);
-     public String deleteCategoryById(int categoryId);
-     public CategoryDTO getCategoryById(int categoryId);
+     public Category updateCategory(CategoryDTO categoryDTO) throws CategoryNotFoundException;
+     public String deleteCategoryById(int categoryId) throws CategoryNotFoundException;
+     public CategoryDTO getCategoryById(int categoryId) throws CategoryNotFoundException;
      public List<Category> getAllCategory();
-    public List<SubCategory> getSubCategoryIdByCategoryId(int categoryId);
+    public List<SubCategory> getSubCategoryIdByCategoryId(int categoryId) throws CategoryNotFoundException;
 }

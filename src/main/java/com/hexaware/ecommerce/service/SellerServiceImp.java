@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.SellerDTO;
 import com.hexaware.ecommerce.entity.Seller;
+import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.repository.SellerRepository;
 @Service
 public class SellerServiceImp implements ISellerService {
@@ -34,9 +35,12 @@ public class SellerServiceImp implements ISellerService {
 	}
 
 	@Override
-	public Seller updateSeller(SellerDTO sellerDTO) {
+	public Seller updateSeller(SellerDTO sellerDTO) throws SellerNotFoundException {
+		 Seller seller=repo.findById(sellerDTO.getSellerId()).orElse(null);
+	        if(seller == null) {
+	        	throw new SellerNotFoundException("Seller with sellerId: "+sellerDTO.getSellerId()+" not found.");
+	        	}
 		logger.info("Updating the seller record...");
-		Seller seller=new Seller();
 		seller.setAddress(sellerDTO.getAddress());
 		seller.setBusinessName(sellerDTO.getBusinessName());
 		seller.setEmail(sellerDTO.getEmail());
@@ -49,18 +53,22 @@ public class SellerServiceImp implements ISellerService {
 	}
 
 	@Override
-	public String deleteSellerById(int sellerId) {
+	public String deleteSellerById(int sellerId) throws SellerNotFoundException {
+		 Seller seller=repo.findById(sellerId).orElse(null);
+	        if(seller == null) {
+	        	throw new SellerNotFoundException("Seller with sellerId: "+sellerId+" not found.");
+	        	}
 		logger.info("Deleting the seller with sellerId: "+sellerId);
 		repo.deleteById(sellerId);
 		return "Seller with sellerID "+ sellerId+" deleted.";
 	}
 
 	@Override
-	public SellerDTO getSellerById(int sellerId) {
+	public SellerDTO getSellerById(int sellerId) throws SellerNotFoundException{
         Seller seller=repo.findById(sellerId).orElse(null);
         if(seller == null) {
-        	logger.warn("Seller with sellerId: "+sellerId+" not found.");
-        	return null;}
+        	throw new SellerNotFoundException("Seller with sellerId: "+sellerId+" not found.");
+        	}
         SellerDTO dto=new SellerDTO();
         dto.setAddress(seller.getAddress());
 		dto.setBusinessName(seller.getBusinessName());

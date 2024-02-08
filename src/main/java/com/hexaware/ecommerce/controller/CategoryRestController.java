@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.CategoryNotFoundException;
 import com.hexaware.ecommerce.service.ICategoryService;
 import com.hexaware.ecommerce.service.ISubCategoryService;
 
@@ -35,17 +36,17 @@ public class CategoryRestController {
 		 
 	 }
 	 @PutMapping("/update")
-     public Category updateCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
+     public Category updateCategory(@RequestBody @Valid CategoryDTO categoryDTO) throws CategoryNotFoundException{
     	 return service.updateCategory(categoryDTO);
     	 
      }
 	 @DeleteMapping("/delete/{categoryId}")
-     public String deleteCategoryById(@PathVariable int categoryId) {
+     public String deleteCategoryById(@PathVariable int categoryId) throws CategoryNotFoundException {
     	 return service.deleteCategoryById(categoryId);
     	 
      }
 	 @GetMapping("/getbyId/{categoryId}")
-     public CategoryDTO getCategoryById(@PathVariable int categoryId) {
+     public CategoryDTO getCategoryById(@PathVariable int categoryId) throws CategoryNotFoundException{
     	 return service.getCategoryById(categoryId);
     	 
      }
@@ -56,7 +57,7 @@ public class CategoryRestController {
      }
 	 
 	 @GetMapping("/{categoryId}/subCategories")
-	 public List<SubCategory> getSubCategoryIdByCategoryId(@RequestBody @PathVariable int categoryId){
+	 public List<SubCategory> getSubCategoryIdByCategoryId(@RequestBody @PathVariable int categoryId) throws CategoryNotFoundException{
 		 
 		 return service.getSubCategoryIdByCategoryId(categoryId);
 		 

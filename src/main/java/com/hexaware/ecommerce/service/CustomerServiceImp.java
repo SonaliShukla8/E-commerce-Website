@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.entity.Customer;
+import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.repository.CustomerRepository;
 @Service
 public class CustomerServiceImp implements ICustomerService {
@@ -33,9 +34,13 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	@Override
-	public Customer updateCustomer(CustomerDTO customerDTO) {
+	public Customer updateCustomer(CustomerDTO customerDTO) throws CustomerNotFoundException {
+		Customer customer = repo.findById(customerDTO.getCustomerId()).orElse(null);
+		if(customer == null) {
+			throw new CustomerNotFoundException ("Customer with ID " +customerDTO.getCustomerId()+ "not found.");
+		}
+		
 		logger.info("Updating the customer");
-		Customer customer = new Customer();
 		customer.setCustomerId(customerDTO.getCustomerId());
 		customer.setEmail(customerDTO.getEmail());
 		customer.setFullName(customerDTO.getFullName());
@@ -48,18 +53,23 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	@Override
-	public String deleteCustomerById(int customerId) {
+	public String deleteCustomerById(int customerId) throws CustomerNotFoundException {
+		Customer customer = repo.findById(customerId).orElse(null);
+		if(customer == null) {
+			throw new CustomerNotFoundException ("Customer with ID " +customerId+ "not found.");
+		}
+		
 		logger.info("Deleting the customer with customerId "+customerId);
 		repo.deleteById(customerId);
 		return "Customer with customerId "+customerId+" deleted.";
 	}
 
 	@Override
-	public CustomerDTO getCustomerById(int customerId) {
+	public CustomerDTO getCustomerById(int customerId) throws CustomerNotFoundException {
 		
 		Customer customer = repo.findById(customerId).orElse(null);
 		if(customer == null) {
-			logger.warn("Customer with ID " +customerId+ "not found.");
+			throw new CustomerNotFoundException ("Customer with ID " +customerId+ "not found.");
 		}
 		
 		CustomerDTO dto = new CustomerDTO();

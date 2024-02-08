@@ -13,6 +13,8 @@ import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.CategoryNotFoundException;
+import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 
 import jakarta.transaction.Transactional;
 @SpringBootTest
@@ -24,7 +26,7 @@ class SubCategoryServiceImpTest {
 	ICategoryService service2;
 
 	@Test
-	void testAddSubCategory() {
+	void testAddSubCategory() throws CategoryNotFoundException {
 		//fail("Not yet implemented");
 		CategoryDTO categorydto = service2.getCategoryById(101);
 		Category category = service2.updateCategory(categorydto);
@@ -34,7 +36,7 @@ class SubCategoryServiceImpTest {
 	}
 
 	@Test
-	void testUpdateSubCategory() {
+	void testUpdateSubCategory() throws CategoryNotFoundException, SubCategoryNotFoundException {
 		//fail("Not yet implemented");
 		CategoryDTO categorydto = service2.getCategoryById(101);
 		Category category = service2.updateCategory(categorydto);
@@ -46,7 +48,7 @@ class SubCategoryServiceImpTest {
 	}
 
 	@Test
-	void testDeleteSubCategoryById() {
+	void testDeleteSubCategoryById() throws CategoryNotFoundException, SubCategoryNotFoundException {
 		//fail("Not yet implemented");
 		CategoryDTO categorydto = service2.getCategoryById(101);
 		Category category = service2.updateCategory(categorydto);
@@ -57,7 +59,7 @@ class SubCategoryServiceImpTest {
 	}
 
 	@Test
-	void testGetSubCategoryById() {
+	void testGetSubCategoryById() throws CategoryNotFoundException, SubCategoryNotFoundException {
 		//fail("Not yet implemented");
 		CategoryDTO categorydto = service2.getCategoryById(102);
 		Category category = service2.updateCategory(categorydto);
