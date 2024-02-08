@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
-import com.hexaware.ecommerce.entity.User;
+
 
 public class SellerDTO {
 	
@@ -22,7 +22,6 @@ public class SellerDTO {
 	 private String sellingDomain;
 
 	 private List<Product> product=new ArrayList<Product>();
-	 private User user;
 	 private List<Order> order=new ArrayList<Order>();
 	
 	 public SellerDTO() {
@@ -30,18 +29,11 @@ public class SellerDTO {
 	
 	}
 
-	public SellerDTO(int sellerId, String businessName, String phoneNumber, String email, String address,
-			String sellingDomain, List<Product> product, User user, List<Order> order) {
-		super();
-		this.sellerId = sellerId;
-		this.businessName = businessName;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-		this.address = address;
-		this.sellingDomain = sellingDomain;
-		this.product = product;
-		this.user = user;
-		this.order = order;
+	@Override
+	public String toString() {
+		return "SellerDTO [sellerId=" + sellerId + ", businessName=" + businessName + ", phoneNumber=" + phoneNumber
+				+ ", email=" + email + ", address=" + address + ", sellingDomain=" + sellingDomain + ", product="
+				+ product + ", order=" + order + "]";
 	}
 
 	public int getSellerId() {
@@ -100,14 +92,6 @@ public class SellerDTO {
 		this.product = product;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public List<Order> getOrder() {
 		return order;
 	}
@@ -116,11 +100,17 @@ public class SellerDTO {
 		this.order = order;
 	}
 
-	@Override
-	public String toString() {
-		return "SellerDTO [sellerId=" + sellerId + ", businessName=" + businessName + ", phoneNumber=" + phoneNumber
-				+ ", email=" + email + ", address=" + address + ", sellingDomain=" + sellingDomain + ", product="
-				+ product + ", user=" + user + ", order=" + order + "]";
+	public SellerDTO(int sellerId, String businessName, String phoneNumber, String email, String address,
+			String sellingDomain, List<Product> product, List<Order> order) {
+		super();
+		this.sellerId = sellerId;
+		this.businessName = businessName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.address = address;
+		this.sellingDomain = sellingDomain;
+		this.product = product;
+		this.order = order;
 	}
 
 	

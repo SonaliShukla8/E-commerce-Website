@@ -27,7 +27,6 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
 		customer.setAddresses(customerDTO.getAddresses());
-		customer.setUser(customerDTO.getUser());
 		customer.setOrder(customerDTO.getOrder());
 		customer.setCart(customerDTO.getCart());
 		return repo.save(customer);
@@ -43,7 +42,6 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
 		customer.setAddresses(customerDTO.getAddresses());
-		customer.setUser(customerDTO.getUser());
 		customer.setOrder(customerDTO.getOrder());
 		customer.setCart(customerDTO.getCart());
 		return repo.save(customer);
@@ -71,7 +69,6 @@ public class CustomerServiceImp implements ICustomerService {
 		dto.setGender(customer.getGender());
 		dto.setContactNumber(customer.getContactNumber());
 		dto.setAddresses(customer.getAddresses());
-		dto.setUser(customer.getUser());
 		dto.setOrder(customer.getOrder());
 		dto.setCart(customer.getCart());
 		

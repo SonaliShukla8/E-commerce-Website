@@ -6,9 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.hexaware.ecommerce.dto.CustomerDTO;
-import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.entity.Customer;
-import com.hexaware.ecommerce.entity.User;
 @SpringBootTest
 class CustomerServiceImpTest {
 	@Autowired

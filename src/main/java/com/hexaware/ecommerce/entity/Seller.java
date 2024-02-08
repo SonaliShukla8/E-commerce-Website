@@ -32,9 +32,7 @@ public class Seller {
 	 @OneToMany(cascade=CascadeType.ALL,mappedBy="seller")
 	 private List<Product> product=new ArrayList<Product>();
 	 
-	 @OneToOne(cascade=CascadeType.ALL)
-	 @JoinColumn(name="userId")
-	 private User user;
+	 
 	 
 	 @OneToMany(cascade=CascadeType.ALL, mappedBy="seller")
 	 private List<Order> order=new ArrayList<Order>();
@@ -48,7 +46,7 @@ public class Seller {
 			@Email(message = "Invalid email address") @NotBlank(message = "Email cannot be blank") String email,
 			@NotBlank(message = "Address cannot be blank") String address,
 			@NotBlank(message = "Selling domain cannot be blank") String sellingDomain, List<Product> product,
-			User user, List<Order> order) {
+			List<Order> order) {
 		super();
 		this.sellerId = sellerId;
 		this.businessName = businessName;
@@ -57,7 +55,6 @@ public class Seller {
 		this.address = address;
 		this.sellingDomain = sellingDomain;
 		this.product = product;
-		this.user = user;
 		this.order = order;
 	}
 
@@ -117,14 +114,6 @@ public class Seller {
 		this.product = product;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public List<Order> getOrder() {
 		return order;
 	}
@@ -137,10 +126,9 @@ public class Seller {
 	public String toString() {
 		return "Seller [sellerId=" + sellerId + ", businessName=" + businessName + ", phoneNumber=" + phoneNumber
 				+ ", email=" + email + ", address=" + address + ", sellingDomain=" + sellingDomain + ", product="
-				+ product + ", user=" + user + ", order=" + order + "]";
+				+ product + ", order=" + order + "]";
 	}
-	
 
-	 
+	
 	
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import com.hexaware.ecommerce.entity.Address;
 import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.entity.Order;
-import com.hexaware.ecommerce.entity.User;
 
 
 
@@ -19,27 +18,12 @@ public class CustomerDTO {
     private String email;
 
     private List<Address> addresses = new ArrayList<Address>();
-    private User user;
     private Cart cart;
     private List<Order> order= new ArrayList<Order>();
 	
     public CustomerDTO() {
 		super();
 		
-	}
-
-	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
-			List<Address> addresses, User user, Cart cart, List<Order> order) {
-		super();
-		this.customerId = customerId;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.addresses = addresses;
-		this.user = user;
-		this.cart = cart;
-		this.order = order;
 	}
 
 	public int getCustomerId() {
@@ -90,14 +74,6 @@ public class CustomerDTO {
 		this.addresses = addresses;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public Cart getCart() {
 		return cart;
 	}
@@ -117,11 +93,9 @@ public class CustomerDTO {
 	@Override
 	public String toString() {
 		return "CustomerDTO [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
-				+ user + ", cart=" + cart + ", order=" + order + "]";
+				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", cart="
+				+ cart + ", order=" + order + "]";
 	}
 
 	
-
-
 }

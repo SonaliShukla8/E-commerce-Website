@@ -35,9 +35,6 @@ public class Customer {
             inverseJoinColumns = {@JoinColumn(name = "address_id")})
     private List<Address> addresses =new ArrayList<Address>();
     
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(nullable=false , name="userId")
-    private User user;
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="cartId", nullable =false)
@@ -48,6 +45,13 @@ public class Customer {
 
 	public Customer() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
+				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", cart="
+				+ cart + ", order=" + order + "]";
 	}
 
 	public int getCustomerId() {
@@ -98,14 +102,6 @@ public class Customer {
 		this.addresses = addresses;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public Cart getCart() {
 		return cart;
 	}
@@ -122,28 +118,7 @@ public class Customer {
 		this.order = order;
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
-				+ user + ", cart=" + cart + ", order=" + order + "]";
-	}
-
-	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
-			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
-			List<Address> addresses, User user, Cart cart, List<Order> order) {
-		super();
-		this.customerId = customerId;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.addresses = addresses;
-		this.user = user;
-		this.cart = cart;
-		this.order = order;
-	}
-
+	
 	
     
 }

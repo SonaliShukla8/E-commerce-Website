@@ -29,7 +29,6 @@ public class SellerServiceImp implements ISellerService {
 		seller.setProduct(sellerDTO.getProduct());
 		seller.setSellerId(sellerDTO.getSellerId());
 		seller.setSellingDomain(sellerDTO.getSellingDomain());
-		seller.setUser(sellerDTO.getUser());
 		return repo.save(seller);
 		
 	}
@@ -46,7 +45,6 @@ public class SellerServiceImp implements ISellerService {
 		seller.setProduct(sellerDTO.getProduct());
 		seller.setSellerId(sellerDTO.getSellerId());
 		seller.setSellingDomain(sellerDTO.getSellingDomain());
-		seller.setUser(sellerDTO.getUser());
 		return repo.save(seller);
 	}
 
@@ -72,7 +70,6 @@ public class SellerServiceImp implements ISellerService {
 		dto.setProduct(seller.getProduct());
 		dto.setSellerId(seller.getSellerId());
 		dto.setSellingDomain(seller.getSellingDomain());
-		dto.setUser(seller.getUser());
 		return dto;
 	}
 
