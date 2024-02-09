@@ -3,6 +3,7 @@ package com.hexaware.ecommerce.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.entity.Product;
 
@@ -10,7 +11,9 @@ public class CartItemDTO {
 	
 	 private int cartitemId;
 	 private int itemQuantity;
+	 @JsonIgnore
 	 private Product productId;
+	 @JsonIgnore
 	 private Cart cart;
 
 	

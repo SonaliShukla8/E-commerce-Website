@@ -3,14 +3,15 @@ package com.hexaware.ecommerce.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
-import com.hexaware.ecommerce.entity.User;
+
 
 public class SellerDTO {
 	
 	 private int sellerId;        // Primary Key
-	 
+	 private String sellerName;
 	 private String businessName;
 	
 	 private String phoneNumber;
@@ -20,9 +21,11 @@ public class SellerDTO {
 	 private String address;
 	 
 	 private String sellingDomain;
-
+	 
+	 private String password;
+     @JsonIgnore
 	 private List<Product> product=new ArrayList<Product>();
-	 private User user;
+     @JsonIgnore
 	 private List<Order> order=new ArrayList<Order>();
 	
 	 public SellerDTO() {
@@ -30,17 +33,18 @@ public class SellerDTO {
 	
 	}
 
-	public SellerDTO(int sellerId, String businessName, String phoneNumber, String email, String address,
-			String sellingDomain, List<Product> product, User user, List<Order> order) {
+	public SellerDTO(int sellerId, String sellerName, String businessName, String phoneNumber, String email,
+			String address, String sellingDomain, String password, List<Product> product, List<Order> order) {
 		super();
 		this.sellerId = sellerId;
+		this.sellerName = sellerName;
 		this.businessName = businessName;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.address = address;
 		this.sellingDomain = sellingDomain;
+		this.password = password;
 		this.product = product;
-		this.user = user;
 		this.order = order;
 	}
 
@@ -50,6 +54,14 @@ public class SellerDTO {
 
 	public void setSellerId(int sellerId) {
 		this.sellerId = sellerId;
+	}
+
+	public String getSellerName() {
+		return sellerName;
+	}
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
 	}
 
 	public String getBusinessName() {
@@ -92,20 +104,20 @@ public class SellerDTO {
 		this.sellingDomain = sellingDomain;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public List<Product> getProduct() {
 		return product;
 	}
 
 	public void setProduct(List<Product> product) {
 		this.product = product;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public List<Order> getOrder() {
@@ -118,10 +130,9 @@ public class SellerDTO {
 
 	@Override
 	public String toString() {
-		return "SellerDTO [sellerId=" + sellerId + ", businessName=" + businessName + ", phoneNumber=" + phoneNumber
-				+ ", email=" + email + ", address=" + address + ", sellingDomain=" + sellingDomain + ", product="
-				+ product + ", user=" + user + ", order=" + order + "]";
+		return "SellerDTO [sellerId=" + sellerId + ", sellerName=" + sellerName + ", businessName=" + businessName
+				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", sellingDomain="
+				+ sellingDomain + ", password=" + password + ", product=" + product + ", order=" + order + "]";
 	}
 
-	
 }

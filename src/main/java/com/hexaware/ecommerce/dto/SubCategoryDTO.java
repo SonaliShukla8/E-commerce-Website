@@ -3,6 +3,7 @@ package com.hexaware.ecommerce.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Product;
 
@@ -11,6 +12,7 @@ public class SubCategoryDTO {
 	 private int subCategoryId;        // Primary Key
 	    private String subCategoryName;
 	    private Category category;
+	    @JsonIgnore
 	    private List<Product> products= new ArrayList<Product>();
 		
 	    public SubCategoryDTO() {
@@ -18,12 +20,30 @@ public class SubCategoryDTO {
 		}
 	    
 
+		
+
+
+		public SubCategoryDTO(int subCategoryId, String subCategoryName, Category category, List<Product> products) {
+			super();
+			this.subCategoryId = subCategoryId;
+			this.subCategoryName = subCategoryName;
+			this.category = category;
+			this.products = products;
+		}
+
+
+
+
+
 		public SubCategoryDTO(int subCategoryId, String subCategoryName, Category category) {
 			super();
 			this.subCategoryId = subCategoryId;
 			this.subCategoryName = subCategoryName;
 			this.category = category;
 		}
+
+
+
 
 
 		public int getSubCategoryId() {
@@ -58,13 +78,7 @@ public class SubCategoryDTO {
 			this.products = products;
 		}
 
-		public SubCategoryDTO(int subCategoryId, String subCategoryName, Category category, List<Product> products) {
-			super();
-			this.subCategoryId = subCategoryId;
-			this.subCategoryName = subCategoryName;
-			this.category = category;
-			this.products = products;
-		}
+	
 
 		@Override
 		public String toString() {

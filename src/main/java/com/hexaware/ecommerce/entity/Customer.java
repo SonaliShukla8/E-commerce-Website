@@ -3,8 +3,12 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -30,24 +34,50 @@ public class Customer {
     @Email
     private String email;
     
+    private String password;
+    
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "customer_address",joinColumns = {@JoinColumn(name = "customer_id")},
             inverseJoinColumns = {@JoinColumn(name = "address_id")})
     private List<Address> addresses =new ArrayList<Address>();
     
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(nullable=false , name="userId")
-    private User user;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name="cartId", nullable =false)
     private Cart cart;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
+   
+    public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
+			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
+			String password) {
+		super();
+		this.customerId = customerId;
+		this.fullName = fullName;
+		this.gender = gender;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.password = password;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
 
 	public Customer() {
 		super();
+	}
+
+	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
+			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email, String password,
+			List<Address> addresses, Cart cart, List<Order> order) {
+		super();
+		this.customerId = customerId;
+		this.fullName = fullName;
+		this.gender = gender;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.password = password;
+		this.addresses = addresses;
+		this.cart = cart;
+		this.order = order;
 	}
 
 	public int getCustomerId() {
@@ -90,20 +120,20 @@ public class Customer {
 		this.email = email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public List<Address> getAddresses() {
 		return addresses;
 	}
 
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Cart getCart() {
@@ -125,25 +155,12 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
-				+ user + ", cart=" + cart + ", order=" + order + "]";
+				+ ", contactNumber=" + contactNumber + ", email=" + email + ", password=" + password + ", addresses="
+				+ addresses + ", cart=" + cart + ", order=" + order + "]";
 	}
 
-	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
-			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
-			List<Address> addresses, User user, Cart cart, List<Order> order) {
-		super();
-		this.customerId = customerId;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.addresses = addresses;
-		this.user = user;
-		this.cart = cart;
-		this.order = order;
-	}
-
+	
+	
 	
     
 }

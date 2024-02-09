@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
+import com.hexaware.ecommerce.exception.CategoryNotFoundException;
 @SpringBootTest
 class CategoryServiceImpTest {
 	
@@ -26,7 +27,7 @@ class CategoryServiceImpTest {
 	}
 
 	@Test
-	void testUpdateCategory() {
+	void testUpdateCategory() throws CategoryNotFoundException {
 		//fail("Not yet implemented");
 		CategoryDTO categorydto =new CategoryDTO(102,"Furniture");
 		Category category = service.addCategory(categorydto);
@@ -36,7 +37,7 @@ class CategoryServiceImpTest {
 	}
 
 	@Test
-	void testDeleteCategoryById() {
+	void testDeleteCategoryById() throws CategoryNotFoundException {
 		//fail("Not yet implemented");
 		CategoryDTO categorydto =new CategoryDTO(103,"Furniture");
 		Category category = service.addCategory(categorydto);
@@ -46,7 +47,7 @@ class CategoryServiceImpTest {
 	}
 
 	@Test
-	void testGetCategoryById() {
+	void testGetCategoryById() throws CategoryNotFoundException {
 		//fail("Not yet implemented");
 		CategoryDTO categorydto =new CategoryDTO(104,"Stationery");
 		Category category = service.addCategory(categorydto);

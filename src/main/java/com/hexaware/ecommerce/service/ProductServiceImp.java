@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.entity.Product;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.ProductRepository;
 @Service
 public class ProductServiceImp implements IProductService {
@@ -25,7 +26,7 @@ public class ProductServiceImp implements IProductService {
 	    product.setProductId(productDTO.getProductId());
 	    product.setBrand(productDTO.getBrand());
 	    product.setCart(productDTO.getCart());
-	    product.setCategory(productDTO.getCategory());
+	  //  product.setCategory(productDTO.getCategory());
 	    product.setCreatedAt(productDTO.getCreatedAt());
 	    product.setDescription(productDTO.getDescription());
 	    product.setModifiedAt(productDTO.getModifiedAt());
@@ -39,13 +40,16 @@ public class ProductServiceImp implements IProductService {
 	}
 
 	@Override
-	public Product updateProduct(ProductDTO productDTO) {
+	public Product updateProduct(ProductDTO productDTO) throws ProductNotFoundException{
+		Product product=repo.findById(productDTO.getProductId()).orElse(null);
+		if(product == null) {
+			throw new ProductNotFoundException("Product with productId: "+productDTO.getProductId()+" not found.");
+			}
 		logger.info("Updating the Product...");
-		 Product product = new Product();
 		    product.setProductId(productDTO.getProductId());
 		    product.setBrand(productDTO.getBrand());
 		    product.setCart(productDTO.getCart());
-		    product.setCategory(productDTO.getCategory());
+		 //   product.setCategory(productDTO.getCategory());
 		    product.setCreatedAt(productDTO.getCreatedAt());
 		    product.setDescription(productDTO.getDescription());
 		    product.setModifiedAt(productDTO.getModifiedAt());
@@ -60,23 +64,27 @@ public class ProductServiceImp implements IProductService {
 	}
 
 	@Override
-	public String deleteProductById(int productId) {
+	public String deleteProductById(int productId) throws ProductNotFoundException{
+		Product product=repo.findById(productId).orElse(null);
+		if(product == null) {
+			throw new ProductNotFoundException("Product with productId: "+productId+" not found.");
+			}
 		logger.info("Deleting the product with productId: "+productId);
 		repo.deleteById(productId);
 		return "Product with productId "+productId+" deleted.";
 	}
 
 	@Override
-	public ProductDTO getProductById(int productId) {
+	public ProductDTO getProductById(int productId) throws ProductNotFoundException{
 		Product product=repo.findById(productId).orElse(null);
 		if(product == null) {
-			logger.warn("Product with productId: "+productId+" not found.");
-			return null;}
+			throw new ProductNotFoundException("Product with productId: "+productId+" not found.");
+			}
 		ProductDTO dto=new ProductDTO();
 		dto.setProductId(product.getProductId());
 	    dto.setBrand(product.getBrand());
 	    dto.setCart(product.getCart());
-	    dto.setCategory(product.getCategory());
+	 //   dto.setCategory(product.getCategory());
 	    dto.setCreatedAt(product.getCreatedAt());
 	   dto.setDescription(product.getDescription());
 	    dto.setModifiedAt(product.getModifiedAt());
@@ -95,6 +103,12 @@ public class ProductServiceImp implements IProductService {
 		logger.info("Fetching all products...");
 
 		return repo.findAll();
+	}
+
+	@Override
+	public Product getByName(String name) {
+
+		return repo.findByProductName(name).orElse(null);
 	}
 
 }

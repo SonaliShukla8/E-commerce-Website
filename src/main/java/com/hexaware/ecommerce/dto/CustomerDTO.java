@@ -3,10 +3,12 @@ package com.hexaware.ecommerce.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.hexaware.ecommerce.entity.Address;
 import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.entity.Order;
-import com.hexaware.ecommerce.entity.User;
 
 
 
@@ -17,10 +19,12 @@ public class CustomerDTO {
     private String gender;
     private String contactNumber;
     private String email;
-
+    private String password;
+    @JsonIgnore
     private List<Address> addresses = new ArrayList<Address>();
-    private User user;
+    @JsonIgnore
     private Cart cart;
+    @JsonIgnore
     private List<Order> order= new ArrayList<Order>();
 	
     public CustomerDTO() {
@@ -29,15 +33,15 @@ public class CustomerDTO {
 	}
 
 	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
-			List<Address> addresses, User user, Cart cart, List<Order> order) {
+			String password, List<Address> addresses, Cart cart, List<Order> order) {
 		super();
 		this.customerId = customerId;
 		this.fullName = fullName;
 		this.gender = gender;
 		this.contactNumber = contactNumber;
 		this.email = email;
+		this.password = password;
 		this.addresses = addresses;
-		this.user = user;
 		this.cart = cart;
 		this.order = order;
 	}
@@ -82,20 +86,20 @@ public class CustomerDTO {
 		this.email = email;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public List<Address> getAddresses() {
 		return addresses;
 	}
 
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Cart getCart() {
@@ -117,11 +121,20 @@ public class CustomerDTO {
 	@Override
 	public String toString() {
 		return "CustomerDTO [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", addresses=" + addresses + ", user="
-				+ user + ", cart=" + cart + ", order=" + order + "]";
+				+ ", contactNumber=" + contactNumber + ", email=" + email + ", password=" + password + ", addresses="
+				+ addresses + ", cart=" + cart + ", order=" + order + "]";
+	}
+
+	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
+			String password) {
+		super();
+		this.customerId = customerId;
+		this.fullName = fullName;
+		this.gender = gender;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.password = password;
 	}
 
 	
-
-
 }
