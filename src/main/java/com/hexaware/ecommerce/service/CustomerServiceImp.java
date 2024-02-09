@@ -26,9 +26,10 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setFullName(customerDTO.getFullName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
-		customer.setAddresses(customerDTO.getAddresses());
-		customer.setOrder(customerDTO.getOrder());
+//		customer.setAddresses(customerDTO.getAddresses());
+//		customer.setOrder(customerDTO.getOrder());
 		customer.setCart(customerDTO.getCart());
+		customer.setPassword(customerDTO.getPassword());
 		return repo.save(customer);
 	}
 
@@ -41,9 +42,10 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setFullName(customerDTO.getFullName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
-		customer.setAddresses(customerDTO.getAddresses());
-		customer.setOrder(customerDTO.getOrder());
+//		customer.setAddresses(customerDTO.getAddresses());
+//		customer.setOrder(customerDTO.getOrder());
 		customer.setCart(customerDTO.getCart());
+		customer.setPassword(customerDTO.getPassword());
 		return repo.save(customer);
 	}
 
@@ -68,9 +70,10 @@ public class CustomerServiceImp implements ICustomerService {
 		dto.setFullName(customer.getFullName());
 		dto.setGender(customer.getGender());
 		dto.setContactNumber(customer.getContactNumber());
-		dto.setAddresses(customer.getAddresses());
-		dto.setOrder(customer.getOrder());
+//		dto.setAddresses(customer.getAddresses());
+//		dto.setOrder(customer.getOrder());
 		dto.setCart(customer.getCart());
+		dto.setPassword(customer.getPassword());
 		
 		return dto;
 	}

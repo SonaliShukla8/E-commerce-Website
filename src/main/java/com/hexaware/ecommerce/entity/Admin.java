@@ -25,7 +25,6 @@ public class Admin {
     private String phoneNumber;
     @NotBlank
     @Size(min = 8)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", message = "Password must contain at least one number, uppercase letter, lowercase letter, and a special character.")
     private String password;
     @NotNull
     private LocalDate joiningDate;

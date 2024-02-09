@@ -15,4 +15,6 @@ public interface ICategoryService {
      public CategoryDTO getCategoryById(int categoryId);
      public List<Category> getAllCategory();
     public List<SubCategory> getSubCategoryIdByCategoryId(int categoryId);
+    
+    public Category getbyName(String name);
 }

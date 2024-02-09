@@ -14,8 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.dto.SellerDTO;
+import com.hexaware.ecommerce.entity.Category;
+import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
+import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.service.ISellerService;
 
 import jakarta.validation.Valid;
@@ -57,6 +62,53 @@ public class SellerRestController {
 	@GetMapping("/getall")
     public List<Seller> getAllSeller(){
 		return service.getAllSeller();
+	}
+	
+	
+	
+	@GetMapping("/getAllOrder")
+	public List<Order> getAllOrder(){
+		return service.getAllOrder();
+	}
+	
+	@GetMapping("/getAllProduct")
+	public List<Product> getAllProduct(){
+		return service.getAllProduct();
+	}
+	
+	@GetMapping("/getAllCategory")
+	public List<Category> getAllCategory(){
+		return service.getAllCategory();
+	}
+	
+	@GetMapping("/getAllSubCategory")
+	public List<SubCategory> getAllSubCategory(){
+		return service.getAllSubCategory();
+	}
+	
+	@PostMapping("/addProduct")
+	public Product addProduct(@RequestBody ProductDTO productdto) {
+		return service.addProduct(productdto);
+	}
+	
+	@PostMapping("/updateProduct")
+	public Product updateProduct(@RequestBody ProductDTO productdto) {
+		return service.updateProduct(productdto);
+	}
+	
+	@DeleteMapping("/deleteProduct/{id}")
+	public String deleteProduct(@PathVariable int id) {
+		return service.deleteProduct(id);
+	}
+	
+	@GetMapping("/getProductByName/{name}")
+	public Product getProductbyName(@PathVariable String name) {
+		return service.getProductbyName(name);
+	}
+	
+	@GetMapping("/getProductByID/{id}")
+	public ProductDTO getProductById(@PathVariable int id) {
+		return service.getProductById(id);
 	}
 
 

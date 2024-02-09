@@ -97,4 +97,10 @@ public class ProductServiceImp implements IProductService {
 		return repo.findAll();
 	}
 
+	@Override
+	public Product getByName(String name) {
+
+		return repo.findByProductName(name).orElse(null);
+	}
+
 }

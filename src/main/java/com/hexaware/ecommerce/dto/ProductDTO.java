@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
@@ -13,6 +14,7 @@ import com.hexaware.ecommerce.entity.SubCategory;
 public class ProductDTO {
 
     private int productId;
+    @JsonIgnore
 	private Seller seller;
     private String productName;
     private String productImageURL;
@@ -22,8 +24,11 @@ public class ProductDTO {
     private String brand;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    @JsonIgnore
     private Category category;
+    @JsonIgnore
     private SubCategory subCategory;
+    @JsonIgnore
     private List<Cart> cart=new ArrayList<Cart>();
 	
     public ProductDTO() {

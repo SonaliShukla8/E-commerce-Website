@@ -11,4 +11,5 @@ public interface ISubCategoryService {
     public String deleteSubCategoryById(int subCategoryId);
     public SubCategoryDTO getSubCategoryById(int subCategoryId);
     public List<SubCategory> getAllSubCategory();
+    public SubCategory getSubCategoryByName(String name);
 }

@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -50,7 +52,7 @@ public class Product {
 	    @ManyToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name = "categoryId")
 	    private Category category;
-	    
+	    @JsonIgnore
 	    @ManyToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="subcategory_Id")
 	    private SubCategory subCategory;

@@ -69,4 +69,10 @@ public class SubCategoryServiceImp implements ISubCategoryService {
 		return repo.findAll();
 	}
 
+	@Override
+	public SubCategory getSubCategoryByName(String name) {
+		return repo.findBySubCategoryName(name).orElse(null);
+				
+	}
+
 }

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.context.annotation.Lazy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,9 +27,18 @@ public class SubCategory {
     @JoinColumn(name = "categoryID", nullable = false)
 	private Category category;
 
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<Product>();
+
+	public SubCategory(int subCategoryId,
+			@NotBlank(message = "Subcategory name cannot be blank") String subCategoryName, Category category) {
+		super();
+		this.subCategoryId = subCategoryId;
+		this.subCategoryName = subCategoryName;
+		this.category = category;
+	}
+
 
 	public SubCategory() {
 		super();
@@ -35,13 +46,7 @@ public class SubCategory {
 	}
 	
 
-	public SubCategory(int subCategoryId,
-			@NotBlank(message = "Subcategory name cannot be blank") String subCategoryName,  Category category) {
-		super();
-		this.subCategoryId = subCategoryId;
-		this.subCategoryName = subCategoryName;
-		this.category = category;
-	}
+
 
 
 	public SubCategory(int subCategoryId,
