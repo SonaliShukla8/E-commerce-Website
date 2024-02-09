@@ -22,7 +22,7 @@ class SellerServiceImpTest {
 	@Test
 	void testAddSeller() {
 		//fail("Not yet implemented");
-		SellerDTO sellerDTO = new SellerDTO(101,"Raymond","9848283421","raymond@gmail.com","Mumbai","Clothing",null,null);
+		SellerDTO sellerDTO = new SellerDTO(101,"Bhaskar","Raymond","9848283421","raymond@gmail.com","Mumbai","Clothing","bh@sk@r123",null,null);
 		Seller seller = service.addSeller(sellerDTO);
 		assertEquals(101,seller.getSellerId());
 	}
@@ -30,9 +30,9 @@ class SellerServiceImpTest {
 	@Test
 	void testUpdateSeller() throws SellerNotFoundException {
 	//	fail("Not yet implemented");
-		SellerDTO sellerDTO = new SellerDTO(102,"LOUIS PHILIPPE","8074537575","louisphilippe@gmail.com","Hyderabad","Clothing",null,null);
+		SellerDTO sellerDTO = new SellerDTO(102,"Ranjeeth","LOUIS PHILIPPE","8074537575","louisphilippe@gmail.com","Hyderabad","Clothing","Ranjeeth*1",null,null);
 		Seller seller = service.addSeller(sellerDTO);
-		SellerDTO sellerDTO2 = new SellerDTO(102,"LOUIS PHILIPPE","9392029482","louisphilippe@gmail.com","Hyderabad","Clothing",null,null);
+		SellerDTO sellerDTO2 = new SellerDTO(102,"Ranjeeth","LOUIS PHILIPPE","9392029482","louisphilippe@gmail.com","Hyderabad","Clothing","Ranjeeth*1",null,null);
 		Seller seller2 = service.updateSeller(sellerDTO2);
 		assertEquals("9392029482",seller2.getPhoneNumber());
 	}
@@ -40,7 +40,7 @@ class SellerServiceImpTest {
 	@Test
 	void testDeleteSellerById() throws SellerNotFoundException {
 		//fail("Not yet implemented");
-		SellerDTO sellerDTO = new SellerDTO(104,"ASUS","7124932415","asus@gmail.com","Chennai","Electronics",null,null);
+		SellerDTO sellerDTO = new SellerDTO(104,"John","ASUS","7124932415","asus@gmail.com","Chennai","Electronics","John@234",null,null);
 		Seller seller = service.addSeller(sellerDTO);
 		String delete = service.deleteSellerById(seller.getSellerId());
 		assertNotEquals(null,delete);
@@ -50,7 +50,7 @@ class SellerServiceImpTest {
 	@Test
 	void testGetSellerById() throws SellerNotFoundException {
 		//fail("Not yet implemented");
-		SellerDTO sellerDTO = new SellerDTO(103,"SAMSUNG","8435242468","samsung@gmail.com","Kochi","Electronics",null,null);
+		SellerDTO sellerDTO = new SellerDTO(103,"Ramesh","SAMSUNG","8435242468","samsung@gmail.com","Kochi","Electronics","RamEsh#999",null,null);
 		Seller seller = service.addSeller(sellerDTO);
 		SellerDTO sellerDTO2 = service.getSellerById(seller.getSellerId());
 		assertEquals(103,sellerDTO2.getSellerId());

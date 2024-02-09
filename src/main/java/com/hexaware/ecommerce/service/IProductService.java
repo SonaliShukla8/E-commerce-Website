@@ -12,4 +12,5 @@ public interface IProductService {
     public String deleteProductById(int productId) throws ProductNotFoundException;
     public ProductDTO getProductById(int productId) throws ProductNotFoundException;
     public List<Product> getAllProduct();
+    public Product getByName(String name);
 }

@@ -12,4 +12,5 @@ public interface ISubCategoryService {
     public String deleteSubCategoryById(int subCategoryId) throws SubCategoryNotFoundException ;
     public SubCategoryDTO getSubCategoryById(int subCategoryId) throws SubCategoryNotFoundException ;
     public List<SubCategory> getAllSubCategory();
+    public SubCategory getSubCategoryByName(String name);
 }

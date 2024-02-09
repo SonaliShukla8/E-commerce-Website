@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,9 +27,19 @@ public class SubCategory {
 	@ManyToOne
     @JoinColumn(name = "categoryID", nullable = false)
 	private Category category;
+	
 	@JsonIgnore
     @OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<Product>();
+
+	public SubCategory(int subCategoryId,
+			@NotBlank(message = "Subcategory name cannot be blank") String subCategoryName, Category category) {
+		super();
+		this.subCategoryId = subCategoryId;
+		this.subCategoryName = subCategoryName;
+		this.category = category;
+	}
+
 
 	public SubCategory() {
 		super();
@@ -35,13 +47,7 @@ public class SubCategory {
 	}
 	
 
-	public SubCategory(int subCategoryId,
-			@NotBlank(message = "Subcategory name cannot be blank") String subCategoryName,  Category category) {
-		super();
-		this.subCategoryId = subCategoryId;
-		this.subCategoryName = subCategoryName;
-		this.category = category;
-	}
+
 
 
 	public SubCategory(int subCategoryId,

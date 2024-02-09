@@ -1,12 +1,16 @@
 package com.hexaware.ecommerce.entity;
 
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -52,6 +56,7 @@ public class Product {
 //	    @ManyToOne(cascade=CascadeType.ALL)
 //	    @JoinColumn(name = "categoryId")
 //	    private Category category;
+
 	    @ManyToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="subcategory_Id")
 	    private SubCategory subCategory;

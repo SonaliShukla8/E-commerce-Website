@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Seller;
@@ -11,13 +12,16 @@ import com.hexaware.ecommerce.entity.Seller;
 public class OrderDTO {
 	
 	private int orderId; 
+	@JsonIgnore
 	 private Customer customer;
 	    private LocalDate orderDate;
 	    private double totalAmount;
 	    private String status;
 	    private String statusDescription;
+	    @JsonIgnore
 	    private Payment payment;
 	    private LocalDate deliveryDate;
+	    @JsonIgnore
 	    private Seller seller;
 		public OrderDTO() {
 			super();

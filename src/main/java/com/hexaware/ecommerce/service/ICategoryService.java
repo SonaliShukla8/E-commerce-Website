@@ -16,4 +16,7 @@ public interface ICategoryService {
      public CategoryDTO getCategoryById(int categoryId) throws CategoryNotFoundException;
      public List<Category> getAllCategory();
     public List<SubCategory> getSubCategoryIdByCategoryId(int categoryId) throws CategoryNotFoundException;
+
+    
+    public Category getbyName(String name);
 }
