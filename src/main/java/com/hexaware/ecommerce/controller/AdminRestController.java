@@ -72,6 +72,17 @@ public class AdminRestController {
 		return service.deleteSubCategory(id);
 	}
 	
+	@DeleteMapping("/deleteSeller/{id}")
+    public  String deleteSeller(@PathVariable int id) {
+		return service.deleteCustomer(id);
+	}
+    
+	@DeleteMapping("/deleteCustomer/{id}")
+    public String deleteCustomer(@PathVariable int id) {
+		return service.deleteCustomer(id);
+    	
+    }
+	
 	@GetMapping("/viewAllOrder")
 	public List<Order> viewAllOrders() {
 		return service.viewAllOrder();

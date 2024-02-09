@@ -37,34 +37,34 @@ public class SellerRestController {
 		return service.addSeller(sellerDTO);
 	}
 	
-	@PutMapping("/update")
+	@PutMapping("/updateDetails")
     public Seller updateSeller(@RequestBody @Valid  SellerDTO sellerDTO) {
 		return service.updateSeller(sellerDTO);
 	}
 	
-	@DeleteMapping("/delete/{sellerId}")
-    public String deleteSellerById(@PathVariable int sellerId) {
-		
-		return service.deleteSellerById(sellerId);
-		}
+//	@DeleteMapping("/delete/{sellerId}")
+//    public String deleteSellerById(@PathVariable int sellerId) {
+//		
+//		return service.deleteSellerById(sellerId);
+//		}
 	
-     
-	@GetMapping("/getbyId/{sellerId}")
-	public SellerDTO getSellerById(@PathVariable int sellerId) {
-		try {
-		return service.getSellerById(sellerId);
-	}
-	catch(NullPointerException exc) {
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Sorry, seller does not exist",exc);
-	}
-	}
+//     
+//	@GetMapping("/getbyId/{sellerId}")
+//	public SellerDTO getSellerById(@PathVariable int sellerId) {
+//		try {
+//		return service.getSellerById(sellerId);
+//	}
+//	catch(NullPointerException exc) {
+//		throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Sorry, seller does not exist",exc);
+//	}
+//	}
 	
-	@GetMapping("/getall")
-    public List<Seller> getAllSeller(){
-		return service.getAllSeller();
-	}
-	
-	
+//	@GetMapping("/getall")
+//    public List<Seller> getAllSeller(){
+//		return service.getAllSeller();
+//	}
+//	
+//	
 	
 	@GetMapping("/getAllOrder")
 	public List<Order> getAllOrder(){

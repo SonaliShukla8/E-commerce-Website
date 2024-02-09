@@ -130,6 +130,11 @@ public class AdminServiceImp implements IAdminService{
 	public SubCategory addSubCategory(SubCategoryDTO subcategorydto) {
 		return subcategoryService.addSubCategory(subcategorydto);
 	}
+
+	@Override
+	public String deleteCustomer(int id) {
+		return customerService.deleteCustomerById(id);
+	}
 	
 	
      

@@ -37,6 +37,9 @@ public interface IAdminService {
     
     public  String deleteSeller(int id);
     
+    public String deleteCustomer(int id);
+    
+    
     public List<Category> viewAllCategory();
     
     public List<SubCategory> viewAllSubCategory();
