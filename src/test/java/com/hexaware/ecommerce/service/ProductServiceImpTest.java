@@ -39,7 +39,7 @@ class ProductServiceImpTest {
 		SubCategoryDTO subCategoryDTO = subCategoryService.getSubCategoryById(201);
 		SubCategory subCategory = subCategoryService.updateSubCategory(subCategoryDTO);
 		
-		ProductDTO productdto = new ProductDTO(101,seller,"Checked Blue Shirt","https://shorturl.at/dkx01","Cotton Fabric",500,50,seller.getBusinessName(),LocalDateTime.now(),LocalDateTime.now(),subCategory,null);
+		ProductDTO productdto = new ProductDTO(101,seller,"Checked Blue Shirt","https://shorturl.at/dkx01","Cotton Fabric",500,50,seller.getBusinessName(),LocalDateTime.now(),LocalDateTime.now(),subCategory);
 		Product product = productService.addProduct(productdto);
 		assertEquals(101,product.getProductId());
 	}
@@ -51,22 +51,21 @@ class ProductServiceImpTest {
 		Seller seller = sellerService.updateSeller(sellerDTO);
 		SubCategoryDTO subCategoryDTO = subCategoryService.getSubCategoryById(301);
 		SubCategory subCategory = subCategoryService.updateSubCategory(subCategoryDTO);
-		ProductDTO productdto = new ProductDTO(102,seller,"65-inch OLED TV","https://shorturl.at/pEHPY","Samsung’s innovative OLED",50000,5,seller.getBusinessName(),LocalDateTime.now(),LocalDateTime.now(),subCategory,null);
+		ProductDTO productdto = new ProductDTO(102,seller,"65-inch OLED TV","https://shorturl.at/pEHPY","Samsung’s innovative OLED",50000,5,seller.getBusinessName(),LocalDateTime.now(),LocalDateTime.now(),subCategory);
 		Product product = productService.addProduct(productdto);
-		ProductDTO productdto2 = new ProductDTO(102,seller,"65-inch OLED TV","https://shorturl.at/pEHPY","Samsung’s innovative OLED",65000,5,seller.getBusinessName(),LocalDateTime.now(),LocalDateTime.now(),subCategory,null);
+		ProductDTO productdto2 = new ProductDTO(102,seller,"65-inch OLED TV","https://shorturl.at/pEHPY","Samsung’s innovative OLED",65000,5,seller.getBusinessName(),LocalDateTime.now(),LocalDateTime.now(),subCategory);
 		Product product2 = productService.updateProduct(productdto2);
 		
 		assertEquals(65000,product2.getPrice());
 	}
 	@Test
-	@Transactional
 	void testDeleteProductById() throws SellerNotFoundException, SubCategoryNotFoundException, ProductNotFoundException {
 		//fail("Not yet implemented");
 		 SellerDTO sellerDTO = sellerService.getSellerById(102);
 			Seller seller = sellerService.updateSeller(sellerDTO);
 			SubCategoryDTO subCategoryDTO = subCategoryService.getSubCategoryById(202);
 			SubCategory subCategory = subCategoryService.updateSubCategory(subCategoryDTO);
-			ProductDTO productdto = new ProductDTO(103,seller,"RED T-SHIRT","https://shorturl.at/cjkv4","Full Sleeve",650,15,seller.getBusinessName(),LocalDateTime.now(),LocalDateTime.now(),subCategory,null);
+			ProductDTO productdto = new ProductDTO(103,seller,"RED T-SHIRT","https://shorturl.at/cjkv4","Full Sleeve",650,15,seller.getBusinessName(),LocalDateTime.now(),LocalDateTime.now(),subCategory);
 			Product product = productService.addProduct(productdto);
 			String delete = productService.deleteProductById(product.getProductId());
 		 assertNotEquals(null,delete);
@@ -80,7 +79,7 @@ class ProductServiceImpTest {
 		Seller seller = sellerService.updateSeller(sellerDTO);
 		SubCategoryDTO subCategoryDTO = subCategoryService.getSubCategoryById(202);
 		SubCategory subCategory = subCategoryService.updateSubCategory(subCategoryDTO);
-		ProductDTO productdto = new ProductDTO(103,seller,"RED T-SHIRT","https://shorturl.at/cjkv4","Full Sleeve",650,15,seller.getBusinessName(),LocalDateTime.now(),LocalDateTime.now(),subCategory,null);
+		ProductDTO productdto = new ProductDTO(103,seller,"RED T-SHIRT","https://shorturl.at/cjkv4","Full Sleeve",650,15,seller.getBusinessName(),LocalDateTime.now(),LocalDateTime.now(),subCategory);
 		Product product = productService.addProduct(productdto);
 		ProductDTO productDTO2 = productService.getProductById(product.getProductId());
 		assertEquals(103,productDTO2.getProductId());
@@ -90,9 +89,8 @@ class ProductServiceImpTest {
 	@Test
 	void testGetAllProduct() {
 		//fail("Not yet implemented");
-		List list = productService.getAllProduct();
+		List<Product> list = productService.getAllProduct();
 		int size = list.size();
-
 		assertNotEquals(0,size);
 	}
 

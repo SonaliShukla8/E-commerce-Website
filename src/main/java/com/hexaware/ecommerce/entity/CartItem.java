@@ -13,6 +13,8 @@ import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -24,6 +26,7 @@ import jakarta.validation.constraints.Positive;
 @Entity
 public class CartItem {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@NotNull
     private int cartitemId;
 	

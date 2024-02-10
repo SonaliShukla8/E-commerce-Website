@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
+import com.hexaware.ecommerce.exception.OrderNotFoundException;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.service.ICustomerService;
 
 import jakarta.validation.Valid;
@@ -56,5 +58,14 @@ public class CustomerRestController {
     public List<Customer> getAllCustomer(){
     	return service.getAllCustomer();
     }
+	@PostMapping("/addProductToCustomerCart/{customerId}/{productId}/{quantity}")
+	public String addProductToCustomerCart(@PathVariable int customerId,@PathVariable int productId,@PathVariable int quantity) throws ProductNotFoundException{
+		
+		return service.addProductToCustomerCart(customerId, productId, quantity);
+	}
+	@PostMapping("/ placeOrder/{customerId}")
+	public String placeOrder(@PathVariable int customerId) throws OrderNotFoundException, ProductNotFoundException{
+		return service.placeOrder(customerId);
+	}
 
 }

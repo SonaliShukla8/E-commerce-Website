@@ -26,7 +26,7 @@ public class CartServiceImp implements ICartService {
 		cart.setCartItems(cartDTO.getCartItems());
 		cart.setCustomer(cartDTO.getCustomer());
 		cart.setTotalPrice(cartDTO.getTotalPrice());
-	cart.setProduct(cartDTO.getProduct());
+	//cart.setProduct(cartDTO.getProduct());
 		return repo.save(cart);
 	}
 
@@ -38,7 +38,7 @@ public class CartServiceImp implements ICartService {
 		cart.setCartItems(cartDTO.getCartItems());
 		cart.setCustomer(cartDTO.getCustomer());
 		cart.setTotalPrice(cartDTO.getTotalPrice());
-		cart.setProduct(cartDTO.getProduct());
+	//	cart.setProduct(cartDTO.getProduct());
 		
 		return repo.save(cart);
 	}

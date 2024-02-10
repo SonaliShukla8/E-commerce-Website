@@ -27,6 +27,7 @@ import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
+import com.hexaware.ecommerce.repository.CartRepository;
 import com.hexaware.ecommerce.repository.CustomerRepository;
 @Service
 public class CustomerServiceImp implements ICustomerService {
@@ -45,6 +46,8 @@ public class CustomerServiceImp implements ICustomerService {
     IOrderService orderService;
     @Autowired
     IPaymentService paymentService;
+    @Autowired
+    ICartService cartService;
     
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
@@ -238,7 +241,9 @@ public class CustomerServiceImp implements ICustomerService {
 	        Order order = new Order();
 	        order.setCustomer(customer);
 	        order.setOrderDate(LocalDate.now());
+	        order.setDeliveryDate(LocalDate.now().plusDays(7));
 	        double totalAmount = cart.getTotalPrice();
+	        order.setTotalAmount(totalAmount);
 	        order.setStatus("Pending");
 	        order.setStatusDescription("Payment Not Yet Processed...");
 	        
@@ -289,14 +294,19 @@ public class CustomerServiceImp implements ICustomerService {
 			orderDTO.setTotalAmount(order.getTotalAmount());
 			orderDTO.setCustomer(order.getCustomer());
 			orderDTO.setOrderDate(order.getOrderDate());
-			orderDTO.setDeliveryDate(LocalDate.now().plusDays(7));
+			orderDTO.setDeliveryDate(order.getDeliveryDate());
 			orderDTO.setPayment(order.getPayment());
 	        orderDTO.setStatus("Payment Done.");
 	        orderDTO.setStatusDescription("Payment done via"+payment.getPaymentMethod()+"is successful.");
 	        orderService.updateOrder(orderDTO);
+	        
+	        for (CartItem cartItem : cart.getCartItems()) {
+	        	
+	        	cartitemService.deleteCartItemById(cartItem.getCartitemId());
+	        }
+	        
 
 	        cart.getCartItems().clear();
-
 	        return "Order placed successfully";
 		
 		

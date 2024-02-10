@@ -43,7 +43,7 @@ public class Order {
 	    @FutureOrPresent
 	    private LocalDate deliveryDate;
 	    
-	    @OneToOne(cascade = CascadeType.ALL)
+	    @OneToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="payment_id")
 	    private Payment payment;
 

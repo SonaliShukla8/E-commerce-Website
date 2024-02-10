@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -38,8 +40,8 @@ public class Customer {
     private Address address;
     
     
-    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="cartId", nullable =false)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="cartId")
     private Cart cart;
    
     public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
@@ -140,7 +142,7 @@ public class Customer {
 		this.email = email;
 		this.password = password;
 		this.address = address;
-		this.cart = cart;
+		this.cart = new Cart();
 		this.order = order;
 	}
 

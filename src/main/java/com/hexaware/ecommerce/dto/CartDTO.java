@@ -26,7 +26,7 @@ public class CartDTO {
 	 @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
 	  	private Customer customer;
 	 
-	 private List<Product> product=new ArrayList<Product>();
+	 //private List<Product> product=new ArrayList<Product>();
 	
 	 public CartDTO() {
 		super();
@@ -57,13 +57,7 @@ public class CartDTO {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<Product> getProduct() {
-		return product;
-	}
-
-	public void setProduct(List<Product> product) {
-		this.product = product;
-	}
+	
 
 	
 	public CartDTO(int cartId, double totalPrice) {
@@ -74,13 +68,12 @@ public class CartDTO {
 	}
 	
 
-	public CartDTO(int cartId, List<CartItem> cartItems, double totalPrice, Customer customer, List<Product> product) {
+	public CartDTO(int cartId, List<CartItem> cartItems, double totalPrice, Customer customer) {
 		super();
 		this.cartId = cartId;
 		this.cartItems = cartItems;
 		this.totalPrice = totalPrice;
 		this.customer = customer;
-		this.product = product;
 	}
 
 	public Customer getCustomer() {
@@ -94,7 +87,7 @@ public class CartDTO {
 	@Override
 	public String toString() {
 		return "CartDTO [cartId=" + cartId + ", cartItems=" + cartItems + ", totalPrice=" + totalPrice + ", customer="
-				+ customer + ", product=" + product + "]";
+				+ customer + ", product=]";
 	}
 	
 	

@@ -3,6 +3,8 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,28 +24,23 @@ import jakarta.validation.constraints.Positive;
 @Entity
 public class Cart {
 	  	@Id
-	  	@NotNull
+	  	@GeneratedValue(strategy = GenerationType.AUTO)
 	    private int cartId;
 	  	
 	  
-		@OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
+		@OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
 	  	private Customer customer;
 
 	  
 	  
-
-	    @OneToMany( cascade = CascadeType.ALL, mappedBy="cart")
+		@JsonIgnore
+	    @OneToMany( cascade = CascadeType.ALL, mappedBy="cart", orphanRemoval = true)
 	    private List<CartItem> cartItems= new ArrayList<CartItem>();
 
 	    @Min(0)
 	    @Column(name="cart_total_price")
 	    private double totalPrice;
 
-
-		@ManyToMany(cascade=CascadeType.ALL)
-		@JoinTable(name="product_cart_detail", joinColumns= {@JoinColumn(name="cartId")},
-		inverseJoinColumns= {@JoinColumn(name="productId")})
-	    private List<Product> product=new ArrayList<Product>();
 		
 		public Cart() {
 			super();
@@ -82,29 +79,22 @@ public class Cart {
 			this.totalPrice = totalPrice;
 		}
 
-		public List<Product> getProduct() {
-			return product;
-		}
-
-		public void setProduct(List<Product> product) {
-			this.product = product;
-		}
+	
 
 		@Override
 		public String toString() {
 			return "Cart [cartId=" + cartId + ", customer=" + customer + ", cartItems=" + cartItems + ", totalPrice="
-					+ totalPrice + ", product=" + product + "]";
+					+ totalPrice + "]";
 		}
 
 		
-		public Cart(@NotNull int cartId, Customer customer, List<CartItem> cartItems, @Min(0) double totalPrice,
-				List<Product> product) {
+		public Cart(@NotNull int cartId, Customer customer, List<CartItem> cartItems, @Min(0) double totalPrice) {
 			super();
 			this.cartId = cartId;
 			this.customer = customer;
 			this.cartItems = cartItems;
 			this.totalPrice = totalPrice;
-			this.product = product;
+			
 		}
 
 		public Cart(@NotNull int cartId,  @Positive double totalPrice) {
