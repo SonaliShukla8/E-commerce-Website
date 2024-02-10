@@ -10,6 +10,7 @@ import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
 
 public interface ICustomerService {
 	public Customer addCustomer(CustomerDTO customerDTO);
@@ -23,7 +24,7 @@ public interface ICustomerService {
     public Product getProductByName(String name);
     public Category getCategorybyName(String name);
     public SubCategory getSubCategoryByName(String name);
-    public String addToCart(Product product);
+    public String addProductToCustomerCart(int customerId, int productId, int quantity) throws ProductNotFoundException;
     public List<CartItem> viewCartitems(int customerId);
     public String placeOrder(Order order);
 }

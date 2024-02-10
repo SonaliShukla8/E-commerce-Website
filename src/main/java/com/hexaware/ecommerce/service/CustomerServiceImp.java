@@ -1,5 +1,6 @@
 package com.hexaware.ecommerce.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.CustomerDTO;
+import com.hexaware.ecommerce.dto.ProductDTO;
+import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
@@ -15,6 +18,7 @@ import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.CustomerRepository;
 @Service
 public class CustomerServiceImp implements ICustomerService {
@@ -29,6 +33,7 @@ public class CustomerServiceImp implements ICustomerService {
     ISubCategoryService subcategoryService;
     @Autowired
     ICartItemService cartitemService;
+    
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
@@ -134,15 +139,64 @@ public class CustomerServiceImp implements ICustomerService {
      public SubCategory getSubCategoryByName(String name) {
              return subcategoryService.getSubCategoryByName(name);
      }
-     @Override
-     public String addToCart(Product product) {
+     
+     public String addProductToCustomerCart(int customerId, int productId, int quantity) throws ProductNotFoundException {
+      
+    	 Customer customer = repo.findById(customerId).orElse(null);
+          
+             Cart cart = customer.getCart();
+             if (cart == null) {
+        
+                 cart = new Cart();
+                 cart.setCustomer(customer);
+                 customer.setCart(cart);
+             }
              
-             return null;
+             
+             ProductDTO productDTO = productService.getProductById(productId);
+                 Product product = productService.updateProduct(productDTO);
+        
+                 if (product.getStockQuantity() >= quantity) {
+                     CartItem existingCartItem = cart.getCartItems().stream()
+                                                 .filter(item -> item.getProductId().equals(product))
+                                                 .findFirst().orElse(null);
+                     if (existingCartItem != null) {
+                         existingCartItem.setItemQuantity(existingCartItem.getItemQuantity() + quantity);
+                     } else {
+                         // Create a new cart item
+                         CartItem cartItem = new CartItem();
+                         cartItem.setCart(cart);
+                         cartItem.setProductId(product);
+                         cartItem.setItemQuantity(quantity);
+                         cart.getCartItems().add(cartItem);
+                     }
+                     
+//                     int updatedStockQuantity = productDTO.getStockQuantity() - quantity;
+//                     productDTO.setStockQuantity(updatedStockQuantity);
+//                     productService.updateProduct(productDTO);
+                     
+                     double totalPrice = cart.getCartItems().stream()
+                                             .mapToDouble(item -> item.getItemQuantity() * item.getProductId().getPrice())
+                                             .sum();
+                     cart.setTotalPrice(totalPrice);
+                     repo.save(customer);
+                 } 
+             
+		return "Added to the cart."; 
+          
      }
+             
+    
+         
      @Override
      public List<CartItem> viewCartitems(int customerId) {
-             // TODO Auto-generated method stub
-             return null;
+    	 
+    	 Customer customer = repo.findById(customerId).orElse(null);
+    	 Cart cart = customer.getCart();
+         if (cart != null) {
+             return cart.getCartItems();
+         }
+             return Collections.emptyList();
      }
      @Override
      public String placeOrder(Order order) {
