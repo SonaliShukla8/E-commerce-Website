@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.CustomerDTO;
-import com.hexaware.ecommerce.dto.ProductDTO;
-import com.hexaware.ecommerce.entity.Cart;
+
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.SubCategory;
+
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.CustomerRepository;
@@ -24,6 +24,15 @@ import com.hexaware.ecommerce.repository.CustomerRepository;
 public class CustomerServiceImp implements ICustomerService {
     @Autowired
 	CustomerRepository repo;
+    @Autowired
+    IProductService productService;
+    @Autowired
+    ICategoryService categoryService;
+    @Autowired
+    ISubCategoryService subcategoryService;
+    @Autowired
+    ICartItemService cartitemService;
+    
     
     @Autowired
     IProductService productService;
@@ -46,8 +55,8 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setFullName(customerDTO.getFullName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
-//		customer.setAddresses(customerDTO.getAddresses());
-//		customer.setOrder(customerDTO.getOrder());
+		customer.setAddresses(customerDTO.getAddresses());
+		customer.setOrder(customerDTO.getOrder());
 		customer.setCart(customerDTO.getCart());
 		customer.setPassword(customerDTO.getPassword());
 		return repo.save(customer);
@@ -66,8 +75,8 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setFullName(customerDTO.getFullName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
-//		customer.setAddresses(customerDTO.getAddresses());
-//		customer.setOrder(customerDTO.getOrder());
+		customer.setAddresses(customerDTO.getAddresses());
+		customer.setOrder(customerDTO.getOrder());
 		customer.setCart(customerDTO.getCart());
 		customer.setPassword(customerDTO.getPassword());
 		return repo.save(customer);
@@ -99,8 +108,8 @@ public class CustomerServiceImp implements ICustomerService {
 		dto.setFullName(customer.getFullName());
 		dto.setGender(customer.getGender());
 		dto.setContactNumber(customer.getContactNumber());
-//		dto.setAddresses(customer.getAddresses());
-//		dto.setOrder(customer.getOrder());
+		dto.setAddresses(customer.getAddresses());
+		dto.setOrder(customer.getOrder());
 		dto.setCart(customer.getCart());
 		dto.setPassword(customer.getPassword());
 		
@@ -203,5 +212,54 @@ public class CustomerServiceImp implements ICustomerService {
              // TODO Auto-generated method stub
              return null;
      }
+
+	@Override
+	public List<Product> getAllProduct() {
+		return productService.getAllProduct();
+	}
+
+	@Override
+	public List<Category> getAllCategory() {
+		return categoryService.getAllCategory();
+	}
+
+	@Override
+	public List<SubCategory> getAllSubCategory() {
+		return subcategoryService.getAllSubCategory();
+	}
+
+	@Override
+	public Product getProductByName(String name) {
+		return productService.getByName(name);
+	}
+
+	@Override
+	public Category getCategorybyName(String name) {
+		return categoryService.getbyName(name);
+	}
+
+	@Override
+	public SubCategory getSubCategoryByName(String name) {
+		return subcategoryService.getSubCategoryByName(name);
+	}
+
+	@Override
+	public String addToCart(Product product) {
+		
+		return null;
+	}
+
+
+	@Override
+	public List<CartItem> viewCartitems(int customerId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String placeOrder(Order order) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -44,6 +44,9 @@ public interface IAdminService {
     
     public String deleteCustomer(int id) throws CustomerNotFoundException;
     
+    public String deleteCustomer(int id);
+    
+    
     public List<Category> viewAllCategory();
     
     public List<SubCategory> viewAllSubCategory();
