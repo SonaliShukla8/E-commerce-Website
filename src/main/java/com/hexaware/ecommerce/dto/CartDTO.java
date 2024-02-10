@@ -11,6 +11,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -21,6 +22,9 @@ public class CartDTO {
 	 private List<CartItem> cartItems= new ArrayList<CartItem>();
 	 
 	 private double totalPrice;
+	 
+	 @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
+	  	private Customer customer;
 	 
 	 private List<Product> product=new ArrayList<Product>();
 	
@@ -61,24 +65,36 @@ public class CartDTO {
 		this.product = product;
 	}
 
-	public CartDTO(int cartId, List<CartItem> cartItems, double totalPrice, List<Product> product) {
-		super();
-		this.cartId = cartId;
-		this.cartItems = cartItems;
-		this.totalPrice = totalPrice;
-		this.product = product;
-	}
+	
 	public CartDTO(int cartId, double totalPrice) {
 		super();
 		this.cartId = cartId;
 		this.totalPrice = totalPrice;
 		
 	}
+	
+
+	public CartDTO(int cartId, List<CartItem> cartItems, double totalPrice, Customer customer, List<Product> product) {
+		super();
+		this.cartId = cartId;
+		this.cartItems = cartItems;
+		this.totalPrice = totalPrice;
+		this.customer = customer;
+		this.product = product;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 
 	@Override
 	public String toString() {
-		return "CartDTO [cartId=" + cartId + ", cartItems=" + cartItems + ", totalPrice=" + totalPrice + ", product="
-				+ product + "]";
+		return "CartDTO [cartId=" + cartId + ", cartItems=" + cartItems + ", totalPrice=" + totalPrice + ", customer="
+				+ customer + ", product=" + product + "]";
 	}
 	
 	

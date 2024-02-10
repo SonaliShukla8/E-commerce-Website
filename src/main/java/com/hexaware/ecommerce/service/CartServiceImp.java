@@ -24,7 +24,7 @@ public class CartServiceImp implements ICartService {
 		Cart cart = new Cart();
 		cart.setCartId(cartDTO.getCartId());
 		cart.setCartItems(cartDTO.getCartItems());
-		
+		cart.setCustomer(cartDTO.getCustomer());
 		cart.setTotalPrice(cartDTO.getTotalPrice());
 	cart.setProduct(cartDTO.getProduct());
 		return repo.save(cart);
@@ -36,7 +36,7 @@ public class CartServiceImp implements ICartService {
 		Cart cart = new Cart();
 		cart.setCartId(cartDTO.getCartId());
 		cart.setCartItems(cartDTO.getCartItems());
-//		cart.setCustomer(cartDTO.getCustomer());
+		cart.setCustomer(cartDTO.getCustomer());
 		cart.setTotalPrice(cartDTO.getTotalPrice());
 		cart.setProduct(cartDTO.getProduct());
 		
@@ -64,7 +64,7 @@ public class CartServiceImp implements ICartService {
 		CartDTO dto = new CartDTO();
 		dto.setCartId(cart.getCartId());
 		dto.setCartItems(cart.getCartItems());
-//		dto.setCustomer(cart.getCustomer());
+		dto.setCustomer(cart.getCustomer());
 		dto.setTotalPrice(cart.getTotalPrice());
 		dto.setCartItems(cart.getCartItems());
 

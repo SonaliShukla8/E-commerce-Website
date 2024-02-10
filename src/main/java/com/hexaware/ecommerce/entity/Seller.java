@@ -1,14 +1,14 @@
 package com.hexaware.ecommerce.entity;
 
 import java.util.ArrayList;
-
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -30,9 +30,9 @@ public class Seller {
 	 private String address;
 	 @NotBlank(message = "Selling domain cannot be blank")
 	 private String sellingDomain;
-	 
-	 private String password;
-	 
+	 	 private String password;
+
+	@JsonIgnore
 	 @OneToMany(cascade=CascadeType.ALL,mappedBy="seller")
 	 private List<Product> product=new ArrayList<Product>();
 	 

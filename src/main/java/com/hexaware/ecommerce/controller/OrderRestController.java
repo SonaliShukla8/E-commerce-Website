@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.ecommerce.dto.OrderDTO;
 import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.service.IOrderService;
 
 import jakarta.validation.Valid;
@@ -30,17 +31,17 @@ public class OrderRestController {
 	}
 	
 	@PutMapping("/update")
-    public Order updateOrder(@RequestBody @Valid  OrderDTO orderDTO) {
+    public Order updateOrder(@RequestBody @Valid  OrderDTO orderDTO) throws OrderNotFoundException {
 		return service.updateOrder(orderDTO);
 	}
 	
 	@DeleteMapping("/delete/{orderId}")
-    public String deleteOrderById(@PathVariable int orderId) {
+    public String deleteOrderById(@PathVariable int orderId) throws OrderNotFoundException{
 		return service.deleteOrderById(orderId);
 	}
      
 	@GetMapping("/getbyId/{orderId}")
-	public OrderDTO getOrderById(@PathVariable int orderId) {
+	public OrderDTO getOrderById(@PathVariable int orderId) throws OrderNotFoundException{
 		return service.getOrderById(orderId);
 	}
 	

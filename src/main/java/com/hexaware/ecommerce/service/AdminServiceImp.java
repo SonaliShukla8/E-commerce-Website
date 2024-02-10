@@ -16,6 +16,11 @@ import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.CategoryNotFoundException;
+import com.hexaware.ecommerce.exception.CustomerNotFoundException;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
+import com.hexaware.ecommerce.exception.SellerNotFoundException;
+import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.repository.AdminRepository;
 @Service
 public class AdminServiceImp implements IAdminService{
@@ -65,17 +70,17 @@ public class AdminServiceImp implements IAdminService{
 	}
 
 	@Override
-	public String deleteProduct(int id) {
+	public String deleteProduct(int id) throws ProductNotFoundException {
 		return productService.deleteProductById(id);
 	}
 
 	@Override
-	public String deleteCategory(int id) {
+	public String deleteCategory(int id) throws CategoryNotFoundException {
 		return categoryService.deleteCategoryById(id);
 	}
 
 	@Override
-	public String deleteSubCategory(int id) {
+	public String deleteSubCategory(int id) throws SubCategoryNotFoundException {
 		return subcategoryService.deleteSubCategoryById(id);
 	}
 
@@ -101,7 +106,7 @@ public class AdminServiceImp implements IAdminService{
 	}
 
 	@Override
-	public String deleteSeller(int id) {
+	public String deleteSeller(int id) throws SellerNotFoundException {
 		return sellerService.deleteSellerById(id);
 	}
 
@@ -135,6 +140,11 @@ public class AdminServiceImp implements IAdminService{
 	public String deleteCustomer(int id) {
 		return customerService.deleteCustomerById(id);
 	}
+	
+	 @Override
+     public String deleteCustomer(int id) throws CustomerNotFoundException {
+             return customerService.deleteCustomerById(id);
+     }
 	
 	
      

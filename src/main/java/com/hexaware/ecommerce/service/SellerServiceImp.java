@@ -2,6 +2,7 @@ package com.hexaware.ecommerce.service;
 
 import java.util.List;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
+import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.repository.SellerRepository;
 @Service
@@ -49,9 +52,12 @@ public class SellerServiceImp implements ISellerService {
 	}
 
 	@Override
-	public Seller updateSeller(SellerDTO sellerDTO) {
+	public Seller updateSeller(SellerDTO sellerDTO) throws SellerNotFoundException {
+		 Seller seller=repo.findById(sellerDTO.getSellerId()).orElse(null);
+	        if(seller == null) {
+	        	throw new SellerNotFoundException("Seller with sellerId: "+sellerDTO.getSellerId()+" not found.");
+	        	}
 		logger.info("Updating the seller record...");
-		Seller seller=new Seller();
 		seller.setAddress(sellerDTO.getAddress());
 		seller.setSellerName(sellerDTO.getSellerName());
 		seller.setBusinessName(sellerDTO.getBusinessName());
@@ -66,18 +72,22 @@ public class SellerServiceImp implements ISellerService {
 	}
 
 	@Override
-	public String deleteSellerById(int sellerId) {
+	public String deleteSellerById(int sellerId) throws SellerNotFoundException {
+		 Seller seller=repo.findById(sellerId).orElse(null);
+	        if(seller == null) {
+	        	throw new SellerNotFoundException("Seller with sellerId: "+sellerId+" not found.");
+	        	}
 		logger.info("Deleting the seller with sellerId: "+sellerId);
 		repo.deleteById(sellerId);
 		return "Seller with sellerID "+ sellerId+" deleted.";
 	}
 
 	@Override
-	public SellerDTO getSellerById(int sellerId) {
+	public SellerDTO getSellerById(int sellerId) throws SellerNotFoundException{
         Seller seller=repo.findById(sellerId).orElse(null);
         if(seller == null) {
-        	logger.warn("Seller with sellerId: "+sellerId+" not found.");
-        	return null;}
+        	throw new SellerNotFoundException("Seller with sellerId: "+sellerId+" not found.");
+        	}
         SellerDTO dto=new SellerDTO();
         dto.setAddress(seller.getAddress());
         dto.setSellerName(seller.getSellerName());
@@ -125,23 +135,23 @@ public class SellerServiceImp implements ISellerService {
 	}
 
 	@Override
-	public Product updateProduct(ProductDTO productdto) {
+	public Product updateProduct(ProductDTO productdto) throws ProductNotFoundException {
 		return productService.updateProduct(productdto);
 	}
 
 	@Override
-	public String deleteProduct(int id) {
+	public String deleteProduct(int id) throws ProductNotFoundException {
 
 		return productService.deleteProductById(id);
 	}
 
 	@Override
-	public Product getProductbyName(String name) {
+	public Product getProductbyName(String name) throws ProductNotFoundException{
 		return productService.getByName(name);
 	}
 
 	@Override
-	public ProductDTO getProductById(int id) {
+	public ProductDTO getProductById(int id) throws ProductNotFoundException {
 		return productService.getProductById(id);
 	}
 

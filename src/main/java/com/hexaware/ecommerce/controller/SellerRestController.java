@@ -2,6 +2,7 @@ package com.hexaware.ecommerce.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +21,8 @@ import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
+import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.service.ISellerService;
 
@@ -37,20 +40,21 @@ public class SellerRestController {
 		return service.addSeller(sellerDTO);
 	}
 	
-	@PutMapping("/updateDetails")
-    public Seller updateSeller(@RequestBody @Valid  SellerDTO sellerDTO) {
+
+	@PutMapping("/update")
+    public Seller updateSeller(@RequestBody @Valid  SellerDTO sellerDTO) throws SellerNotFoundException{
 		return service.updateSeller(sellerDTO);
 	}
-	
+//	
 //	@DeleteMapping("/delete/{sellerId}")
-//    public String deleteSellerById(@PathVariable int sellerId) {
+//    public String deleteSellerById(@PathVariable int sellerId) throws SellerNotFoundException{
 //		
 //		return service.deleteSellerById(sellerId);
 //		}
-	
+//	
 //     
 //	@GetMapping("/getbyId/{sellerId}")
-//	public SellerDTO getSellerById(@PathVariable int sellerId) {
+//	public SellerDTO getSellerById(@PathVariable int sellerId) throws SellerNotFoundException{
 //		try {
 //		return service.getSellerById(sellerId);
 //	}
@@ -58,13 +62,16 @@ public class SellerRestController {
 //		throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Sorry, seller does not exist",exc);
 //	}
 //	}
-	
+
+//	
+
 //	@GetMapping("/getall")
 //    public List<Seller> getAllSeller(){
 //		return service.getAllSeller();
 //	}
-//	
-//	
+
+	
+	
 	
 	@GetMapping("/getAllOrder")
 	public List<Order> getAllOrder(){
@@ -92,22 +99,22 @@ public class SellerRestController {
 	}
 	
 	@PostMapping("/updateProduct")
-	public Product updateProduct(@RequestBody ProductDTO productdto) {
+	public Product updateProduct(@RequestBody ProductDTO productdto) throws ProductNotFoundException {
 		return service.updateProduct(productdto);
 	}
 	
 	@DeleteMapping("/deleteProduct/{id}")
-	public String deleteProduct(@PathVariable int id) {
+	public String deleteProduct(@PathVariable int id) throws ProductNotFoundException {
 		return service.deleteProduct(id);
 	}
 	
 	@GetMapping("/getProductByName/{name}")
-	public Product getProductbyName(@PathVariable String name) {
+	public Product getProductbyName(@PathVariable String name) throws ProductNotFoundException {
 		return service.getProductbyName(name);
 	}
 	
 	@GetMapping("/getProductByID/{id}")
-	public ProductDTO getProductById(@PathVariable int id) {
+	public ProductDTO getProductById(@PathVariable int id) throws ProductNotFoundException {
 		return service.getProductById(id);
 	}
 

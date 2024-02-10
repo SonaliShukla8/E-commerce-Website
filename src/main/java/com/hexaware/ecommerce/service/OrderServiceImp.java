@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.OrderDTO;
 import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.repository.OrderRepository;
 @Service
 public class OrderServiceImp implements IOrderService {
@@ -35,9 +36,12 @@ public class OrderServiceImp implements IOrderService {
 	}
 
 	@Override
-	public Order updateOrder(OrderDTO orderDTO) {
+	public Order updateOrder(OrderDTO orderDTO) throws OrderNotFoundException {
+		Order order =repo.findById(orderDTO.getOrderId()).orElse(null);
+		if(order == null) {
+			throw new OrderNotFoundException("Order with "+orderDTO.getOrderId()+" not found.");
+		}
 		logger.info("Updating new Order");
-		Order order=new Order();
 		order.setOrderId(orderDTO.getOrderId());
 		order.setOrderDate(orderDTO.getOrderDate());
 		order.setDeliveryDate(order.getDeliveryDate());
@@ -52,18 +56,21 @@ public class OrderServiceImp implements IOrderService {
 	}
 
 	@Override
-	public String deleteOrderById(int orderId) {
+	public String deleteOrderById(int orderId) throws OrderNotFoundException{
+		Order order =repo.findById(orderId).orElse(null);
+		if(order == null) {
+			throw new OrderNotFoundException("Order with "+orderId+" not found.");
+		}
 		logger.info("Deleting Order with orderId: "+orderId);
 		repo.deleteById(orderId);
 		return "Order with orderId "+orderId+" deleted.";
 	}
 
 	@Override
-	public OrderDTO getOrderById(int orderId) {
+	public OrderDTO getOrderById(int orderId) throws OrderNotFoundException{
 		Order order =repo.findById(orderId).orElse(null);
 		if(order == null) {
-			logger.warn("Order with "+orderId+" not found.");
-			return null;
+			throw new OrderNotFoundException("Order with "+orderId+" not found.");
 		}
 		OrderDTO dto=new OrderDTO();
 		dto.setOrderId(order.getOrderId());

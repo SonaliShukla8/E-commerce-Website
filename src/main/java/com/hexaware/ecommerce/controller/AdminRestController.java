@@ -20,6 +20,11 @@ import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.CategoryNotFoundException;
+import com.hexaware.ecommerce.exception.CustomerNotFoundException;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
+import com.hexaware.ecommerce.exception.SellerNotFoundException;
+import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.service.IAdminService;
 
 @RestController
@@ -58,30 +63,32 @@ public class AdminRestController {
 	}
 	
 	@DeleteMapping("/deleteProduct/{id}")
-	public String deleteProduct(@PathVariable int id) {
+	public String deleteProduct(@PathVariable int id) throws ProductNotFoundException {
 		return service.deleteProduct(id);
 	}
 	
 	@DeleteMapping("/deleteCategory/{id}")
-	public String deleteCategory(@PathVariable int id) {
+	public String deleteCategory(@PathVariable int id) throws CategoryNotFoundException {
 		return service.deleteCategory(id);
 	}
 	
 	@DeleteMapping("/deleteSubCategory/{id}")
-	public String deleteSubCategory(@PathVariable int id) {
+	public String deleteSubCategory(@PathVariable int id) throws SubCategoryNotFoundException {
 		return service.deleteSubCategory(id);
 	}
 	
-	@DeleteMapping("/deleteSeller/{id}")
-    public  String deleteSeller(@PathVariable int id) {
-		return service.deleteCustomer(id);
-	}
-    
-	@DeleteMapping("/deleteCustomer/{id}")
-    public String deleteCustomer(@PathVariable int id) {
-		return service.deleteCustomer(id);
-    	
-    }
+
+	 @DeleteMapping("/deleteSeller/{id}")
+	    public  String deleteSeller(@PathVariable int id) throws SellerNotFoundException {
+	                return service.deleteSeller(id);
+	        }
+	    
+	        @DeleteMapping("/deleteCustomer/{id}")
+	    public String deleteCustomer(@PathVariable int id) throws CustomerNotFoundException {
+	                return service.deleteCustomer(id);
+	            
+	    }
+
 	
 	@GetMapping("/viewAllOrder")
 	public List<Order> viewAllOrders() {
