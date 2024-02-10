@@ -17,7 +17,7 @@ public class AddressDTO {
 	    private String state;
 	    private String country;
 
-	    private List<Customer> customers = new ArrayList<Customer>();
+	    private Customer customer;
 		
 	    public AddressDTO() {
 			super();
@@ -40,8 +40,9 @@ public class AddressDTO {
 
 
 
+		
 		public AddressDTO(int addressId, String addressLine1, String addressLine2, String postalCode, String city,
-				String state, String country, List<Customer> customers) {
+				String state, String country, Customer customer) {
 			super();
 			this.addressId = addressId;
 			this.addressLine1 = addressLine1;
@@ -50,8 +51,10 @@ public class AddressDTO {
 			this.city = city;
 			this.state = state;
 			this.country = country;
-			this.customers = customers;
+			this.customer = customer;
 		}
+
+
 
 		public int getAddressId() {
 			return addressId;
@@ -109,21 +112,28 @@ public class AddressDTO {
 			this.country = country;
 		}
 
-		public List<Customer> getCustomers() {
-			return customers;
+
+
+		public Customer getCustomer() {
+			return customer;
 		}
 
-		public void setCustomers(List<Customer> customers) {
-			this.customers = customers;
+
+
+		public void setCustomer(Customer customer) {
+			this.customer = customer;
 		}
+
+
 
 		@Override
 		public String toString() {
 			return "AddressDTO [addressId=" + addressId + ", addressLine1=" + addressLine1 + ", addressLine2="
 					+ addressLine2 + ", postalCode=" + postalCode + ", city=" + city + ", state=" + state + ", country="
-					+ country + ", customers=" + customers + "]";
+					+ country + ", customer=" + customer + "]";
 		}
-	    
+
+		
 
 		
 }

@@ -26,7 +26,7 @@ public class SellerDTO {
      @JsonIgnore
 	 private List<Product> product=new ArrayList<Product>();
      @JsonIgnore
-	 private List<Order> order=new ArrayList<Order>();
+     private List<Order> orders = new ArrayList<>();
 	
 	 public SellerDTO() {
 		super();
@@ -34,7 +34,7 @@ public class SellerDTO {
 	}
 
 	public SellerDTO(int sellerId, String sellerName, String businessName, String phoneNumber, String email,
-			String address, String sellingDomain, String password, List<Product> product, List<Order> order) {
+			String address, String sellingDomain, String password, List<Product> product, List<Order> orders) {
 		super();
 		this.sellerId = sellerId;
 		this.sellerName = sellerName;
@@ -45,7 +45,7 @@ public class SellerDTO {
 		this.sellingDomain = sellingDomain;
 		this.password = password;
 		this.product = product;
-		this.order = order;
+		this.orders = orders;
 	}
 
 	public int getSellerId() {
@@ -121,18 +121,18 @@ public class SellerDTO {
 	}
 
 	public List<Order> getOrder() {
-		return order;
+		return orders;
 	}
 
-	public void setOrder(List<Order> order) {
-		this.order = order;
+	public void setOrder(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	@Override
 	public String toString() {
 		return "SellerDTO [sellerId=" + sellerId + ", sellerName=" + sellerName + ", businessName=" + businessName
 				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", sellingDomain="
-				+ sellingDomain + ", password=" + password + ", product=" + product + ", order=" + order + "]";
+				+ sellingDomain + ", password=" + password + ", product=" + product + ", orders=" + orders + "]";
 	}
 
 }

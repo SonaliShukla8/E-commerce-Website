@@ -113,6 +113,10 @@ public class SellerRestController {
 	public ProductDTO getProductById(@PathVariable int id) throws ProductNotFoundException {
 		return service.getProductById(id);
 	}
+	@GetMapping("/markProductOutOfStock/{sellerId}/{productId}")
+	public ProductDTO markProductOutOfStock(@PathVariable int sellerId,@PathVariable int productId) throws ProductNotFoundException{
+		return service.markProductOutOfStock(sellerId, productId);
+	}
 
 
 }

@@ -32,7 +32,7 @@ public class CartItem {
 	
 	@OneToOne(cascade=CascadeType.ALL, targetEntity = Product.class)
     @JoinColumn(name="productId", nullable = false)
-	private Product productId;
+	private Product product;
 	
 	 @ManyToOne(cascade=CascadeType.ALL)
 	 @JoinColumn(name="cartId")
@@ -76,15 +76,20 @@ public class CartItem {
 
 
 
-	public Product getProductId() {
-		return productId;
+	
+
+
+
+
+	public Product getProduct() {
+		return product;
 	}
 
 
 
 
-	public void setProductId(Product productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 
@@ -104,11 +109,11 @@ public class CartItem {
 
 
 
-	public CartItem(@NotNull int cartitemId, @Positive int itemQuantity, Product productId, Cart cart) {
+	public CartItem(@NotNull int cartitemId, @Positive int itemQuantity, Product product, Cart cart) {
 		super();
 		this.cartitemId = cartitemId;
 		this.itemQuantity = itemQuantity;
-		this.productId = productId;
+		this.product = product;
 		this.cart = cart;
 	}
 
@@ -117,9 +122,12 @@ public class CartItem {
 
 	@Override
 	public String toString() {
-		return "CartItem [cartitemId=" + cartitemId + ", itemQuantity=" + itemQuantity + ", productId=" + productId
+		return "CartItem [cartitemId=" + cartitemId + ", itemQuantity=" + itemQuantity + ", product=" + product
 				+ ", cart=" + cart + "]";
 	}
+
+
+
 
 
     

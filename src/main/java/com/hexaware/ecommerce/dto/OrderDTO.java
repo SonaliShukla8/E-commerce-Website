@@ -22,7 +22,7 @@ public class OrderDTO {
 	    private Payment payment;
 	    private LocalDate deliveryDate;
 	    @JsonIgnore
-	    private Seller seller;
+	    private List<Seller> sellers = new ArrayList<>();
 		public OrderDTO() {
 			super();
 			
@@ -75,20 +75,21 @@ public class OrderDTO {
 		public void setDeliveryDate(LocalDate deliveryDate) {
 			this.deliveryDate = deliveryDate;
 		}
-		public Seller getSeller() {
-			return seller;
+		
+		public List<Seller> getSellers() {
+			return sellers;
 		}
-		public void setSeller(Seller seller) {
-			this.seller = seller;
+		public void setSellers(List<Seller> sellers) {
+			this.sellers = sellers;
 		}
 		@Override
 		public String toString() {
 			return "OrderDTO [orderId=" + orderId + ", customer=" + customer + ", orderDate=" + orderDate
 					+ ", totalAmount=" + totalAmount + ", status=" + status + ", statusDescription=" + statusDescription
-					+ ", payment=" + payment + ", deliveryDate=" + deliveryDate + ", seller=" + seller + "]";
+					+ ", payment=" + payment + ", deliveryDate=" + deliveryDate + ", sellers=" + sellers + "]";
 		}
 		public OrderDTO(int orderId, Customer customer, LocalDate orderDate, double totalAmount, String status,
-				String statusDescription, Payment payment, LocalDate deliveryDate, Seller seller) {
+				String statusDescription, Payment payment, LocalDate deliveryDate, List<Seller> sellers) {
 			super();
 			this.orderId = orderId;
 			this.customer = customer;
@@ -98,7 +99,8 @@ public class OrderDTO {
 			this.statusDescription = statusDescription;
 			this.payment = payment;
 			this.deliveryDate = deliveryDate;
-			this.seller = seller;
+			this.sellers = sellers;
 		}
+		
 		
 }

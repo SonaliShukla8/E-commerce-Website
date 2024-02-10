@@ -30,7 +30,7 @@ public class OrderServiceImp implements IOrderService {
 		order.setTotalAmount(orderDTO.getTotalAmount());
 		order.setPayment(orderDTO.getPayment());
 		order.setCustomer(orderDTO.getCustomer());
-		order.setSeller(orderDTO.getSeller());
+		order.setSellers(orderDTO.getSellers());
 		
 		return repo.save(order);
 	}
@@ -50,7 +50,7 @@ public class OrderServiceImp implements IOrderService {
 		order.setTotalAmount(orderDTO.getTotalAmount());
 		order.setPayment(orderDTO.getPayment());
 		order.setCustomer(orderDTO.getCustomer());
-		order.setSeller(orderDTO.getSeller());
+		order.setSellers(orderDTO.getSellers());
 	
 		return repo.save(order);
 	}
@@ -81,7 +81,7 @@ public class OrderServiceImp implements IOrderService {
 		dto.setTotalAmount(order.getTotalAmount());
 		dto.setPayment(order.getPayment());
 		dto.setCustomer(order.getCustomer());
-		dto.setSeller(order.getSeller());
+		dto.setSellers(order.getSellers());
 		
 		return dto;
 	}

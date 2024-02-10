@@ -13,4 +13,6 @@ public interface IProductService {
     public ProductDTO getProductById(int productId) throws ProductNotFoundException;
     public List<Product> getAllProduct();
     public Product getByName(String name);
+    public List<Product> getByBrand(String brand);
+    public List<Product> getByPriceRange(double min,double max);
 }

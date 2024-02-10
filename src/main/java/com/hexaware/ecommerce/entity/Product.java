@@ -23,6 +23,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 
 @Entity
@@ -43,7 +44,7 @@ public class Product {
 	    private String description;
 	    @Positive
 	    private double price;
-	    @Min(1)
+	    @PositiveOrZero
 	    private int stockQuantity;
 	    @NotBlank
 	    private String brand;

@@ -12,7 +12,7 @@ public class CartItemDTO {
 	 private int cartitemId;
 	 private int itemQuantity;
 	 @JsonIgnore
-	 private Product productId;
+	 private Product product;
 	 @JsonIgnore
 	 private Cart cart;
 
@@ -22,14 +22,17 @@ public class CartItemDTO {
 		
 	}
 
-	public CartItemDTO(int cartitemId, int itemQuantity, Product productId, Cart cart, List<Product> product) {
+	
+
+	public CartItemDTO(int cartitemId, int itemQuantity, Product product, Cart cart) {
 		super();
 		this.cartitemId = cartitemId;
 		this.itemQuantity = itemQuantity;
-		this.productId = productId;
+		this.product = product;
 		this.cart = cart;
-		
 	}
+
+
 
 	public int getCartitemId() {
 		return cartitemId;
@@ -47,13 +50,19 @@ public class CartItemDTO {
 		this.itemQuantity = itemQuantity;
 	}
 
-	public Product getProductId() {
-		return productId;
+	
+
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProductId(Product productId) {
-		this.productId = productId;
+
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
+
+
 
 	public Cart getCart() {
 		return cart;
@@ -63,12 +72,15 @@ public class CartItemDTO {
 		this.cart = cart;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "CartItemDTO [cartitemId=" + cartitemId + ", itemQuantity=" + itemQuantity + ", productId=" + productId
+		return "CartItemDTO [cartitemId=" + cartitemId + ", itemQuantity=" + itemQuantity + ", product=" + product
 				+ ", cart=" + cart + "]";
 	}
 
+	
 
 	
 

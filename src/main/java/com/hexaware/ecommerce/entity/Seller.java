@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -38,8 +39,8 @@ public class Seller {
 	 
 	 
 	 
-	 @OneToMany(cascade=CascadeType.ALL, mappedBy="seller")
-	 private List<Order> order=new ArrayList<Order>();
+	@ManyToMany(mappedBy = "sellers")
+    private List<Order> orders = new ArrayList<>();
 
 	public Seller() {
 		super();
@@ -51,7 +52,7 @@ public class Seller {
 			@Email(message = "Invalid email address") @NotBlank(message = "Email cannot be blank") String email,
 			@NotBlank(message = "Address cannot be blank") String address,
 			@NotBlank(message = "Selling domain cannot be blank") String sellingDomain, String password,
-			List<Product> product, List<Order> order) {
+			List<Product> product, List<Order> orders) {
 		super();
 		this.sellerId = sellerId;
 		this.sellerName = sellerName;
@@ -62,7 +63,7 @@ public class Seller {
 		this.sellingDomain = sellingDomain;
 		this.password = password;
 		this.product = product;
-		this.order = order;
+		this.orders = orders;
 	}
 
 	public int getSellerId() {
@@ -138,18 +139,18 @@ public class Seller {
 	}
 
 	public List<Order> getOrder() {
-		return order;
+		return orders;
 	}
 
-	public void setOrder(List<Order> order) {
-		this.order = order;
+	public void setOrder(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	@Override
 	public String toString() {
 		return "Seller [sellerId=" + sellerId + ", sellerName=" + sellerName + ", businessName=" + businessName
 				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", sellingDomain="
-				+ sellingDomain + ", password=" + password + ", product=" + product + ", order=" + order + "]";
+				+ sellingDomain + ", password=" + password + ", product=" + product + ", orders=" + orders + "]";
 	}
     
 	

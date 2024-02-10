@@ -59,8 +59,10 @@ class PaymentServiceImpTest {
 	void testGetAllPayment() {
 		//fail("Not yet implemented");
 		List list = service.getAllPayment();
-		boolean flag = list.isEmpty();
-		assertFalse(flag);
+		//System.out.println(list);
+		int size = list.size();
+
+		assertNotEquals(0,size);
 	}
 
 }

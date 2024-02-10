@@ -60,8 +60,9 @@ class SellerServiceImpTest {
 	void testGetAllSeller() {
 		//fail("Not yet implemented");
 		List list = service.getAllSeller();
-		boolean flag = list.isEmpty();
-		assertFalse(flag);
+		int size = list.size();
+
+		assertNotEquals(0,size);
 	}
 
 }

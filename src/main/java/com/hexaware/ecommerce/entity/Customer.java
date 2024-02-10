@@ -3,16 +3,13 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
@@ -35,11 +32,10 @@ public class Customer {
     private String email;
     
     private String password;
-    
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "customer_address",joinColumns = {@JoinColumn(name = "customer_id")},
-            inverseJoinColumns = {@JoinColumn(name = "address_id")})
-    private List<Address> addresses =new ArrayList<Address>();
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
     
     
     @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
@@ -57,7 +53,7 @@ public class Customer {
 		this.email = email;
 		this.password = password;
 	}
-
+    @JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
 
@@ -65,21 +61,7 @@ public class Customer {
 		super();
 	}
 
-	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
-			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email, String password,
-			List<Address> addresses, Cart cart, List<Order> order) {
-		super();
-		this.customerId = customerId;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.password = password;
-		this.addresses = addresses;
-		this.cart = cart;
-		this.order = order;
-	}
-
+	
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -128,13 +110,7 @@ public class Customer {
 		this.password = password;
 	}
 
-	public List<Address> getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
+	
 
 	public Cart getCart() {
 		return cart;
@@ -152,12 +128,41 @@ public class Customer {
 		this.order = order;
 	}
 
+
+	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
+			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email, String password,
+			Address address, Cart cart, List<Order> order) {
+		super();
+		this.customerId = customerId;
+		this.fullName = fullName;
+		this.gender = gender;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.password = password;
+		this.address = address;
+		this.cart = cart;
+		this.order = order;
+	}
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", password=" + password + ", addresses="
-				+ addresses + ", cart=" + cart + ", order=" + order + "]";
+				+ ", contactNumber=" + contactNumber + ", email=" + email + ", password=" + password + ", address="
+				+ address + ", cart=" + cart + ", order=" + order + "]";
 	}
+
+	
 
 	
 	

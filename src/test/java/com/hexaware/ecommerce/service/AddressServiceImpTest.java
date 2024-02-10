@@ -59,8 +59,9 @@ class AddressServiceImpTest {
 	void testGetAllAddress() {
 		//fail("Not yet implemented");
 		List list = service.getAllAddress();
-		boolean flag = list.isEmpty();
-		assertFalse(flag);
+		int size = list.size();
+
+		assertNotEquals(0,size);
 	}
 
 }

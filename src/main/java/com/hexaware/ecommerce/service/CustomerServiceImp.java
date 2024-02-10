@@ -1,5 +1,8 @@
 package com.hexaware.ecommerce.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,15 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.CustomerDTO;
+import com.hexaware.ecommerce.dto.OrderDTO;
+import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
+import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
+import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.CustomerRepository;
 @Service
@@ -33,6 +41,10 @@ public class CustomerServiceImp implements ICustomerService {
     ISubCategoryService subcategoryService;
     @Autowired
     ICartItemService cartitemService;
+    @Autowired
+    IOrderService orderService;
+    @Autowired
+    IPaymentService paymentService;
     
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
@@ -46,7 +58,7 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setFullName(customerDTO.getFullName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
-//		customer.setAddresses(customerDTO.getAddresses());
+		customer.setAddress(customerDTO.getAddress());
 //		customer.setOrder(customerDTO.getOrder());
 		customer.setCart(customerDTO.getCart());
 		customer.setPassword(customerDTO.getPassword());
@@ -66,7 +78,7 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setFullName(customerDTO.getFullName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
-//		customer.setAddresses(customerDTO.getAddresses());
+		customer.setAddress(customerDTO.getAddress());
 //		customer.setOrder(customerDTO.getOrder());
 		customer.setCart(customerDTO.getCart());
 		customer.setPassword(customerDTO.getPassword());
@@ -99,7 +111,7 @@ public class CustomerServiceImp implements ICustomerService {
 		dto.setFullName(customer.getFullName());
 		dto.setGender(customer.getGender());
 		dto.setContactNumber(customer.getContactNumber());
-//		dto.setAddresses(customer.getAddresses());
+		dto.setAddress(customer.getAddress());
 //		dto.setOrder(customer.getOrder());
 		dto.setCart(customer.getCart());
 		dto.setPassword(customer.getPassword());
@@ -158,7 +170,7 @@ public class CustomerServiceImp implements ICustomerService {
         
                  if (product.getStockQuantity() >= quantity) {
                      CartItem existingCartItem = cart.getCartItems().stream()
-                                                 .filter(item -> item.getProductId().equals(product))
+                                                 .filter(item -> item.getProduct().equals(product))
                                                  .findFirst().orElse(null);
                      if (existingCartItem != null) {
                          existingCartItem.setItemQuantity(existingCartItem.getItemQuantity() + quantity);
@@ -166,7 +178,7 @@ public class CustomerServiceImp implements ICustomerService {
                          // Create a new cart item
                          CartItem cartItem = new CartItem();
                          cartItem.setCart(cart);
-                         cartItem.setProductId(product);
+                         cartItem.setProduct(product);
                          cartItem.setItemQuantity(quantity);
                          cart.getCartItems().add(cartItem);
                      }
@@ -176,13 +188,14 @@ public class CustomerServiceImp implements ICustomerService {
 //                     productService.updateProduct(productDTO);
                      
                      double totalPrice = cart.getCartItems().stream()
-                                             .mapToDouble(item -> item.getItemQuantity() * item.getProductId().getPrice())
+                                             .mapToDouble(item -> item.getItemQuantity() * item.getProduct().getPrice())
                                              .sum();
                      cart.setTotalPrice(totalPrice);
                      repo.save(customer);
+                     return "Added to the cart."; 
                  } 
              
-		return "Added to the cart."; 
+		return "Maximum "+product.getStockQuantity()+"products can be added"; 
           
      }
              
@@ -198,10 +211,96 @@ public class CustomerServiceImp implements ICustomerService {
          }
              return Collections.emptyList();
      }
-     @Override
-     public String placeOrder(Order order) {
-             // TODO Auto-generated method stub
-             return null;
-     }
+     
+
+	@Override
+	public List<Product> getProductsByBrand(String brand) {
+		return productService.getByBrand(brand);
+	}
+
+	@Override
+	public List<Product> getProductsByPriceRange(double min, double max) {
+		
+		return productService.getByPriceRange(min, max);
+	}
+
+	@Override
+	public String placeOrder(int customerId) throws OrderNotFoundException, ProductNotFoundException {
+		
+		 Customer customer = repo.findById(customerId).orElse(null);
+		 if (customer == null) {
+	            return "Customer not found";
+	        }
+		 Cart cart = customer.getCart();
+	        if (cart == null || cart.getCartItems().isEmpty()) {
+	            return "Cart is empty";
+	        }
+	        Order order = new Order();
+	        order.setCustomer(customer);
+	        order.setOrderDate(LocalDate.now());
+	        double totalAmount = cart.getTotalPrice();
+	        order.setStatus("Pending");
+	        order.setStatusDescription("Payment Not Yet Processed...");
+	        
+	        
+	        Payment payment = new Payment();
+	        payment.setAmount(totalAmount);
+	        payment.setPaymentDate(LocalDateTime.now());
+	        payment.setPaymentMethod("Credit Card");
+	        payment.setPaymentStatus("Paid"); 
+	        order.setPayment(payment);
+	        payment.setOrder(order);
+	        PaymentDTO paymentDTO = new PaymentDTO();
+	        paymentDTO.setPaymentId(payment.getPaymentId());
+	        paymentDTO.setAmount(payment.getAmount());
+	        paymentDTO.setOrder(payment.getOrder());
+	        paymentDTO.setPaymentDate(payment.getPaymentDate());
+	        paymentDTO.setPaymentMethod(payment.getPaymentMethod());
+	        paymentDTO.setPaymentStatus(payment.getPaymentStatus());
+	        paymentService.updatePayment(paymentDTO);
+	        
+	        
+	        for (CartItem cartItem : cart.getCartItems()) {
+	            Product product = cartItem.getProduct();
+	            int productID = cartItem.getProduct().getProductId();
+	            int orderedQuantity = cartItem.getItemQuantity();
+	            int currentStock = product.getStockQuantity();
+	            if (currentStock >= orderedQuantity) {
+	                product.setStockQuantity(currentStock - orderedQuantity);
+	            } else {
+	                return "Insufficient stock for product: " + product.getProductName();
+	            }
+	            ProductDTO productDTO = new ProductDTO();
+	            productDTO = productService.getProductById(productID);
+	            productService.updateProduct(productDTO);
+	        }
+	        List<Seller> sellers = new ArrayList<>();
+	        for (CartItem cartItem : cart.getCartItems()) {
+	            Seller seller = cartItem.getProduct().getSeller();
+	            if (!sellers.contains(seller)) {
+	                sellers.add(seller);
+	            }
+	        }
+	        order.setSellers(sellers);
+	        
+	        OrderDTO orderDTO=new OrderDTO();
+			orderDTO.setOrderId(order.getOrderId());
+			orderDTO.setSellers(order.getSellers());
+			orderDTO.setTotalAmount(order.getTotalAmount());
+			orderDTO.setCustomer(order.getCustomer());
+			orderDTO.setOrderDate(order.getOrderDate());
+			orderDTO.setDeliveryDate(LocalDate.now().plusDays(7));
+			orderDTO.setPayment(order.getPayment());
+	        orderDTO.setStatus("Payment Done.");
+	        orderDTO.setStatusDescription("Payment done via"+payment.getPaymentMethod()+"is successful.");
+	        orderService.updateOrder(orderDTO);
+
+	        cart.getCartItems().clear();
+
+	        return "Order placed successfully";
+		
+		
+	}
+	
 
 }

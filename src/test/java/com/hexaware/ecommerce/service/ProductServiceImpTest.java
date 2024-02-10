@@ -1,7 +1,6 @@
 package com.hexaware.ecommerce.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.time.LocalDateTime;
@@ -31,8 +30,8 @@ class ProductServiceImpTest {
 	ISellerService sellerService;
 	@Autowired
 	ISubCategoryService subCategoryService;
-	 @Transactional
 	@Test
+	@Transactional
 	void testAddProduct() throws SubCategoryNotFoundException, SellerNotFoundException {
 	//	fail("Not yet implemented");
 		SellerDTO sellerDTO = sellerService.getSellerById(101);
@@ -44,7 +43,7 @@ class ProductServiceImpTest {
 		Product product = productService.addProduct(productdto);
 		assertEquals(101,product.getProductId());
 	}
-	 @Transactional
+	@Transactional
 	@Test
 	void testUpdateProduct() throws SellerNotFoundException, SubCategoryNotFoundException, ProductNotFoundException {
 		//fail("Not yet implemented");
@@ -59,8 +58,8 @@ class ProductServiceImpTest {
 		
 		assertEquals(65000,product2.getPrice());
 	}
-	 @Transactional
 	@Test
+	@Transactional
 	void testDeleteProductById() throws SellerNotFoundException, SubCategoryNotFoundException, ProductNotFoundException {
 		//fail("Not yet implemented");
 		 SellerDTO sellerDTO = sellerService.getSellerById(102);
@@ -92,8 +91,9 @@ class ProductServiceImpTest {
 	void testGetAllProduct() {
 		//fail("Not yet implemented");
 		List list = productService.getAllProduct();
-		boolean flag = list.isEmpty();
-		assertFalse(flag);
+		int size = list.size();
+
+		assertNotEquals(0,size);
 	}
 
 }

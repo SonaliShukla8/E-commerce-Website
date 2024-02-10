@@ -21,7 +21,7 @@ public class CustomerDTO {
     private String email;
     private String password;
     @JsonIgnore
-    private List<Address> addresses = new ArrayList<Address>();
+    private Address address;
     @JsonIgnore
     private Cart cart;
     @JsonIgnore
@@ -32,8 +32,10 @@ public class CustomerDTO {
 		
 	}
 
+	
+
 	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
-			String password, List<Address> addresses, Cart cart, List<Order> order) {
+			String password, Address address, Cart cart, List<Order> order) {
 		super();
 		this.customerId = customerId;
 		this.fullName = fullName;
@@ -41,10 +43,12 @@ public class CustomerDTO {
 		this.contactNumber = contactNumber;
 		this.email = email;
 		this.password = password;
-		this.addresses = addresses;
+		this.address = address;
 		this.cart = cart;
 		this.order = order;
 	}
+
+
 
 	public int getCustomerId() {
 		return customerId;
@@ -94,13 +98,19 @@ public class CustomerDTO {
 		this.password = password;
 	}
 
-	public List<Address> getAddresses() {
-		return addresses;
+	
+
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
+
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
+
+
 
 	public Cart getCart() {
 		return cart;
@@ -118,12 +128,16 @@ public class CustomerDTO {
 		this.order = order;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "CustomerDTO [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", password=" + password + ", addresses="
-				+ addresses + ", cart=" + cart + ", order=" + order + "]";
+				+ ", contactNumber=" + contactNumber + ", email=" + email + ", password=" + password + ", address="
+				+ address + ", cart=" + cart + ", order=" + order + "]";
 	}
+
+
 
 	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
 			String password) {

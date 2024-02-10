@@ -30,4 +30,5 @@ public interface ISellerService {
 	public String deleteProduct(int id) throws ProductNotFoundException;
 	public Product getProductbyName(String name) throws ProductNotFoundException;
 	public ProductDTO getProductById(int id) throws ProductNotFoundException;
+	public ProductDTO markProductOutOfStock(int sellerId, int productId) throws ProductNotFoundException;
 }
