@@ -40,6 +40,7 @@ public class SellerRestController {
 		return service.addSeller(sellerDTO);
 	}
 	
+
 	@PutMapping("/update")
     public Seller updateSeller(@RequestBody @Valid  SellerDTO sellerDTO) throws SellerNotFoundException{
 		return service.updateSeller(sellerDTO);
@@ -61,11 +62,14 @@ public class SellerRestController {
 //		throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Sorry, seller does not exist",exc);
 //	}
 //	}
+
 //	
+
 //	@GetMapping("/getall")
 //    public List<Seller> getAllSeller(){
 //		return service.getAllSeller();
 //	}
+
 	
 	
 	

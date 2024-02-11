@@ -77,6 +77,7 @@ public class AdminRestController {
 		return service.deleteSubCategory(id);
 	}
 	
+
 	 @DeleteMapping("/deleteSeller/{id}")
 	    public  String deleteSeller(@PathVariable int id) throws SellerNotFoundException {
 	                return service.deleteSeller(id);
@@ -87,6 +88,7 @@ public class AdminRestController {
 	                return service.deleteCustomer(id);
 	            
 	    }
+
 	
 	@GetMapping("/viewAllOrder")
 	public List<Order> viewAllOrders() {
