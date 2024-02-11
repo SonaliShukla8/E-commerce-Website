@@ -4,22 +4,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.hexaware.ecommerce.dto.CustomerDTO;
-
 import com.hexaware.ecommerce.dto.OrderDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.entity.Cart;
-
-
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
@@ -28,22 +23,14 @@ import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
-
-
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
-
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
-import com.hexaware.ecommerce.repository.CartRepository;
 import com.hexaware.ecommerce.repository.CustomerRepository;
 @Service
 public class CustomerServiceImp implements ICustomerService {
     @Autowired
 	CustomerRepository repo;
-
-
-    
-
     @Autowired
     IProductService productService;
     @Autowired
@@ -58,7 +45,8 @@ public class CustomerServiceImp implements ICustomerService {
     IPaymentService paymentService;
     @Autowired
     ICartService cartService;
-    
+    @Autowired
+    PasswordEncoder passwordEncoder;
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
@@ -71,13 +59,10 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setCustomerName(customerDTO.getCustomerName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
-
 		customer.setAddress(customerDTO.getAddress());
 //		customer.setOrder(customerDTO.getOrder());
-
-
 		customer.setCart(customerDTO.getCart());
-		customer.setPassword(customerDTO.getPassword());
+		customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
 		customer.setRole(customerDTO.getRole());
 		customer.setUsername(customerDTO.getUsername());
 		 repo.save(customer);
@@ -85,7 +70,7 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	@Override
-	public Customer updateCustomer(CustomerDTO customerDTO) {
+	public Customer updateCustomer(CustomerDTO customerDTO)throws CustomerNotFoundException  {
 		logger.info("Updating the customer");
 		Customer customer = new Customer();
 		customer.setCustomerId(customerDTO.getCustomerId());
@@ -93,11 +78,8 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setCustomerName(customerDTO.getCustomerName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
-
 		customer.setAddress(customerDTO.getAddress());
 //		customer.setOrder(customerDTO.getOrder());
-
-
 		customer.setCart(customerDTO.getCart());
 		customer.setPassword(customerDTO.getPassword());
 		customer.setRole(customerDTO.getRole());
@@ -106,30 +88,26 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	@Override
-	public String deleteCustomerById(int customerId) {
+	public String deleteCustomerById(int customerId) throws CustomerNotFoundException {
 		logger.info("Deleting the customer with customerId "+customerId);
 		repo.deleteById(customerId);
 		return "Customer with customerId "+customerId+" deleted.";
 	}
 
 	@Override
-	public CustomerDTO getCustomerById(int customerId) {
-		
+	public CustomerDTO getCustomerById(int customerId) throws CustomerNotFoundException {
 		Customer customer = repo.findById(customerId).orElse(null);
 		if(customer == null) {
 			logger.warn("Customer with ID " +customerId+ "not found.");
 		}
-		
 		CustomerDTO dto = new CustomerDTO();
 		dto.setCustomerId(customer.getCustomerId());
 		dto.setEmail(customer.getEmail());
 		dto.setUsername(customer.getUsername());
 		dto.setGender(customer.getGender());
 		dto.setContactNumber(customer.getContactNumber());
-
 		dto.setAddress(customer.getAddress());
 //		dto.setOrder(customer.getOrder());
-
 		dto.setCart(customer.getCart());
 		dto.setPassword(customer.getPassword());
 		dto.setRole(customer.getRole());
@@ -144,7 +122,6 @@ public class CustomerServiceImp implements ICustomerService {
 		return repo.findAll();
 	}
 
-	
 	 @Override
      public List<Product> getAllProduct() {
              return productService.getAllProduct();
@@ -164,7 +141,7 @@ public class CustomerServiceImp implements ICustomerService {
      }
      @Override
      public Category getCategorybyName(String name) {
-             return categoryService.getbyName(name);
+             return categoryService.getCategorybyName(name);
      }
      @Override
      public SubCategory getSubCategoryByName(String name) {
@@ -182,8 +159,6 @@ public class CustomerServiceImp implements ICustomerService {
                  cart.setCustomer(customer);
                  customer.setCart(cart);
              }
-             
-             
              ProductDTO productDTO = productService.getProductById(productId);
                  Product product = productService.updateProduct(productDTO);
         
@@ -201,11 +176,6 @@ public class CustomerServiceImp implements ICustomerService {
                          cartItem.setItemQuantity(quantity);
                          cart.getCartItems().add(cartItem);
                      }
-                     
-//                     int updatedStockQuantity = productDTO.getStockQuantity() - quantity;
-//                     productDTO.setStockQuantity(updatedStockQuantity);
-//                     productService.updateProduct(productDTO);
-                     
                      double totalPrice = cart.getCartItems().stream()
                                              .mapToDouble(item -> item.getItemQuantity() * item.getProduct().getPrice())
                                              .sum();
@@ -217,9 +187,7 @@ public class CustomerServiceImp implements ICustomerService {
 		return "Maximum "+product.getStockQuantity()+"products can be added"; 
           
      }
-             
-    
-         
+  
      @Override
      public List<CartItem> viewCartitems(int customerId) {
     	 
@@ -231,9 +199,8 @@ public class CustomerServiceImp implements ICustomerService {
              return Collections.emptyList();
      }
      
-
 	@Override
-	public List<Product> getProductsByBrand(String brand) {
+	public List<Product> getProductsByBrand(String brand){
 		return productService.getByBrand(brand);
 	}
 
@@ -335,54 +302,5 @@ public class CustomerServiceImp implements ICustomerService {
 		
 		
 	}
-	
-
-
-	@Override
-	public List<Product> getAllProduct() {
-		return productService.getAllProduct();
-	}
-
-	@Override
-	public List<Category> getAllCategory() {
-		return categoryService.getAllCategory();
-	}
-
-	@Override
-	public List<SubCategory> getAllSubCategory() {
-		return subcategoryService.getAllSubCategory();
-	}
-
-	@Override
-	public Product getProductByName(String name) {
-		return productService.getByName(name);
-	}
-
-	@Override
-	public Category getCategorybyName(String name) {
-		return categoryService.getbyName(name);
-	}
-
-
-	@Override
-	public SubCategory getSubCategoryByName(String name) {
-		return subcategoryService.getSubCategoryByName(name);
-	}
-
-	@Override
-	public String addToCart(Product product) {
-		
-		return null;
-	}
-
-
-	@Override
-	public List<CartItem> viewCartitems(int customerId) {
-
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 
 }

@@ -183,10 +183,13 @@ public class SellerServiceImp implements ISellerService {
 	        throw new IllegalArgumentException("Product does not belong to the seller");
 	    }
 
-	public String login(String username, String password) {
 
-		return null;
 
 	}
 
-}
+	@Override
+	public String login(String username, String password) {
+		return null;
+	}
+	}
+

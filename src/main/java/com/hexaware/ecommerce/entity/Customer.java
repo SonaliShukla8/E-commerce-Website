@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -43,22 +42,11 @@ public class Customer {
     @JoinColumn(name = "address_id")
     private Address address;
     
-
     private String role;
-    
-    
-    
-    @ManyToMan(ycascade=CascadeType.ALL)
-    @JoinTable(name = "customer_address",joinColumns = {@JoinColumn(name = "customer_id")},
-            inverseJoinColumns = {@JoinColumn(name = "address_id")})
-    private List<Address> addresses =new ArrayList<Address>();
-
     
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="cartId")
     private Cart cart;
-   
-
    
 	@OneToMany( mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
@@ -66,14 +54,13 @@ public class Customer {
 
 	public Customer() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
 				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
-				+ password + ", role=" + role + ", addresses=" + addresses + ", cart=" + cart + ", order=" + order
+				+ password + ", role=" + role + ", address=" + address + ", cart=" + cart + ", order=" + order
 				+ "]";
 	}
 
@@ -160,13 +147,13 @@ public class Customer {
 	}
 
 
-	public List<Address> getAddresses() {
-		return addresses;
+	public Address getAddress() {
+		return address;
 	}
 
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 
@@ -195,7 +182,7 @@ public class Customer {
 	public Customer(int customerId, @NotBlank String customerName, @NotBlank String gender,
 			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
 			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
-			String password, String role, List<Address> addresses, Cart cart, List<Order> order) {
+			String password, String role, Address address, Cart cart, List<Order> order) {
 		super();
 		this.customerId = customerId;
 		this.customerName=customerName;
@@ -205,7 +192,7 @@ public class Customer {
 		this.username = username;
 		this.password = password;
 		this.role = role;
-		this.addresses = addresses;
+		this.address = address;
 		this.cart = cart;
 		this.order = order;
 	}

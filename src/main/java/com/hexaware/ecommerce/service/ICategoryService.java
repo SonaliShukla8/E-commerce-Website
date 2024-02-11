@@ -18,5 +18,5 @@ public interface ICategoryService {
     public List<SubCategory> getSubCategoryIdByCategoryId(int categoryId) throws CategoryNotFoundException;
 
     
-    public Category getbyName(String name);
+    public Category getCategorybyName(String name);
 }

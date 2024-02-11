@@ -38,7 +38,6 @@ public class SellerDTO {
 	}
 
 	public SellerDTO(int sellerId, String sellerName, String businessName, String phoneNumber, String email,
-
 			String address, String sellingDomain, String username, String password, String role, List<Product> product,
 			List<Order> order) {
 
@@ -157,11 +156,11 @@ public class SellerDTO {
 	public String toString() {
 		return "SellerDTO [sellerId=" + sellerId + ", sellerName=" + sellerName + ", businessName=" + businessName
 				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", sellingDomain="
-
 				+ sellingDomain + ", username=" + username + ", password=" + password + ", role=" + role + ", product="
-				+ product + ", order=" + order + "]";
-
+				+ product + ", orders=" + orders + "]";
 	}
+
+	
 
 	
 }

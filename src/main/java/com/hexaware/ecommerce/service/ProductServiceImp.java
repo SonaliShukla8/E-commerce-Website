@@ -107,18 +107,16 @@ public class ProductServiceImp implements IProductService {
 
 	@Override
 	public Product getByName(String name) {
-
 		return repo.findByProductName(name).orElse(null);
 	}
 
 	@Override
-	public List<Product> getByBrand(String brand) {
+	public List<Product> getByBrand(String brand)  {
 		return repo.findBybrand(brand);
 	}
 
 	@Override
 	public List<Product> getByPriceRange(double min, double max) {
-		// TODO Auto-generated method stub
 		return repo.findBypriceBetween(min, max);
 	}
 

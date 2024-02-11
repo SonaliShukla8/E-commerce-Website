@@ -3,9 +3,8 @@ package com.hexaware.ecommerce.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import com.hexaware.ecommerce.entity.Address;
 import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.entity.Order;
@@ -190,7 +189,7 @@ public class CustomerDTO {
 			String password) {
 		super();
 		this.customerId = customerId;
-		this.fullName = fullName;
+		this.customerName = customerName;
 		this.gender = gender;
 		this.contactNumber = contactNumber;
 		this.email = email;
