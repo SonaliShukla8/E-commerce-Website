@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.repository.SubCategoryRepository;
 @Service
 public class SubCategoryServiceImp implements ISubCategoryService {
@@ -30,29 +31,36 @@ public class SubCategoryServiceImp implements ISubCategoryService {
 	}
 
 	@Override
-	public SubCategory updateSubCategory(SubCategoryDTO subCategoryDTO) {
+	public SubCategory updateSubCategory(SubCategoryDTO subCategoryDTO) throws SubCategoryNotFoundException  {
+		SubCategory subCategory=repo.findById(subCategoryDTO.getSubCategoryId()).orElse(null);
+		if(subCategory == null) {
+			throw new SubCategoryNotFoundException ("Sub Category with subCategoryId: "+subCategoryDTO.getSubCategoryId()+" not found.");
+			}
 		logger.info("Updating Sub Category...");
-		SubCategory subcategory=new SubCategory();
-    	subcategory.setSubCategoryId(subCategoryDTO.getSubCategoryId());
-    	subcategory.setSubCategoryName(subCategoryDTO.getSubCategoryName());
-    	subcategory.setCategory(subCategoryDTO.getCategory());
-    	subcategory.setProducts(subCategoryDTO.getProducts());
-	    return repo.save(subcategory);
+    	subCategory.setSubCategoryId(subCategoryDTO.getSubCategoryId());
+    	subCategory.setSubCategoryName(subCategoryDTO.getSubCategoryName());
+    	subCategory.setCategory(subCategoryDTO.getCategory());
+    	subCategory.setProducts(subCategoryDTO.getProducts());
+	    return repo.save(subCategory);
 	}
 
 	@Override
-	public String deleteSubCategoryById(int subCategoryId) {
+	public String deleteSubCategoryById(int subCategoryId) throws SubCategoryNotFoundException  {
+		SubCategory subCategory=repo.findById(subCategoryId).orElse(null);
+		if(subCategory == null) {
+			throw new SubCategoryNotFoundException ("Sub Category with subCategoryId: "+subCategoryId+" not found.");
+			}
 		logger.info("Deleting Sub Category with subCategoryId "+subCategoryId);
 			repo.deleteById(subCategoryId);
 		return "Subcategory  with subcategoryID "+subCategoryId+" deleted.";
 	}
 
 	@Override
-	public SubCategoryDTO getSubCategoryById(int subCategoryId) {
+	public SubCategoryDTO getSubCategoryById(int subCategoryId) throws SubCategoryNotFoundException  {
 		SubCategory subCategory=repo.findById(subCategoryId).orElse(null);
 		if(subCategory == null) {
-			logger.warn("Sub Category with subCategoryId: "+subCategoryId+" not found.");
-			return null;}
+			throw new SubCategoryNotFoundException ("Sub Category with subCategoryId: "+subCategoryId+" not found.");
+			}
 		SubCategoryDTO dto=new SubCategoryDTO();
 		dto.setSubCategoryId(subCategory.getSubCategoryId());
     	dto.setSubCategoryName(subCategory.getSubCategoryName());

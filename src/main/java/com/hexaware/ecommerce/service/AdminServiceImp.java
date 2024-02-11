@@ -3,8 +3,10 @@ package com.hexaware.ecommerce.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hexaware.ecommerce.dto.AdminDTO;
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
@@ -16,6 +18,11 @@ import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.CategoryNotFoundException;
+import com.hexaware.ecommerce.exception.CustomerNotFoundException;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
+import com.hexaware.ecommerce.exception.SellerNotFoundException;
+import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.repository.AdminRepository;
 @Service
 public class AdminServiceImp implements IAdminService{
@@ -43,19 +50,25 @@ public class AdminServiceImp implements IAdminService{
 	@Autowired
 	IOrderService orderService;
 	
-//	@Autowired
-//	PasswordEncoder passwordEncoder;
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
+	
 
 	@Override
-	public Admin login(String username, String password) {
-
-		return null;
-	}
-
-	@Override
-	public Admin registerAdmin(Admin admin) {
-//		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-		 return adminrepo.save(admin);
+	public String addAdmin(AdminDTO admindto) {
+		Admin admin=new Admin();
+		admin.setAdminID(admindto.getAdminID());
+		admin.setAdminName(admindto.getAdminName());
+		admin.setEmail(admindto.getEmail());
+		admin.setJoiningDate(admindto.getJoiningDate());
+		admin.setPassword(passwordEncoder.encode(admindto.getPassword()));
+		admin.setPhoneNumber(admindto.getPassword());
+		admin.setPhoneNumber(admindto.getPhoneNumber());
+		admin.setRole(admindto.getRole());
+		admin.setUsername(admindto.getUsername());
+		adminrepo.save(admin);
+		return "New Admin records added.";
 		 
 	}
 
@@ -65,17 +78,17 @@ public class AdminServiceImp implements IAdminService{
 	}
 
 	@Override
-	public String deleteProduct(int id) {
+	public String deleteProduct(int id) throws ProductNotFoundException {
 		return productService.deleteProductById(id);
 	}
 
 	@Override
-	public String deleteCategory(int id) {
+	public String deleteCategory(int id) throws CategoryNotFoundException {
 		return categoryService.deleteCategoryById(id);
 	}
 
 	@Override
-	public String deleteSubCategory(int id) {
+	public String deleteSubCategory(int id) throws SubCategoryNotFoundException {
 		return subcategoryService.deleteSubCategoryById(id);
 	}
 
@@ -101,7 +114,7 @@ public class AdminServiceImp implements IAdminService{
 	}
 
 	@Override
-	public String deleteSeller(int id) {
+	public String deleteSeller(int id) throws SellerNotFoundException {
 		return sellerService.deleteSellerById(id);
 	}
 
@@ -131,10 +144,11 @@ public class AdminServiceImp implements IAdminService{
 		return subcategoryService.addSubCategory(subcategorydto);
 	}
 
-	@Override
-	public String deleteCustomer(int id) {
-		return customerService.deleteCustomerById(id);
-	}
+
+	 @Override
+     public String deleteCustomer(int id) throws CustomerNotFoundException {
+             return customerService.deleteCustomerById(id);
+     }
 	
 	
      

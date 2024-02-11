@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.entity.Customer;
+import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 @SpringBootTest
 class CustomerServiceImpTest {
 	@Autowired
@@ -35,14 +36,14 @@ class CustomerServiceImpTest {
 	}
 
 	@Test
-	void testDeleteCustomerById() {
+	void testDeleteCustomerById() throws CustomerNotFoundException {
 		int id=2;
 		String s=service.deleteCustomerById(id);
 		assertNotNull(s);
 	}
 
 	@Test
-	void testGetCustomerById() {
+	void testGetCustomerById() throws CustomerNotFoundException {
 		int id=1;
 		CustomerDTO dto=service.getCustomerById(id);
 		assertNotNull(dto);

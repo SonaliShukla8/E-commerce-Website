@@ -2,6 +2,7 @@ package com.hexaware.ecommerce.service;
 
 import java.util.List;
 
+import com.hexaware.ecommerce.dto.AdminDTO;
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
@@ -13,19 +14,23 @@ import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.CategoryNotFoundException;
+import com.hexaware.ecommerce.exception.CustomerNotFoundException;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
+import com.hexaware.ecommerce.exception.SellerNotFoundException;
+import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 
 public interface IAdminService {
-    public Admin login(String username, String password);
     
-    public Admin registerAdmin(Admin admin);
+    public String addAdmin(AdminDTO admindto);
     
     public List<Product> viewAllProducts();
     
-    public String deleteProduct(int id);
+    public String deleteProduct(int id) throws ProductNotFoundException;
     
-    public String deleteCategory(int id);
+    public String deleteCategory(int id) throws CategoryNotFoundException;
    
-    public String deleteSubCategory(int id);
+    public String deleteSubCategory(int id) throws SubCategoryNotFoundException;
     
     public List<Customer> viewAllCustomer();
     
@@ -35,9 +40,11 @@ public interface IAdminService {
     
     public List<Payment> viewAllPayment();
     
-    public  String deleteSeller(int id);
+    public  String deleteSeller(int id) throws SellerNotFoundException;
     
-    public String deleteCustomer(int id);
+    public String deleteCustomer(int id) throws CustomerNotFoundException;
+    
+
     
     
     public List<Category> viewAllCategory();

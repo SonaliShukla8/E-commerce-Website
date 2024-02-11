@@ -14,6 +14,7 @@ import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.CustomerRepository;
 @Service
 public class CustomerServiceImp implements ICustomerService {
@@ -32,19 +33,22 @@ public class CustomerServiceImp implements ICustomerService {
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
 	@Override
-	public Customer addCustomer(CustomerDTO customerDTO) {
+	public String registerCustomer(CustomerDTO customerDTO) {
 		logger.info("Adding new Customer");
 		Customer customer = new Customer();
 		customer.setCustomerId(customerDTO.getCustomerId());
 		customer.setEmail(customerDTO.getEmail());
-		customer.setFullName(customerDTO.getFullName());
+		customer.setCustomerName(customerDTO.getCustomerName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
 		customer.setAddresses(customerDTO.getAddresses());
 		customer.setOrder(customerDTO.getOrder());
 		customer.setCart(customerDTO.getCart());
 		customer.setPassword(customerDTO.getPassword());
-		return repo.save(customer);
+		customer.setRole(customerDTO.getRole());
+		customer.setUsername(customerDTO.getUsername());
+		 repo.save(customer);
+		 return "New customer Registered";
 	}
 
 	@Override
@@ -53,13 +57,15 @@ public class CustomerServiceImp implements ICustomerService {
 		Customer customer = new Customer();
 		customer.setCustomerId(customerDTO.getCustomerId());
 		customer.setEmail(customerDTO.getEmail());
-		customer.setFullName(customerDTO.getFullName());
+		customer.setCustomerName(customerDTO.getCustomerName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
 		customer.setAddresses(customerDTO.getAddresses());
 		customer.setOrder(customerDTO.getOrder());
 		customer.setCart(customerDTO.getCart());
 		customer.setPassword(customerDTO.getPassword());
+		customer.setRole(customerDTO.getRole());
+		customer.setUsername(customerDTO.getUsername());
 		return repo.save(customer);
 	}
 
@@ -81,14 +87,15 @@ public class CustomerServiceImp implements ICustomerService {
 		CustomerDTO dto = new CustomerDTO();
 		dto.setCustomerId(customer.getCustomerId());
 		dto.setEmail(customer.getEmail());
-		dto.setFullName(customer.getFullName());
+		dto.setUsername(customer.getUsername());
 		dto.setGender(customer.getGender());
 		dto.setContactNumber(customer.getContactNumber());
 		dto.setAddresses(customer.getAddresses());
 		dto.setOrder(customer.getOrder());
 		dto.setCart(customer.getCart());
 		dto.setPassword(customer.getPassword());
-		
+		dto.setRole(customer.getRole());
+		dto.setCustomerName(customer.getCustomerName());
 		return dto;
 	}
 
@@ -124,16 +131,16 @@ public class CustomerServiceImp implements ICustomerService {
 		return categoryService.getbyName(name);
 	}
 
-	@Override
-	public SubCategory getSubCategoryByName(String name) {
-		return subcategoryService.getSubCategoryByName(name);
-	}
-
-	@Override
-	public String addToCart(Product product) {
-		
-		return null;
-	}
+//	@Override
+//	public SubCategory getSubCategoryByName(String name) {
+//		return subcategoryService.getSubCategoryByName(name);
+//	}
+//
+//	@Override
+//	public String addToCart(Product product) {
+//		
+//		return null;
+//	}
 
 
 	@Override
@@ -144,6 +151,19 @@ public class CustomerServiceImp implements ICustomerService {
 
 	@Override
 	public String placeOrder(Order order) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String addProductToCustomerCart(int customerId, int productId, int quantity)
+			throws ProductNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SubCategory getSubCategoryByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}

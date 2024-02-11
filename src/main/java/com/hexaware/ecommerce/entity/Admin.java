@@ -23,11 +23,17 @@ public class Admin {
     private String email;
 	@Pattern(regexp = "\\d{10}")
     private String phoneNumber;
-    @NotBlank
-    @Size(min = 8)
+ 
+    @Size(min = 7, message="Password should have a minimum length of 7.")
     private String password;
     @NotNull
     private LocalDate joiningDate;
+    
+    @NotBlank(message = "Username is required")
+	@Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores")
+	private String username;
+    
+    private String role;
     
 	
     public Admin() {
@@ -37,9 +43,10 @@ public class Admin {
 
 
 	public Admin(@NotNull int adminID, @NotBlank String adminName, @NotBlank @Email String email,
-			@Pattern(regexp = "\\d{10}") String phoneNumber,
-			@NotBlank @Size(min = 8) @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$", message = "Password must contain at least one number, uppercase letter, lowercase letter, and a special character.") String password,
-			@NotNull LocalDate joiningDate) {
+			@Pattern(regexp = "\\d{10}") String phoneNumber, @NotBlank @Size(min = 8) String password,
+			@NotNull LocalDate joiningDate,
+			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
+			String role) {
 		super();
 		this.adminID = adminID;
 		this.adminName = adminName;
@@ -47,6 +54,8 @@ public class Admin {
 		this.phoneNumber = phoneNumber;
 		this.password = password;
 		this.joiningDate = joiningDate;
+		this.username = username;
+		this.role = role;
 	}
 
 
@@ -110,11 +119,34 @@ public class Admin {
 	}
 
 
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Admin [adminID=" + adminID + ", adminName=" + adminName + ", email=" + email + ", phoneNumber="
-				+ phoneNumber + ", password=" + password + ", joiningDate=" + joiningDate + "]";
+				+ phoneNumber + ", password=" + password + ", joiningDate=" + joiningDate + ", username=" + username
+				+ ", role=" + role + "]";
 	}
 
-    
+
+	
+	
 }

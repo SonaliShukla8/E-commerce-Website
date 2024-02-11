@@ -1,14 +1,14 @@
 package com.hexaware.ecommerce.entity;
 
 import java.util.ArrayList;
-
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -31,8 +31,15 @@ public class Seller {
 	 @NotBlank(message = "Selling domain cannot be blank")
 	 private String sellingDomain;
 	 
-	 private String password;
+	 @NotBlank(message = "Username is required")
+		@Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores")
+		private String username;
 	 
+	 	 private String password;
+	 	 
+	 	 private String role;
+
+	@JsonIgnore
 	 @OneToMany(cascade=CascadeType.ALL,mappedBy="seller")
 	 private List<Product> product=new ArrayList<Product>();
 	 
@@ -50,8 +57,9 @@ public class Seller {
 			@Pattern(regexp = "[0-9]{10}") String phoneNumber,
 			@Email(message = "Invalid email address") @NotBlank(message = "Email cannot be blank") String email,
 			@NotBlank(message = "Address cannot be blank") String address,
-			@NotBlank(message = "Selling domain cannot be blank") String sellingDomain, String password,
-			List<Product> product, List<Order> order) {
+			@NotBlank(message = "Selling domain cannot be blank") String sellingDomain,
+			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
+			String password, String role, List<Product> product, List<Order> order) {
 		super();
 		this.sellerId = sellerId;
 		this.sellerName = sellerName;
@@ -60,7 +68,9 @@ public class Seller {
 		this.email = email;
 		this.address = address;
 		this.sellingDomain = sellingDomain;
+		this.username = username;
 		this.password = password;
+		this.role = role;
 		this.product = product;
 		this.order = order;
 	}
@@ -121,12 +131,28 @@ public class Seller {
 		this.sellingDomain = sellingDomain;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public List<Product> getProduct() {
@@ -149,8 +175,9 @@ public class Seller {
 	public String toString() {
 		return "Seller [sellerId=" + sellerId + ", sellerName=" + sellerName + ", businessName=" + businessName
 				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", sellingDomain="
-				+ sellingDomain + ", password=" + password + ", product=" + product + ", order=" + order + "]";
+				+ sellingDomain + ", username=" + username + ", password=" + password + ", role=" + role + ", product="
+				+ product + ", order=" + order + "]";
 	}
-    
+
 	
 }

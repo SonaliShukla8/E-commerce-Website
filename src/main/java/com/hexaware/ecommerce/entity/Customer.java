@@ -24,7 +24,7 @@ public class Customer {
 	@Id
 	private int customerId;        // Primary Key
 	@NotBlank
-    private String fullName;
+    private String customerName;
 	@NotBlank
     private String gender;
 	@NotBlank
@@ -34,7 +34,15 @@ public class Customer {
     @Email
     private String email;
     
+    @NotBlank(message = "Username is required")
+	@Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores")
+	private String username;
+    
     private String password;
+    
+    private String role;
+    
+    
     
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "customer_address",joinColumns = {@JoinColumn(name = "customer_id")},
@@ -46,120 +54,155 @@ public class Customer {
     @JoinColumn(name="cartId", nullable =false)
     private Cart cart;
    
-    public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
-			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
-			String password) {
-		super();
-		this.customerId = customerId;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.password = password;
-	}
-
+   
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
 
+
 	public Customer() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(int customerId, @NotBlank String fullName, @NotBlank String gender,
-			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email, String password,
-			List<Address> addresses, Cart cart, List<Order> order) {
-		super();
-		this.customerId = customerId;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.password = password;
-		this.addresses = addresses;
-		this.cart = cart;
-		this.order = order;
+
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
+				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
+				+ password + ", role=" + role + ", addresses=" + addresses + ", cart=" + cart + ", order=" + order
+				+ "]";
 	}
+
 
 	public int getCustomerId() {
 		return customerId;
 	}
 
+
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
 
-	public String getFullName() {
-		return fullName;
+
+	public String getCustomerName() {
+		return customerName;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
+
 
 	public String getGender() {
 		return gender;
 	}
 
+
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+
 
 	public String getContactNumber() {
 		return contactNumber;
 	}
 
+
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 
 	public String getPassword() {
 		return password;
 	}
 
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 
 	public List<Address> getAddresses() {
 		return addresses;
 	}
 
+
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
+
 
 	public Cart getCart() {
 		return cart;
 	}
 
+
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
+
 
 	public List<Order> getOrder() {
 		return order;
 	}
 
+
 	public void setOrder(List<Order> order) {
 		this.order = order;
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [customerId=" + customerId + ", fullName=" + fullName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", password=" + password + ", addresses="
-				+ addresses + ", cart=" + cart + ", order=" + order + "]";
+
+	public Customer(int customerId, @NotBlank String customerName, @NotBlank String gender,
+			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
+			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
+			String password, String role, List<Address> addresses, Cart cart, List<Order> order) {
+		super();
+		this.customerId = customerId;
+		this.customerName=customerName;
+		this.gender = gender;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.addresses = addresses;
+		this.cart = cart;
+		this.order = order;
 	}
 
-	
+
 	
 	
     

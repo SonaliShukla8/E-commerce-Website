@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.entity.Product;
+import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.service.IProductService;
 
 import jakarta.validation.Valid;
@@ -32,19 +33,19 @@ public class ProductRestController {
 	}
 	
 	@PutMapping("/update")
-    public Product updateProduct(@RequestBody @Valid  ProductDTO productDTO) {
+    public Product updateProduct(@RequestBody @Valid  ProductDTO productDTO) throws ProductNotFoundException{
 		return service.updateProduct(productDTO);
 	}
 	
 	@DeleteMapping("/delete/{productId}")
-    public String deleteProductById(@PathVariable int productId) {
+    public String deleteProductById(@PathVariable int productId) throws ProductNotFoundException {
 		
 		return service.deleteProductById(productId);
 	
 	}
      
 	@GetMapping("/getbyId/{productId}")
-	public ProductDTO getProductById(@PathVariable int productId) {
+	public ProductDTO getProductById(@PathVariable int productId)throws ProductNotFoundException {
 		try {
 		return service.getProductById(productId);
 	}
