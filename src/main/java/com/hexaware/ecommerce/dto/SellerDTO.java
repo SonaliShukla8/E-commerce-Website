@@ -38,8 +38,7 @@ public class SellerDTO {
 	}
 
 	public SellerDTO(int sellerId, String sellerName, String businessName, String phoneNumber, String email,
-			String address, String sellingDomain, String username, String password, String role, List<Product> product,
-			List<Order> order) {
+			String address, String sellingDomain, String username, String password, String role) {
 		super();
 		this.sellerId = sellerId;
 		this.sellerName = sellerName;
