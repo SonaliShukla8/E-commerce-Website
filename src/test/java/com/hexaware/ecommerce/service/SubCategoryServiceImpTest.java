@@ -75,9 +75,9 @@ class SubCategoryServiceImpTest {
 	void testGetAllSubCategory() {
 		//fail("Not yet implemented");
 		List list = service.getAllSubCategory();
-		boolean flag = list.isEmpty();
-		//System.out.println(flag);
-		assertEquals(false,flag);
+		int size = list.size();
+
+		assertNotEquals(0,size);
 	}
 
 }

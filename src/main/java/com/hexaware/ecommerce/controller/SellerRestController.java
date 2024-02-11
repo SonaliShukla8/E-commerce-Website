@@ -80,6 +80,7 @@ public class SellerRestController {
 
 		return service.updateSeller(sellerDTO);
 	}
+
 	@GetMapping("/getAllOrder")
 	@PreAuthorize("hasAuthority('seller')")
 	public List<Order> getAllOrder(){
@@ -132,6 +133,10 @@ public class SellerRestController {
 	@PreAuthorize("hasAuthority('seller')")
 	public ProductDTO getProductById(@PathVariable int id) throws ProductNotFoundException {
 		return service.getProductById(id);
+	}
+	@GetMapping("/markProductOutOfStock/{sellerId}/{productId}")
+	public ProductDTO markProductOutOfStock(@PathVariable int sellerId,@PathVariable int productId) throws ProductNotFoundException{
+		return service.markProductOutOfStock(sellerId, productId);
 	}
 
 

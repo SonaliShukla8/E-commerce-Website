@@ -23,6 +23,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 
 @Entity
@@ -31,7 +32,6 @@ public class Product {
 	 
 	
 	private int productId;        // Primary Key
-	
 	 @ManyToOne(cascade=CascadeType.ALL)
 	 @JoinColumn(name = "seller_Id")
 	 private Seller seller;
@@ -43,7 +43,7 @@ public class Product {
 	    private String description;
 	    @Positive
 	    private double price;
-	    @Min(1)
+	    @PositiveOrZero
 	    private int stockQuantity;
 	    @NotBlank
 	    private String brand;
@@ -61,8 +61,8 @@ public class Product {
 	    @JoinColumn(name="subcategory_Id")
 	    private SubCategory subCategory;
 	    
-	    @ManyToMany(mappedBy="product" ,fetch = FetchType.LAZY)
-	    private List<Cart> cart=new ArrayList<Cart>();
+//	    @ManyToMany(mappedBy="product" ,fetch = FetchType.LAZY)
+//	    private List<Cart> cart=new ArrayList<Cart>();
 
 		public Product() {
 			super();
@@ -165,13 +165,13 @@ public class Product {
 			this.subCategory = subCategory;
 		}
 
-		public List<Cart> getCart() {
-			return cart;
-		}
-
-		public void setCart(List<Cart> cart) {
-			this.cart = cart;
-		}
+//		public List<Cart> getCart() {
+//			return cart;
+//		}
+//
+//		public void setCart(List<Cart> cart) {
+//			this.cart = cart;
+//		}
 
 		@Override
 		public String toString() {
@@ -179,13 +179,13 @@ public class Product {
 					+ ", productImageURL=" + productImageURL + ", description=" + description + ", price=" + price
 					+ ", stockQuantity=" + stockQuantity + ", brand=" + brand + ", createdAt=" + createdAt
 					+ ", modifiedAt=" + modifiedAt +", subCategory=" + subCategory
-					+ ", cart=" + cart + "]";
+					+  "]";
 		}
 
 		public Product(int productId, Seller seller, @NotBlank String productName, @NotBlank String productImageURL,
 				@NotBlank String description, @Positive double price, @Min(1) int stockQuantity, @NotBlank String brand,
 				@PastOrPresent LocalDateTime createdAt, @PastOrPresent LocalDateTime modifiedAt,
-				SubCategory subCategory, List<Cart> cart) {
+				SubCategory subCategory) {
 			super();
 			this.productId = productId;
 			this.seller = seller;
@@ -198,7 +198,7 @@ public class Product {
 			this.createdAt = createdAt;
 			this.modifiedAt = modifiedAt;
 			this.subCategory = subCategory;
-			this.cart = cart;
+	
 		}
 
 		

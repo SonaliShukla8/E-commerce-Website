@@ -26,7 +26,7 @@ public class AddressServiceImp implements IAddressService {
 		address.setAddressLine2(addressDTO.getAddressLine2());
 		address.setCity(addressDTO.getCity());
 		address.setCountry(addressDTO.getCountry());
-		address.setCustomers(addressDTO.getCustomers());
+		address.setCustomer(addressDTO.getCustomer());
 		address.setPostalCode(addressDTO.getPostalCode());
 		address.setState(addressDTO.getState());
 		
@@ -42,7 +42,7 @@ public class AddressServiceImp implements IAddressService {
 		address.setAddressLine2(addressDTO.getAddressLine2());
 		address.setCity(addressDTO.getCity());
 		address.setCountry(addressDTO.getCountry());
-		address.setCustomers(addressDTO.getCustomers());
+		address.setCustomer(addressDTO.getCustomer());
 		address.setPostalCode(addressDTO.getPostalCode());
 		address.setState(addressDTO.getState());
 		logger.info("Address updated");
@@ -73,7 +73,7 @@ public class AddressServiceImp implements IAddressService {
 		dto.setAddressLine2(address.getAddressLine2());
 		dto.setCity(address.getCity());
 		dto.setCountry(address.getCountry());
-		dto.setCustomers(address.getCustomers());
+		dto.setCustomer(address.getCustomer());
 		dto.setPostalCode(address.getPostalCode());
 		dto.setState(address.getState());
 		logger.info("Address fetched successfully");

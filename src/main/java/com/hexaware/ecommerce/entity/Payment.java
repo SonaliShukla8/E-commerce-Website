@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +15,7 @@ import jakarta.validation.constraints.Positive;
 @Entity
 public class Payment {
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private int paymentId;        // Primary Key
 	
 	@OneToOne(mappedBy="payment",cascade=CascadeType.ALL)

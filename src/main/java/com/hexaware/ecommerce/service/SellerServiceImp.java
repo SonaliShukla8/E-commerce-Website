@@ -167,9 +167,26 @@ public class SellerServiceImp implements ISellerService {
 	}
 
 	@Override
+
+	public ProductDTO markProductOutOfStock(int sellerId, int productId) throws ProductNotFoundException {
+		ProductDTO productDTO = productService.getProductById(productId);
+		 if (productDTO == null) {
+		        throw new ProductNotFoundException("Product with productId: " + productId + " not found.");
+		    }
+		if (productDTO.getSeller().getSellerId() == sellerId) {
+            productDTO.setStockQuantity(0);
+    
+            productService.updateProduct(productDTO);
+            return productDTO;
+		}
+		else {
+	        throw new IllegalArgumentException("Product does not belong to the seller");
+	    }
+
 	public String login(String username, String password) {
 
 		return null;
+
 	}
 
 }

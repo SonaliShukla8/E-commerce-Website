@@ -28,7 +28,7 @@ public class ProductDTO {
 
     private SubCategory subCategory;
     @JsonIgnore
-    private List<Cart> cart=new ArrayList<Cart>();
+   // private List<Cart> cart=new ArrayList<Cart>();
 	
     public ProductDTO() {
 		super();
@@ -37,7 +37,7 @@ public class ProductDTO {
 
 	public ProductDTO(int productId, Seller seller, String productName, String productImageURL, String description,
 			double price, int stockQuantity, String brand, LocalDateTime createdAt, LocalDateTime modifiedAt,
-			 SubCategory subCategory, List<Cart> cart) {
+			 SubCategory subCategory) {
 		super();
 		this.productId = productId;
 		this.seller = seller;
@@ -51,7 +51,7 @@ public class ProductDTO {
 		this.modifiedAt = modifiedAt;
 		//this.category = category;
 		this.subCategory = subCategory;
-		this.cart = cart;
+	//	this.cart = cart;
 	}
 
 	public int getProductId() {
@@ -150,13 +150,13 @@ public class ProductDTO {
 		this.subCategory = subCategory;
 	}
 
-	public List<Cart> getCart() {
-		return cart;
-	}
-
-	public void setCart(List<Cart> cart) {
-		this.cart = cart;
-	}
+//	public List<Cart> getCart() {
+//		return cart;
+//	}
+//
+//	public void setCart(List<Cart> cart) {
+//		this.cart = cart;
+//	}
     
 
 	

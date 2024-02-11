@@ -23,7 +23,7 @@ public class CartItemServiceImp implements ICartItemService {
 		logger.info("Adding new Cart Item");
 		CartItem cartItem = new CartItem();
 		cartItem.setCart(cartItemDTO.getCart());
-		cartItem.setProductId(cartItemDTO.getProductId());
+		cartItem.setProduct(cartItemDTO.getProduct());
 		cartItem.setCartitemId(cartItemDTO.getCartitemId());
 		cartItem.setItemQuantity(cartItemDTO.getItemQuantity());
 		
@@ -38,7 +38,7 @@ public class CartItemServiceImp implements ICartItemService {
 		
 		CartItem cartItem = new CartItem();
 		cartItem.setCart(cartItemDTO.getCart());
-		cartItem.setProductId(cartItemDTO.getProductId());
+		cartItem.setProduct(cartItemDTO.getProduct());
 		cartItem.setCartitemId(cartItemDTO.getCartitemId());
 		cartItem.setItemQuantity(cartItemDTO.getItemQuantity());
 		
@@ -63,7 +63,7 @@ public class CartItemServiceImp implements ICartItemService {
 		
 		CartItemDTO dto = new CartItemDTO();
 		dto.setCart(cartItem.getCart());
-		dto.setProductId(cartItem.getProductId());
+		dto.setProduct(cartItem.getProduct());
 		dto.setCartitemId(cartItem.getCartitemId());
 		dto.setItemQuantity(cartItem.getItemQuantity());
 		

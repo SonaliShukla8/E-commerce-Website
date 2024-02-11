@@ -3,16 +3,15 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
@@ -39,23 +38,29 @@ public class Customer {
 	private String username;
     
     private String password;
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
     
+
     private String role;
     
     
     
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMan(ycascade=CascadeType.ALL)
     @JoinTable(name = "customer_address",joinColumns = {@JoinColumn(name = "customer_id")},
             inverseJoinColumns = {@JoinColumn(name = "address_id")})
     private List<Address> addresses =new ArrayList<Address>();
+
     
-    
-    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="cartId", nullable =false)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="cartId")
     private Cart cart;
    
+
    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
+	@OneToMany( mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
 
 
@@ -64,7 +69,6 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
@@ -72,6 +76,7 @@ public class Customer {
 				+ password + ", role=" + role + ", addresses=" + addresses + ", cart=" + cart + ", order=" + order
 				+ "]";
 	}
+
 
 
 	public int getCustomerId() {
@@ -144,6 +149,7 @@ public class Customer {
 	}
 
 
+
 	public String getRole() {
 		return role;
 	}
@@ -162,6 +168,7 @@ public class Customer {
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
+
 
 
 	public Cart getCart() {
@@ -184,6 +191,7 @@ public class Customer {
 	}
 
 
+
 	public Customer(int customerId, @NotBlank String customerName, @NotBlank String gender,
 			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
 			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
@@ -201,6 +209,7 @@ public class Customer {
 		this.cart = cart;
 		this.order = order;
 	}
+
 
 
 	
