@@ -33,7 +33,7 @@ public class CartItem {
 	@Positive
 	private int itemQuantity;
 	
-	@OneToOne(cascade=CascadeType.ALL, targetEntity = Product.class)
+	@OneToOne( targetEntity = Product.class)
     @JoinColumn(name="productId", nullable = false)
 	private Product product;
 	

@@ -253,12 +253,13 @@ public class CustomerServiceImp implements ICustomerService {
 	        payment.setPaymentDate(LocalDateTime.now());
 	        payment.setPaymentMethod("Credit Card");
 	        payment.setPaymentStatus("Paid"); 
-	        order.setPayment(payment);
+	       // order.setPayment(payment);
 	        payment.setOrder(order);
 	        PaymentDTO paymentDTO = new PaymentDTO();
 	        paymentDTO.setPaymentId(payment.getPaymentId());
 	        paymentDTO.setAmount(payment.getAmount());
-	        paymentDTO.setOrder(payment.getOrder());
+	        
+	        paymentDTO.setOrder(order);
 	        paymentDTO.setPaymentDate(payment.getPaymentDate());
 	        paymentDTO.setPaymentMethod(payment.getPaymentMethod());
 	        paymentDTO.setPaymentStatus(payment.getPaymentStatus());
@@ -287,6 +288,9 @@ public class CustomerServiceImp implements ICustomerService {
 	            }
 	        }
 	        order.setSellers(sellers);
+	        if(order.getPayment() == null) {
+			    order.setPayment(payment);
+			}
 	        
 	        OrderDTO orderDTO=new OrderDTO();
 			orderDTO.setOrderId(order.getOrderId());
@@ -295,16 +299,20 @@ public class CustomerServiceImp implements ICustomerService {
 			orderDTO.setCustomer(order.getCustomer());
 			orderDTO.setOrderDate(order.getOrderDate());
 			orderDTO.setDeliveryDate(order.getDeliveryDate());
+			
 			orderDTO.setPayment(order.getPayment());
 	        orderDTO.setStatus("Payment Done.");
 	        orderDTO.setStatusDescription("Payment done via"+payment.getPaymentMethod()+"is successful.");
 	        orderService.updateOrder(orderDTO);
+	        int cartdelete = customer.getCart().getCartId();
+	        customer.setCart(null);
+	        repo.save(customer);
 	        
 	        for (CartItem cartItem : cart.getCartItems()) {
 	        	
 	        	cartitemService.deleteCartItemById(cartItem.getCartitemId());
 	        }
-	        
+	        cartService.deleteCartById(cartdelete);
 
 	        cart.getCartItems().clear();
 	        return "Order placed successfully";

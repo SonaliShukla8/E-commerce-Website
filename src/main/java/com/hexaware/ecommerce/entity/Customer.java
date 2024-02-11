@@ -56,7 +56,7 @@ public class Customer {
 		this.password = password;
 	}
     @JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
+	@OneToMany( mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
 
 	public Customer() {
