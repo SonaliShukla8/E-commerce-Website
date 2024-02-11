@@ -6,9 +6,11 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -23,7 +25,8 @@ import jakarta.validation.constraints.Positive;
 @Table(name="orderTable")
 
 public class Order {
-	@Id
+	 @Id
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderId;        // Primary Key
 	
 	@ManyToOne(cascade=CascadeType.ALL)
@@ -40,13 +43,17 @@ public class Order {
 	    @FutureOrPresent
 	    private LocalDate deliveryDate;
 	    
-	    @OneToOne(cascade = CascadeType.ALL)
+	    @OneToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="payment_id")
 	    private Payment payment;
 
-	    @ManyToOne(cascade=CascadeType.ALL)
-	    @JoinColumn(name="sellerId")
-	    private Seller seller;
+	    @ManyToMany
+	    @JoinTable(
+	        name = "order_seller",
+	        joinColumns = @JoinColumn(name = "order_id"),
+	        inverseJoinColumns = @JoinColumn(name = "seller_id")
+	    )
+	    private List<Seller> sellers = new ArrayList<>();
 
 		public Order() {
 			super();
@@ -117,17 +124,24 @@ public class Order {
 			this.payment = payment;
 		}
 
-		public Seller getSeller() {
-			return seller;
+		public List<Seller> getSellers() {
+			return sellers;
 		}
 
-		public void setSeller(Seller seller) {
-			this.seller = seller;
+		public void setSellers(List<Seller> sellers) {
+			this.sellers = sellers;
+		}
+
+		@Override
+		public String toString() {
+			return "Order [orderId=" + orderId + ", customer=" + customer + ", orderDate=" + orderDate
+					+ ", totalAmount=" + totalAmount + ", status=" + status + ", statusDescription=" + statusDescription
+					+ ", deliveryDate=" + deliveryDate + ", payment=" + payment + ", sellers=" + sellers + "]";
 		}
 
 		public Order(int orderId, Customer customer, @NotNull LocalDate orderDate, @Positive double totalAmount,
 				@NotBlank String status, @NotBlank String statusDescription, @FutureOrPresent LocalDate deliveryDate,
-				Payment payment, Seller seller) {
+				Payment payment, List<Seller> sellers) {
 			super();
 			this.orderId = orderId;
 			this.customer = customer;
@@ -137,15 +151,11 @@ public class Order {
 			this.statusDescription = statusDescription;
 			this.deliveryDate = deliveryDate;
 			this.payment = payment;
-			this.seller = seller;
+			this.sellers = sellers;
 		}
 
-		@Override
-		public String toString() {
-			return "Order [orderId=" + orderId + ", customer=" + customer + ", orderDate=" + orderDate
-					+ ", totalAmount=" + totalAmount + ", status=" + status + ", statusDescription=" + statusDescription
-					+ ", deliveryDate=" + deliveryDate + ", payment=" + payment + ", seller=" + seller + "]";
-		}
+		
+
 
 		
 }

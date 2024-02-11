@@ -60,8 +60,9 @@ class CategoryServiceImpTest {
 	void testGetAllCategory() {
 		//fail("Not yet implemented");
 		List list = service.getAllCategory();
-		boolean flag = list.isEmpty();
-		assertFalse(flag);
+		int size = list.size();
+
+		assertNotEquals(0,size);
 	}
 
 }

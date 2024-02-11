@@ -40,8 +40,9 @@ public class Address {
 	    private String state;
 		@NotBlank
 	    private String country;
-	    @ManyToMany(mappedBy = "addresses", fetch=FetchType.LAZY)
-	    private List<Customer> customers = new ArrayList<Customer>();
+		@OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
+		private Customer customer;
+
 		
 	    public Address() {
 			super();
@@ -63,19 +64,7 @@ public class Address {
 		}
 
 
-		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
-				@NotBlank @Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
-				@NotBlank String city, @NotBlank String state, @NotBlank String country, List<Customer> customers) {
-			super();
-			this.addressId = addressId;
-			this.addressLine1 = addressLine1;
-			this.addressLine2 = addressLine2;
-			this.postalCode = postalCode;
-			this.city = city;
-			this.state = state;
-			this.country = country;
-			this.customers = customers;
-		}
+		
 
 		public int getAddressId() {
 			return addressId;
@@ -133,20 +122,42 @@ public class Address {
 			this.country = country;
 		}
 
-		public List<Customer> getCustomers() {
-			return customers;
+
+		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
+				@NotBlank @Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
+				@NotBlank String city, @NotBlank String state, @NotBlank String country, Customer customer) {
+			super();
+			this.addressId = addressId;
+			this.addressLine1 = addressLine1;
+			this.addressLine2 = addressLine2;
+			this.postalCode = postalCode;
+			this.city = city;
+			this.state = state;
+			this.country = country;
+			this.customer = customer;
 		}
 
-		public void setCustomers(List<Customer> customers) {
-			this.customers = customers;
+
+		public Customer getCustomer() {
+			return customer;
 		}
+
+
+		public void setCustomer(Customer customer) {
+			this.customer = customer;
+		}
+
 
 		@Override
 		public String toString() {
 			return "Address [addressId=" + addressId + ", addressLine1=" + addressLine1 + ", addressLine2="
 					+ addressLine2 + ", postalCode=" + postalCode + ", city=" + city + ", state=" + state + ", country="
-					+ country + ", customers=" + customers + "]";
+					+ country + ", customer=" + customer + "]";
 		}
+
+		
+
+		
 	    
 	    
 	    

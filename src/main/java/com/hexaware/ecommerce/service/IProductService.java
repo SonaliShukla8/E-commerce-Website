@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.entity.Product;
+
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 
 public interface IProductService {
@@ -13,4 +14,6 @@ public interface IProductService {
     public ProductDTO getProductById(int productId) throws ProductNotFoundException;
     public List<Product> getAllProduct();
     public Product getByName(String name);
+    public List<Product> getByBrand(String brand) ;
+    public List<Product> getByPriceRange(double min,double max);
 }
