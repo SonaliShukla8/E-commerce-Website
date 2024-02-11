@@ -29,8 +29,8 @@ public class CustomerRestController {
 	ICustomerService service;
 	
 	@PostMapping("/add")
-	public Customer addCustomer(@RequestBody @Valid CustomerDTO customerDTO) {
-		return service.addCustomer(customerDTO);
+	public String registerCustomer(@RequestBody @Valid CustomerDTO customerDTO) {
+		return service.registerCustomer(customerDTO);
 	}
 	
 	@PutMapping("/update")
@@ -67,5 +67,6 @@ public class CustomerRestController {
 	public String placeOrder(@PathVariable int customerId) throws OrderNotFoundException, ProductNotFoundException{
 		return service.placeOrder(customerId);
 	}
+
 
 }

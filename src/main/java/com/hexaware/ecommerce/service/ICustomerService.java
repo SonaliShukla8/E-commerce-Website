@@ -9,16 +9,19 @@ import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.SubCategory;
+
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 
+
 public interface ICustomerService {
-	public Customer addCustomer(CustomerDTO customerDTO);
+	public String registerCustomer(CustomerDTO customerDTO);
     public Customer updateCustomer(CustomerDTO customerDTO) throws CustomerNotFoundException ;
     public String deleteCustomerById(int customerId) throws CustomerNotFoundException ;
     public CustomerDTO getCustomerById(int customerId)throws CustomerNotFoundException ;
     public List<Customer> getAllCustomer();
+
     public List<Product> getAllProduct();
     public List<Category> getAllCategory();
     public List<SubCategory> getAllSubCategory();
@@ -30,4 +33,5 @@ public interface ICustomerService {
     public String placeOrder(int customerId) throws OrderNotFoundException, ProductNotFoundException;
     public List<Product> getProductsByBrand(String brand);
     public List<Product> getProductsByPriceRange(double min,double max);
+
 }

@@ -27,7 +27,7 @@ public class ProductDTO {
   //  private Category category;
 
     private SubCategory subCategory;
-    @JsonIgnore
+   // @JsonIgnore
    // private List<Cart> cart=new ArrayList<Cart>();
 	
     public ProductDTO() {
@@ -148,6 +148,14 @@ public class ProductDTO {
 
 	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductDTO [productId=" + productId + ", seller=" + seller + ", productName=" + productName
+				+ ", productImageURL=" + productImageURL + ", description=" + description + ", price=" + price
+				+ ", stockQuantity=" + stockQuantity + ", brand=" + brand + ", createdAt=" + createdAt + ", modifiedAt="
+				+ modifiedAt + ", subCategory=" + subCategory + "]";
 	}
 
 //	public List<Cart> getCart() {
