@@ -21,8 +21,12 @@ public class SellerDTO {
 	 private String address;
 	 
 	 private String sellingDomain;
+
+		private String username;
 	 
 	 private String password;
+	 
+	 private String role;
      @JsonIgnore
 	 private List<Product> product=new ArrayList<Product>();
      @JsonIgnore
@@ -34,7 +38,10 @@ public class SellerDTO {
 	}
 
 	public SellerDTO(int sellerId, String sellerName, String businessName, String phoneNumber, String email,
-			String address, String sellingDomain, String password, List<Product> product, List<Order> orders) {
+
+			String address, String sellingDomain, String username, String password, String role, List<Product> product,
+			List<Order> order) {
+
 		super();
 		this.sellerId = sellerId;
 		this.sellerName = sellerName;
@@ -43,7 +50,9 @@ public class SellerDTO {
 		this.email = email;
 		this.address = address;
 		this.sellingDomain = sellingDomain;
+		this.username = username;
 		this.password = password;
+		this.role = role;
 		this.product = product;
 		this.orders = orders;
 	}
@@ -104,12 +113,28 @@ public class SellerDTO {
 		this.sellingDomain = sellingDomain;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public List<Product> getProduct() {
@@ -132,7 +157,11 @@ public class SellerDTO {
 	public String toString() {
 		return "SellerDTO [sellerId=" + sellerId + ", sellerName=" + sellerName + ", businessName=" + businessName
 				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", sellingDomain="
-				+ sellingDomain + ", password=" + password + ", product=" + product + ", orders=" + orders + "]";
+
+				+ sellingDomain + ", username=" + username + ", password=" + password + ", role=" + role + ", product="
+				+ product + ", order=" + order + "]";
+
 	}
 
+	
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.CustomerDTO;
+
 import com.hexaware.ecommerce.dto.OrderDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.entity.Cart;
+
 
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
@@ -26,8 +29,10 @@ import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
 
+
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
+
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.CartRepository;
 import com.hexaware.ecommerce.repository.CustomerRepository;
@@ -35,16 +40,10 @@ import com.hexaware.ecommerce.repository.CustomerRepository;
 public class CustomerServiceImp implements ICustomerService {
     @Autowired
 	CustomerRepository repo;
-    @Autowired
-    IProductService productService;
-    @Autowired
-    ICategoryService categoryService;
-    @Autowired
-    ISubCategoryService subcategoryService;
-    @Autowired
-    ICartItemService cartitemService;
+
+
     
-    
+
     @Autowired
     IProductService productService;
     @Autowired
@@ -64,75 +63,77 @@ public class CustomerServiceImp implements ICustomerService {
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
 	@Override
-	public Customer addCustomer(CustomerDTO customerDTO) {
+	public String registerCustomer(CustomerDTO customerDTO) {
 		logger.info("Adding new Customer");
 		Customer customer = new Customer();
 		customer.setCustomerId(customerDTO.getCustomerId());
 		customer.setEmail(customerDTO.getEmail());
-		customer.setFullName(customerDTO.getFullName());
+		customer.setCustomerName(customerDTO.getCustomerName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
+
 		customer.setAddress(customerDTO.getAddress());
 //		customer.setOrder(customerDTO.getOrder());
 
+
 		customer.setCart(customerDTO.getCart());
 		customer.setPassword(customerDTO.getPassword());
-		return repo.save(customer);
+		customer.setRole(customerDTO.getRole());
+		customer.setUsername(customerDTO.getUsername());
+		 repo.save(customer);
+		 return "New customer Registered";
 	}
 
 	@Override
-	public Customer updateCustomer(CustomerDTO customerDTO) throws CustomerNotFoundException {
-		Customer customer = repo.findById(customerDTO.getCustomerId()).orElse(null);
-		if(customer == null) {
-			throw new CustomerNotFoundException ("Customer with ID " +customerDTO.getCustomerId()+ "not found.");
-		}
-		
+	public Customer updateCustomer(CustomerDTO customerDTO) {
 		logger.info("Updating the customer");
+		Customer customer = new Customer();
 		customer.setCustomerId(customerDTO.getCustomerId());
 		customer.setEmail(customerDTO.getEmail());
-		customer.setFullName(customerDTO.getFullName());
+		customer.setCustomerName(customerDTO.getCustomerName());
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
+
 		customer.setAddress(customerDTO.getAddress());
 //		customer.setOrder(customerDTO.getOrder());
 
+
 		customer.setCart(customerDTO.getCart());
 		customer.setPassword(customerDTO.getPassword());
+		customer.setRole(customerDTO.getRole());
+		customer.setUsername(customerDTO.getUsername());
 		return repo.save(customer);
 	}
 
 	@Override
-	public String deleteCustomerById(int customerId) throws CustomerNotFoundException {
-		Customer customer = repo.findById(customerId).orElse(null);
-		if(customer == null) {
-			throw new CustomerNotFoundException ("Customer with ID " +customerId+ "not found.");
-		}
-		
+	public String deleteCustomerById(int customerId) {
 		logger.info("Deleting the customer with customerId "+customerId);
 		repo.deleteById(customerId);
 		return "Customer with customerId "+customerId+" deleted.";
 	}
 
 	@Override
-	public CustomerDTO getCustomerById(int customerId) throws CustomerNotFoundException {
+	public CustomerDTO getCustomerById(int customerId) {
 		
 		Customer customer = repo.findById(customerId).orElse(null);
 		if(customer == null) {
-			throw new CustomerNotFoundException ("Customer with ID " +customerId+ "not found.");
+			logger.warn("Customer with ID " +customerId+ "not found.");
 		}
 		
 		CustomerDTO dto = new CustomerDTO();
 		dto.setCustomerId(customer.getCustomerId());
 		dto.setEmail(customer.getEmail());
-		dto.setFullName(customer.getFullName());
+		dto.setUsername(customer.getUsername());
 		dto.setGender(customer.getGender());
 		dto.setContactNumber(customer.getContactNumber());
+
 		dto.setAddress(customer.getAddress());
 //		dto.setOrder(customer.getOrder());
 
 		dto.setCart(customer.getCart());
 		dto.setPassword(customer.getPassword());
-		
+		dto.setRole(customer.getRole());
+		dto.setCustomerName(customer.getCustomerName());
 		return dto;
 	}
 
@@ -142,6 +143,7 @@ public class CustomerServiceImp implements ICustomerService {
 
 		return repo.findAll();
 	}
+
 	
 	 @Override
      public List<Product> getAllProduct() {
@@ -335,6 +337,7 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 	
 
+
 	@Override
 	public List<Product> getAllProduct() {
 		return productService.getAllProduct();
@@ -360,6 +363,7 @@ public class CustomerServiceImp implements ICustomerService {
 		return categoryService.getbyName(name);
 	}
 
+
 	@Override
 	public SubCategory getSubCategoryByName(String name) {
 		return subcategoryService.getSubCategoryByName(name);
@@ -374,14 +378,11 @@ public class CustomerServiceImp implements ICustomerService {
 
 	@Override
 	public List<CartItem> viewCartitems(int customerId) {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public String placeOrder(Order order) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

@@ -31,7 +31,14 @@ public class Seller {
 	 private String address;
 	 @NotBlank(message = "Selling domain cannot be blank")
 	 private String sellingDomain;
+	 
+	 @NotBlank(message = "Username is required")
+		@Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores")
+		private String username;
+	 
 	 	 private String password;
+	 	 
+	 	 private String role;
 
 	@JsonIgnore
 	 @OneToMany(cascade=CascadeType.ALL,mappedBy="seller")
@@ -51,8 +58,11 @@ public class Seller {
 			@Pattern(regexp = "[0-9]{10}") String phoneNumber,
 			@Email(message = "Invalid email address") @NotBlank(message = "Email cannot be blank") String email,
 			@NotBlank(message = "Address cannot be blank") String address,
-			@NotBlank(message = "Selling domain cannot be blank") String sellingDomain, String password,
-			List<Product> product, List<Order> orders) {
+
+			@NotBlank(message = "Selling domain cannot be blank") String sellingDomain,
+			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
+			String password, String role, List<Product> product, List<Order> order) {
+
 		super();
 		this.sellerId = sellerId;
 		this.sellerName = sellerName;
@@ -61,7 +71,9 @@ public class Seller {
 		this.email = email;
 		this.address = address;
 		this.sellingDomain = sellingDomain;
+		this.username = username;
 		this.password = password;
+		this.role = role;
 		this.product = product;
 		this.orders = orders;
 	}
@@ -122,12 +134,28 @@ public class Seller {
 		this.sellingDomain = sellingDomain;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public List<Product> getProduct() {
@@ -150,8 +178,11 @@ public class Seller {
 	public String toString() {
 		return "Seller [sellerId=" + sellerId + ", sellerName=" + sellerName + ", businessName=" + businessName
 				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", sellingDomain="
-				+ sellingDomain + ", password=" + password + ", product=" + product + ", orders=" + orders + "]";
+
+				+ sellingDomain + ", username=" + username + ", password=" + password + ", role=" + role + ", product="
+				+ product + ", order=" + order + "]";
+
 	}
-    
+
 	
 }

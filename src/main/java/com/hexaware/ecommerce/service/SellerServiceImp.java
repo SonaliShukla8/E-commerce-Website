@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.ProductDTO;
@@ -30,11 +31,13 @@ public class SellerServiceImp implements ISellerService {
     ISubCategoryService subCategoryService;
     @Autowired
     IProductService productService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
     
     private static final Logger logger = LoggerFactory.getLogger(SellerServiceImp.class);
 	
 	@Override
-	public Seller addSeller(SellerDTO sellerDTO) {
+	public String registerSeller(SellerDTO sellerDTO) {
 		logger.info("Adding a seller..");
 		Seller seller=new Seller();
 		seller.setAddress(sellerDTO.getAddress());
@@ -46,8 +49,12 @@ public class SellerServiceImp implements ISellerService {
 		seller.setProduct(sellerDTO.getProduct());
 		seller.setSellerId(sellerDTO.getSellerId());
 		seller.setSellingDomain(sellerDTO.getSellingDomain());
-		seller.setPassword(sellerDTO.getPassword());
-		return repo.save(seller);
+		seller.setPassword(passwordEncoder.encode(sellerDTO.getPassword()));
+		seller.setRole(sellerDTO.getRole());
+		seller.setUsername(sellerDTO.getUsername());
+		 repo.save(seller);
+		 return "New Seller registered";
+				
 		
 	}
 
@@ -68,6 +75,8 @@ public class SellerServiceImp implements ISellerService {
 		seller.setSellerId(sellerDTO.getSellerId());
 		seller.setSellingDomain(sellerDTO.getSellingDomain());
 		seller.setPassword(sellerDTO.getPassword());
+		seller.setRole(sellerDTO.getRole());
+		seller.setUsername(sellerDTO.getUsername());
 		return repo.save(seller);
 	}
 
@@ -99,6 +108,8 @@ public class SellerServiceImp implements ISellerService {
 		dto.setSellerId(seller.getSellerId());
 		dto.setSellingDomain(seller.getSellingDomain());
 		dto.setPassword(seller.getPassword());
+		dto.setRole(seller.getRole());
+		dto.setUsername(seller.getUsername());
 		return dto;
 	}
 
@@ -156,6 +167,7 @@ public class SellerServiceImp implements ISellerService {
 	}
 
 	@Override
+
 	public ProductDTO markProductOutOfStock(int sellerId, int productId) throws ProductNotFoundException {
 		ProductDTO productDTO = productService.getProductById(productId);
 		 if (productDTO == null) {
@@ -170,6 +182,11 @@ public class SellerServiceImp implements ISellerService {
 		else {
 	        throw new IllegalArgumentException("Product does not belong to the seller");
 	    }
+
+	public String login(String username, String password) {
+
+		return null;
+
 	}
 
 }
