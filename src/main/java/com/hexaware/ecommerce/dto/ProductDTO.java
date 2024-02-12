@@ -21,6 +21,7 @@ public class ProductDTO {
     private LocalDateTime modifiedAt;
 
     private SubCategory subCategory;
+
     public ProductDTO() {
 		super();
 		
@@ -130,6 +131,17 @@ public class ProductDTO {
 	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ProductDTO [productId=" + productId + ", seller=" + seller + ", productName=" + productName
+				+ ", productImageURL=" + productImageURL + ", description=" + description + ", price=" + price
+				+ ", stockQuantity=" + stockQuantity + ", brand=" + brand + ", createdAt=" + createdAt + ", modifiedAt="
+				+ modifiedAt + ", subCategory=" + subCategory + "]";
+	}
+
+
 
 	
 	
