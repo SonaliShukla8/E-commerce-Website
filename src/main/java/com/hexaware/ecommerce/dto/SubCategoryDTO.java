@@ -9,7 +9,7 @@ import com.hexaware.ecommerce.entity.Product;
 
 public class SubCategoryDTO {
 	
-	 private int subCategoryId;        // Primary Key
+	 private int subCategoryId;     
 	    private String subCategoryName;
 	    private Category category;
 	    @JsonIgnore
@@ -18,11 +18,6 @@ public class SubCategoryDTO {
 	    public SubCategoryDTO() {
 			super();
 		}
-	    
-
-		
-
-
 		public SubCategoryDTO(int subCategoryId, String subCategoryName, Category category, List<Product> products) {
 			super();
 			this.subCategoryId = subCategoryId;

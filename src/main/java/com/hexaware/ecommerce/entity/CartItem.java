@@ -1,24 +1,10 @@
 package com.hexaware.ecommerce.entity;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-
-
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
-
-
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
@@ -77,40 +63,21 @@ public class CartItem {
 	}
 
 
-
-
-	
-
-
-
-
 	public Product getProduct() {
 		return product;
 	}
-
-
-
 
 	public void setProduct(Product product) {
 		this.product = product;
 	}
 
-
-
-
 	public Cart getCart() {
 		return cart;
 	}
 
-
-
-
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
-
-
-
 
 	public CartItem(@NotNull int cartitemId, @Positive int itemQuantity, Product product, Cart cart) {
 		super();

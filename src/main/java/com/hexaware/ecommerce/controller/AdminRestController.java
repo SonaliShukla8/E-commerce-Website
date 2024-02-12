@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.ecommerce.dto.AdminDTO;
 import com.hexaware.ecommerce.dto.AuthRequest;
 import com.hexaware.ecommerce.dto.PaymentDTO;
-import com.hexaware.ecommerce.entity.Admin;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;

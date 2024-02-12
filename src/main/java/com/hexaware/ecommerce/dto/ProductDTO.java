@@ -1,13 +1,8 @@
 package com.hexaware.ecommerce.dto;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hexaware.ecommerce.entity.Cart;
-import com.hexaware.ecommerce.entity.CartItem;
-import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
 
@@ -24,12 +19,9 @@ public class ProductDTO {
     private String brand;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-  //  private Category category;
 
     private SubCategory subCategory;
-   // @JsonIgnore
-   // private List<Cart> cart=new ArrayList<Cart>();
-	
+
     public ProductDTO() {
 		super();
 		
@@ -49,9 +41,7 @@ public class ProductDTO {
 		this.brand = brand;
 		this.createdAt = createdAt;
 		this.modifiedAt = modifiedAt;
-		//this.category = category;
 		this.subCategory = subCategory;
-	//	this.cart = cart;
 	}
 
 	public int getProductId() {
@@ -134,14 +124,6 @@ public class ProductDTO {
 		this.modifiedAt = modifiedAt;
 	}
 
-//	public Category getCategory() {
-//		return category;
-//	}
-//
-//	public void setCategory(Category category) {
-//		this.category = category;
-//	}
-
 	public SubCategory getSubCategory() {
 		return subCategory;
 	}
@@ -149,6 +131,7 @@ public class ProductDTO {
 	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
 	}
+
 
 	@Override
 	public String toString() {
@@ -158,14 +141,7 @@ public class ProductDTO {
 				+ modifiedAt + ", subCategory=" + subCategory + "]";
 	}
 
-//	public List<Cart> getCart() {
-//		return cart;
-//	}
-//
-//	public void setCart(List<Cart> cart) {
-//		this.cart = cart;
-//	}
-    
+
 
 	
 	

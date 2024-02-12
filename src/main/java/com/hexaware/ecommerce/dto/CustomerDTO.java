@@ -170,25 +170,29 @@ public class CustomerDTO {
 	}
 
 
-	
-	public CustomerDTO(int customerId, String customerName, String gender, String contactNumber, String email,
-			String password) {
-		super();
-		this.customerId = customerId;
-		this.customerName = customerName;
-		this.gender = gender;
-		this.contactNumber = contactNumber;
-		this.email = email;
-		this.password = password;
-	}
 
 
 	@Override
 	public String toString() {
 		return "CustomerDTO [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
 				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
-				+ password + ", role=" + role + ", address=" + address + ", cart=" + cart + ", order=" + order + "]";
+				+ password + ", role=" + role + ", address=" + address + ", cart=" + cart + ", order=" + order
+				+ "]";
+
 	}
+    
+
+	public CustomerDTO(int customerId, String customerName, String gender, String contactNumber, String email,
+			String password) {
+		super();
+		this.customerId = customerId;
+		this.customerName=customerName;
+		this.gender = gender;
+		this.contactNumber = contactNumber;
+		this.email = email;
+		this.password = password;
+	}
+
 
 	
 }
