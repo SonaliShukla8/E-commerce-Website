@@ -24,7 +24,7 @@ public class CategoryServiceImp implements ICategoryService {
 		logger.info("Adding new Category");
 		Category category = new Category();
 		category.setCategoryId(categoryDTO.getCategoryId());
-		category.setCategoryName(categoryDTO.getCategoryName());
+		category.setCategoryName(category.getCategoryName());
 		//category.setSubCategories(categoryDTO.getSubCategories());
 		
 		return repo.save(category);

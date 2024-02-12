@@ -1,11 +1,16 @@
 package com.hexaware.ecommerce.dto;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.SubCategory;
 
 public class CategoryDTO {
 	
 	private int categoryId;   
     private String categoryName;
+    @JsonIgnore
+    private List<SubCategory> subCategories =new ArrayList<SubCategory>();
     public CategoryDTO() {
 		super();
 	}
@@ -40,6 +45,7 @@ public class CategoryDTO {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	
 	@Override
 	public String toString() {
 		return "CategoryDTO [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";

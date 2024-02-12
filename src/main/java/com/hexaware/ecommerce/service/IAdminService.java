@@ -53,9 +53,12 @@ public interface IAdminService {
     
     public Payment addPayment(PaymentDTO payment);
     
-    public Category addCategory(CategoryDTO categorydto);
+    public Category addCategory(Category category);
     
     public SubCategory addSubCategory(SubCategoryDTO subcategorydto); 
+    
+
+    
     
       
 }

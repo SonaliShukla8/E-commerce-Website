@@ -25,8 +25,6 @@ public class ProductServiceImp implements IProductService {
 	    Product product = new Product();
 	    product.setProductId(productDTO.getProductId());
 	    product.setBrand(productDTO.getBrand());
-	  //  product.setCart(productDTO.getCart());
-	  //  product.setCategory(productDTO.getCategory());
 	    product.setCreatedAt(productDTO.getCreatedAt());
 	    product.setDescription(productDTO.getDescription());
 	    product.setModifiedAt(productDTO.getModifiedAt());
@@ -118,6 +116,11 @@ public class ProductServiceImp implements IProductService {
 	@Override
 	public List<Product> getByPriceRange(double min, double max) {
 		return repo.findBypriceBetween(min, max);
+	}
+
+	@Override
+	public List<Product> getAllProductBySellerId(int sellerId) {
+		return repo.findBySellerId(sellerId);
 	}
 
 }

@@ -9,7 +9,6 @@ import com.hexaware.ecommerce.entity.SubCategory;
 public class ProductDTO {
 
     private int productId;
-    @JsonIgnore
 	private Seller seller;
     private String productName;
     private String productImageURL;
@@ -19,7 +18,6 @@ public class ProductDTO {
     private String brand;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
     private SubCategory subCategory;
     public ProductDTO() {
 		super();
