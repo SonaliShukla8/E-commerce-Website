@@ -1,9 +1,7 @@
 package com.hexaware.ecommerce.service;
 
 import java.util.List;
-
 import com.hexaware.ecommerce.dto.AdminDTO;
-import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
@@ -42,20 +40,19 @@ public interface IAdminService {
     public  String deleteSeller(int id) throws SellerNotFoundException;
     
     public String deleteCustomer(int id) throws CustomerNotFoundException;
-    
-
-
-    
-    
+     
     public List<Category> viewAllCategory();
     
     public List<SubCategory> viewAllSubCategory();
     
     public Payment addPayment(PaymentDTO payment);
     
-    public Category addCategory(CategoryDTO categorydto);
+    public Category addCategory(Category category);
     
     public SubCategory addSubCategory(SubCategoryDTO subcategorydto); 
+    
+
+    
     
       
 }

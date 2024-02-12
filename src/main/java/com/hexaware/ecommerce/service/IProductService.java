@@ -16,4 +16,5 @@ public interface IProductService {
     public Product getByName(String name);
     public List<Product> getByBrand(String brand) ;
     public List<Product> getByPriceRange(double min,double max);
+    public List<Product> getAllProductBySellerId(int sellerId);
 }

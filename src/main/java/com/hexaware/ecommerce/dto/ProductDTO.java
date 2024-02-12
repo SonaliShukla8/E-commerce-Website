@@ -1,8 +1,6 @@
 package com.hexaware.ecommerce.dto;
 
 import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
 

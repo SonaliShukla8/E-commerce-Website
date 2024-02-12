@@ -1,7 +1,7 @@
 package com.hexaware.ecommerce.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.List;
@@ -24,7 +24,6 @@ class SellerServiceImpTest {
 
 	@Test
 	void testAddSeller() throws SellerNotFoundException {
-		//fail("Not yet implemented");
 		SellerDTO sellerDTO = new SellerDTO(101,"Bhaskar","Raymond","9848283421","raymond@gmail.com","Mumbai","Clothing","bh@sk@r123","bhaskar@123","seller",null,null);
 		SellerDTO seller = service.registerSeller(sellerDTO);
 		assertEquals(101,seller.getSellerId());
@@ -32,7 +31,6 @@ class SellerServiceImpTest {
 
 	@Test
 	void testUpdateSeller() throws SellerNotFoundException {
-	//	fail("Not yet implemented");
 		SellerDTO sellerDTO = new SellerDTO(102,"Ranjeeth","LOUIS PHILIPPE","8074537575","louisphilippe@gmail.com","Hyderabad","Clothing","Ranjeeth*1","ranjeeth@1","seller",null,null);
 		SellerDTO seller = service.registerSeller(sellerDTO);
 		SellerDTO sellerDTO2 = new SellerDTO(102,"Ranjeeth","LOUIS PHILIPPE","9392029482","louisphilippe@gmail.com","Hyderabad","Clothing","Ranjeeth*1","ranjeeth@1","seller",null,null);
@@ -42,7 +40,6 @@ class SellerServiceImpTest {
 
 	@Test
 	void testDeleteSellerById() throws SellerNotFoundException {
-		//fail("Not yet implemented");
 		SellerDTO sellerDTO = new SellerDTO(104,"John","ASUS","7124932415","asus@gmail.com","Chennai","Electronics","John@234","John@1","seller",null,null);
 		SellerDTO seller = service.registerSeller(sellerDTO);
 		String delete = service.deleteSellerById(seller.getSellerId());
@@ -52,7 +49,6 @@ class SellerServiceImpTest {
 
 	@Test
 	void testGetSellerById() throws SellerNotFoundException {
-		//fail("Not yet implemented");
 		SellerDTO sellerDTO = new SellerDTO(103,"Ramesh","SAMSUNG","8435242468","samsung@gmail.com","Kochi","Electronics","RamEsh#999","ramesh@1","seller",null,null);
 		SellerDTO seller = service.registerSeller(sellerDTO);
 		SellerDTO sellerDTO2 = service.getSellerById(seller.getSellerId());
@@ -61,7 +57,6 @@ class SellerServiceImpTest {
 
 	@Test
 	void testGetAllSeller() {
-		//fail("Not yet implemented");
 		List list = service.getAllSeller();
 		int size = list.size();
 

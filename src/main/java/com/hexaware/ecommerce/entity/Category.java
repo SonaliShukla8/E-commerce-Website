@@ -17,13 +17,7 @@ public class Category {
 	private int categoryId;      
     @NotBlank
     private String categoryName;
-    
-    public Category(int categoryId, @NotBlank String categoryName) {
-		super();
-		this.categoryId = categoryId;
-		this.categoryName = categoryName;
-	}
-    
+   
     @JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="category", fetch = FetchType.LAZY)
    private List<SubCategory> subCategories =new ArrayList<SubCategory>();
@@ -31,6 +25,11 @@ public class Category {
 	public Category() {
 		super();
 	}
+	  public Category(int categoryId, @NotBlank String categoryName) {
+			super();
+			this.categoryId = categoryId;
+			this.categoryName = categoryName;
+		}
 
 	public Category(int categoryId, @NotBlank String categoryName, List<SubCategory> subCategories) {
 		super();
@@ -56,10 +55,9 @@ public class Category {
 	}
 
 	
-	  public List<SubCategory> getSubCategories() { return subCategories; }
+	  public List<SubCategory> getSubCategories() 
+	  { return subCategories; }
 	  
-	  public void setSubCategories(List<SubCategory> subCategories) {
-	  this.subCategories = subCategories; }
 
 	@Override
 	public String toString() {

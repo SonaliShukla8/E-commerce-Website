@@ -7,7 +7,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.AdminDTO;
-import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Admin;
@@ -24,6 +23,7 @@ import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.repository.AdminRepository;
+import com.hexaware.ecommerce.repository.CategoryRepository;
 @Service
 public class AdminServiceImp implements IAdminService{
 	@Autowired
@@ -52,8 +52,8 @@ public class AdminServiceImp implements IAdminService{
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
-
-	
+	@Autowired
+	CategoryRepository categoryRepo;
 
 	@Override
 	public String addAdmin(AdminDTO admindto) {
@@ -134,9 +134,9 @@ public class AdminServiceImp implements IAdminService{
 	}
 
 	@Override
-	public Category addCategory(CategoryDTO categorydto) {
+	public Category addCategory(Category category) {
 		
-		return categoryService.addCategory(categorydto);
+		return categoryRepo.save(category);
 	}
 
 	@Override
