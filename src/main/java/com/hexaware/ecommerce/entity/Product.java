@@ -32,7 +32,6 @@ public class Product {
 	 
 	
 	private int productId;        // Primary Key
-	@JsonIgnore
 	 @ManyToOne(cascade=CascadeType.ALL)
 	 @JoinColumn(name = "seller_Id")
 	 private Seller seller;
@@ -57,7 +56,7 @@ public class Product {
 //	    @ManyToOne(cascade=CascadeType.ALL)
 //	    @JoinColumn(name = "categoryId")
 //	    private Category category;
-
+	    @JsonIgnore
 	    @ManyToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="subcategory_Id")
 	    private SubCategory subCategory;

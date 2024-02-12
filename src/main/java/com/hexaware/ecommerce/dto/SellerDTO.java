@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
-
 
 public class SellerDTO {
 	
@@ -167,13 +167,12 @@ public class SellerDTO {
 	public void setProduct(List<Product> product) {
 		this.product = product;
 	}
-
-
+	@JsonIgnore
 	public List<Order> getOrders() {
 		return orders;
 	}
 
-
+	@JsonIgnore
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}

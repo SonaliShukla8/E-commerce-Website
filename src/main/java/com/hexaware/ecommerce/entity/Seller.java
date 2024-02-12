@@ -31,13 +31,13 @@ public class Seller {
 	 private String address;
 	 @NotBlank(message = "Selling domain cannot be blank")
 	 private String sellingDomain;
-	 
+	 @JsonIgnore
 	 @NotBlank(message = "Username is required")
 		@Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores")
 		private String username;
-	 
+	 @JsonIgnore
 	 	 private String password;
-	 	 
+	 	 @JsonIgnore
 	 	 private String role;
 
 	@JsonIgnore
@@ -165,11 +165,11 @@ public class Seller {
 	public void setProduct(List<Product> product) {
 		this.product = product;
 	}
-
+	@JsonIgnore
 	public List<Order> getOrder() {
 		return orders;
 	}
-
+	@JsonIgnore
 	public void setOrder(List<Order> orders) {
 		this.orders = orders;
 	}

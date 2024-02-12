@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,11 +44,10 @@ public class Order {
 	    private String statusDescription;
 	    @FutureOrPresent
 	    private LocalDate deliveryDate;
-	    
 	    @OneToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="payment_id")
 	    private Payment payment;
-
+	    @JsonIgnore
 	    @ManyToMany
 	    @JoinTable(
 	        name = "order_seller",
