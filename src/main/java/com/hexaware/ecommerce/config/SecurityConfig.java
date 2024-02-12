@@ -38,7 +38,7 @@ public class SecurityConfig {
 	    	
 	    		return http.csrf(csrf -> csrf.disable())
                         .authorizeHttpRequests(requests -> requests.requestMatchers("api/customer/register", "api/seller/register", "/api/admin/login/authenticate", "/api/customer/login/authenticate", "/api/seller/login/authenticate").permitAll())
-                        .authorizeHttpRequests(requests -> requests.requestMatchers("api/admin/**", "api/customer/**", "api/seller/**")
+                        .authorizeHttpRequests(requests -> requests.requestMatchers("api/admin/**", "api/customer/**", "api/seller/**","api/product/**")
                                 .authenticated())   //.formLogin().and().build();
                         .sessionManagement(management -> management
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -35,7 +35,6 @@ public class CustomerDTO {
 	}
 
 
-
 	public CustomerDTO(int customerId, String customerName, String gender, String contactNumber, String email,
 			String username, String password, String role, Address address, Cart cart, List<Order> order) {
 
@@ -125,17 +124,8 @@ public class CustomerDTO {
 		this.password = password;
 	}
 
+
 	
-
-	public Address getAddress() {
-		return address;
-	}
-
-
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 
 
 
@@ -149,6 +139,15 @@ public class CustomerDTO {
 		this.role = role;
 	}
 
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 
 	public Cart getCart() {
@@ -171,21 +170,8 @@ public class CustomerDTO {
 	}
 
 
-
-
-	@Override
-	public String toString() {
-		return "CustomerDTO [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
-				+ password + ", role=" + role + ", address=" + address + ", cart=" + cart + ", order=" + order
-				+ "]";
-
-	}
-    
-
-
-
-	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
+	
+	public CustomerDTO(int customerId, String customerName, String gender, String contactNumber, String email,
 			String password) {
 		super();
 		this.customerId = customerId;
@@ -197,6 +183,12 @@ public class CustomerDTO {
 	}
 
 
-	
+	@Override
+	public String toString() {
+		return "CustomerDTO [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
+				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
+				+ password + ", role=" + role + ", address=" + address + ", cart=" + cart + ", order=" + order + "]";
+	}
+
 	
 }

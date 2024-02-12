@@ -75,7 +75,7 @@ public class Seller {
 		this.password = password;
 		this.role = role;
 		this.product = product;
-		this.orders = orders;
+		this.orders = order;
 	}
 
 	public int getSellerId() {
@@ -178,11 +178,14 @@ public class Seller {
 	public String toString() {
 		return "Seller [sellerId=" + sellerId + ", sellerName=" + sellerName + ", businessName=" + businessName
 				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", sellingDomain="
-
 				+ sellingDomain + ", username=" + username + ", password=" + password + ", role=" + role + ", product="
 				+ product + ", orders=" + orders + "]";
 
 	}
+
+	
+
+	
 
 	
 }
