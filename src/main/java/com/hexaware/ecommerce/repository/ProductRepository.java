@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.hexaware.ecommerce.entity.Product;
-import com.hexaware.ecommerce.entity.Seller;
+
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Integer>  {

@@ -39,6 +39,7 @@ public class Product {
 	    private LocalDateTime createdAt;
 	    @PastOrPresent
 	    private LocalDateTime modifiedAt;
+
 	    @ManyToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="subcategory_Id")
 	    private SubCategory subCategory;

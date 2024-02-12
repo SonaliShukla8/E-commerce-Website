@@ -1,8 +1,6 @@
 package com.hexaware.ecommerce.dto;
 
 import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
 
@@ -19,6 +17,7 @@ public class ProductDTO {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private SubCategory subCategory;
+
     public ProductDTO() {
 		super();
 		
@@ -128,6 +127,17 @@ public class ProductDTO {
 	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
 	}
+
+
+	@Override
+	public String toString() {
+		return "ProductDTO [productId=" + productId + ", seller=" + seller + ", productName=" + productName
+				+ ", productImageURL=" + productImageURL + ", description=" + description + ", price=" + price
+				+ ", stockQuantity=" + stockQuantity + ", brand=" + brand + ", createdAt=" + createdAt + ", modifiedAt="
+				+ modifiedAt + ", subCategory=" + subCategory + "]";
+	}
+
+
 
 	
 	

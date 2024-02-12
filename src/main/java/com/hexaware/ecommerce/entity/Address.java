@@ -1,4 +1,7 @@
 package com.hexaware.ecommerce.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -29,6 +32,7 @@ public class Address {
 	    private String state;
 		@NotBlank
 	    private String country;
+		@JsonIgnore
 		@OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
 		private Customer customer;
 

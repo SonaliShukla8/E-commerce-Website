@@ -34,5 +34,4 @@ public interface ICustomerService {
     public List<Product> getProductsByBrand(String brand);
     public List<Product> getProductsByPriceRange(double min,double max);
 
-
 }

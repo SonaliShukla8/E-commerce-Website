@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.ecommerce.dto.AdminDTO;
 import com.hexaware.ecommerce.dto.AuthRequest;
-import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
@@ -151,9 +150,7 @@ public class AdminRestController {
 	public List<Order> viewAllOrders() {
 		return service.viewAllOrder();
 	}
-	
-	
-	
+
      @PostMapping("/addPayment")
      @PreAuthorize("hasAuthority('admin')")
       public Payment addPayment(@RequestBody PaymentDTO payment) {
@@ -172,4 +169,7 @@ public class AdminRestController {
 	    	return service.addSubCategory(subcategorydto);
 	    
 }
+
+	
+	
 }

@@ -3,7 +3,6 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -37,17 +36,20 @@ public class Customer {
 	private String username;
     
     private String password;
-    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
+
+
     
     private String role;
-    
+
+
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="cartId")
     private Cart cart;
-   
+
+
 	@OneToMany( mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
 
@@ -63,8 +65,6 @@ public class Customer {
 				+ password + ", role=" + role + ", address=" + address + ", cart=" + cart + ", order=" + order
 				+ "]";
 	}
-
-
 
 	public int getCustomerId() {
 		return customerId;
@@ -137,6 +137,7 @@ public class Customer {
 
 
 
+
 	public String getRole() {
 		return role;
 	}
@@ -182,7 +183,9 @@ public class Customer {
 	public Customer(int customerId, @NotBlank String customerName, @NotBlank String gender,
 			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
 			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
-			String password, String role, Address address, Cart cart, List<Order> order) {
+			String password, String role,Address address, Cart cart, List<Order> order) {
+
+
 		super();
 		this.customerId = customerId;
 		this.customerName=customerName;
@@ -196,9 +199,6 @@ public class Customer {
 		this.cart = cart;
 		this.order = order;
 	}
-
-
-
 	
 	
     

@@ -37,14 +37,14 @@ public class SellerServiceImp implements ISellerService {
     private static final Logger logger = LoggerFactory.getLogger(SellerServiceImp.class);
 	
 	@Override
-	public String registerSeller(SellerDTO sellerDTO) {
+	public SellerDTO registerSeller(SellerDTO sellerDTO) {
 		logger.info("Adding a seller..");
 		Seller seller=new Seller();
 		seller.setAddress(sellerDTO.getAddress());
 		seller.setSellerName(sellerDTO.getSellerName());
 		seller.setBusinessName(sellerDTO.getBusinessName());
 		seller.setEmail(sellerDTO.getEmail());
-		seller.setOrder(sellerDTO.getOrder());
+		seller.setOrder(sellerDTO.getOrders());
 		seller.setPhoneNumber(sellerDTO.getPhoneNumber());
 		seller.setProduct(sellerDTO.getProduct());
 		seller.setSellerId(sellerDTO.getSellerId());
@@ -53,7 +53,7 @@ public class SellerServiceImp implements ISellerService {
 		seller.setRole(sellerDTO.getRole());
 		seller.setUsername(sellerDTO.getUsername());
 		 repo.save(seller);
-		 return "New Seller registered";
+		 return sellerDTO;
 				
 		
 	}
@@ -69,7 +69,7 @@ public class SellerServiceImp implements ISellerService {
 		seller.setSellerName(sellerDTO.getSellerName());
 		seller.setBusinessName(sellerDTO.getBusinessName());
 		seller.setEmail(sellerDTO.getEmail());
-		seller.setOrder(sellerDTO.getOrder());
+		seller.setOrder(sellerDTO.getOrders());
 		seller.setPhoneNumber(sellerDTO.getPhoneNumber());
 		seller.setProduct(sellerDTO.getProduct());
 		seller.setSellerId(sellerDTO.getSellerId());
@@ -102,7 +102,7 @@ public class SellerServiceImp implements ISellerService {
         dto.setSellerName(seller.getSellerName());
 		dto.setBusinessName(seller.getBusinessName());
 		dto.setEmail(seller.getEmail());
-		dto.setOrder(seller.getOrder());
+		dto.setOrders(seller.getOrder());
 		dto.setPhoneNumber(seller.getPhoneNumber());
 		dto.setProduct(seller.getProduct());
 		dto.setSellerId(seller.getSellerId());
@@ -182,10 +182,11 @@ public class SellerServiceImp implements ISellerService {
 		else {
 	        throw new IllegalArgumentException("Product does not belong to the seller");
 	    }
-
-
-
 	}
+
+
+
+	
 
 	@Override
 	public String login(String username, String password) {

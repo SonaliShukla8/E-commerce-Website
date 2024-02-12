@@ -1,4 +1,5 @@
 package com.hexaware.ecommerce.dto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Customer;
 
 public class AddressDTO {
@@ -10,6 +11,7 @@ public class AddressDTO {
 	    private String city;
 	    private String state;
 	    private String country;
+	    @JsonIgnore
 	    private Customer customer;
 		
 	    public AddressDTO() {

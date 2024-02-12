@@ -21,7 +21,6 @@ public class CustomerDTO {
     private String username;
     private String password;
     private String role;
-    @JsonIgnore
     private Address address;
     @JsonIgnore
     private Cart cart;
@@ -33,7 +32,6 @@ public class CustomerDTO {
 		super();
 		
 	}
-
 
 
 	public CustomerDTO(int customerId, String customerName, String gender, String contactNumber, String email,
@@ -125,17 +123,8 @@ public class CustomerDTO {
 		this.password = password;
 	}
 
+
 	
-
-	public Address getAddress() {
-		return address;
-	}
-
-
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 
 
 
@@ -149,6 +138,15 @@ public class CustomerDTO {
 		this.role = role;
 	}
 
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 
 	public Cart getCart() {
@@ -183,8 +181,6 @@ public class CustomerDTO {
 	}
     
 
-
-
 	public CustomerDTO(int customerId, String customerName, String gender, String contactNumber, String email,
 			String password) {
 		super();
@@ -197,6 +193,5 @@ public class CustomerDTO {
 	}
 
 
-	
 	
 }

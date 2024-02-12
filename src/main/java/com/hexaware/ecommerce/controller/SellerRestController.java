@@ -69,7 +69,7 @@ public class SellerRestController {
 	 }
 	
 	@PostMapping("/register")
-	public String registerSeller(@RequestBody @Valid SellerDTO sellerDTO) {
+	public SellerDTO registerSeller(@RequestBody @Valid SellerDTO sellerDTO) {
 		return service.registerSeller(sellerDTO);
 	}
 	

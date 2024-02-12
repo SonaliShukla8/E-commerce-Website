@@ -15,6 +15,7 @@ import com.hexaware.ecommerce.dto.OrderDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.entity.Cart;
+
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
@@ -23,6 +24,7 @@ import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
+
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
@@ -80,6 +82,7 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setContactNumber(customerDTO.getContactNumber());
 		customer.setAddress(customerDTO.getAddress());
 //		customer.setOrder(customerDTO.getOrder());
+
 		customer.setCart(customerDTO.getCart());
 		customer.setPassword(customerDTO.getPassword());
 		customer.setRole(customerDTO.getRole());
@@ -127,7 +130,6 @@ public class CustomerServiceImp implements ICustomerService {
              return productService.getAllProduct();
      }
      @Override
-
      public List<Category> getAllCategory() {
              return categoryService.getAllCategory();
      }
@@ -302,5 +304,6 @@ public class CustomerServiceImp implements ICustomerService {
 		
 		
 	}
+
 
 }
