@@ -143,6 +143,7 @@ public class AdminRestController {
 	                return service.deleteCustomer(id);
 	            
 	    }
+
 	
 	@GetMapping("/viewAllOrder")
 	@PreAuthorize("hasAuthority('admin')")

@@ -43,10 +43,12 @@ public class Customer {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    
-    private String role;
 
     
+
+    private String role;
+    
+
     
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="cartId")
@@ -54,7 +56,8 @@ public class Customer {
    
 
    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
+
+	@OneToMany( mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
 
 
@@ -62,8 +65,6 @@ public class Customer {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -141,7 +142,11 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
- public String getRole() {
+
+
+
+
+	public String getRole() {
 		return role;
 	}
 
@@ -159,6 +164,7 @@ public class Customer {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+
 
 
 	public Cart getCart() {
@@ -199,8 +205,6 @@ public class Customer {
 		this.cart = cart;
 		this.order = order;
 	}
-
-
 	
 	
     

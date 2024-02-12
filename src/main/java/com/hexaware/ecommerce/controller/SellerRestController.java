@@ -80,6 +80,7 @@ public class SellerRestController {
 
 		return service.updateSeller(sellerDTO);
 	}
+
 	@GetMapping("/getAllOrder")
 	@PreAuthorize("hasAuthority('seller')")
 	public List<Order> getAllOrder(){

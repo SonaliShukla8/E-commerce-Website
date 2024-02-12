@@ -62,6 +62,7 @@ public class Seller {
 			@NotBlank(message = "Selling domain cannot be blank") String sellingDomain,
 			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
 			String password, String role, List<Product> product, List<Order> order) {
+
 		super();
 		this.sellerId = sellerId;
 		this.sellerName = sellerName;
@@ -180,6 +181,8 @@ public class Seller {
 				+ sellingDomain + ", username=" + username + ", password=" + password + ", role=" + role + ", product="
 				+ product + ", orders=" + orders + "]";
 	}
+
+	
 
 	
 
