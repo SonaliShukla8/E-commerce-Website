@@ -21,7 +21,6 @@ public class CustomerDTO {
     private String username;
     private String password;
     private String role;
-    @JsonIgnore
     private Address address;
     @JsonIgnore
     private Cart cart;
