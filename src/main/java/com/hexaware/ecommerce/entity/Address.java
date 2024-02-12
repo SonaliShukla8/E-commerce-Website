@@ -2,17 +2,14 @@ package com.hexaware.ecommerce.entity;
 
 
 
-import java.util.ArrayList;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -40,6 +37,7 @@ public class Address {
 	    private String state;
 		@NotBlank
 	    private String country;
+		@JsonIgnore
 		@OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
 		private Customer customer;
 

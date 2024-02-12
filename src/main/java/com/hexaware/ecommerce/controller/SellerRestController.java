@@ -39,7 +39,7 @@ import jakarta.validation.Valid;
 @RequestMapping("api/seller")
 public class SellerRestController {
 	
-	 private static final Logger log = LoggerFactory.getLogger(AdminRestController.class);
+	 private static final Logger log = LoggerFactory.getLogger(SellerRestController.class);
 	@Autowired
 	ISellerService service;
 	
@@ -80,6 +80,7 @@ public class SellerRestController {
 
 		return service.updateSeller(sellerDTO);
 	}
+
 
 	@GetMapping("/getAllOrder")
 	@PreAuthorize("hasAuthority('seller')")
@@ -134,7 +135,9 @@ public class SellerRestController {
 	public ProductDTO getProductById(@PathVariable int id) throws ProductNotFoundException {
 		return service.getProductById(id);
 	}
+	
 	@GetMapping("/markProductOutOfStock/{sellerId}/{productId}")
+	@PreAuthorize("hasAuthority('seller')")
 	public ProductDTO markProductOutOfStock(@PathVariable int sellerId,@PathVariable int productId) throws ProductNotFoundException{
 		return service.markProductOutOfStock(sellerId, productId);
 	}

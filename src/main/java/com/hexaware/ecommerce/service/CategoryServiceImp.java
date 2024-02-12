@@ -94,7 +94,7 @@ public class CategoryServiceImp implements ICategoryService {
 	}
 
 	@Override
-	public Category getbyName(String name) {
+	public Category getCategorybyName(String name) {
 		return repo.findByCategoryName(name).orElse(null);
 	}
 

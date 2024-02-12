@@ -32,6 +32,7 @@ public class Product {
 	 
 	
 	private int productId;        // Primary Key
+	@JsonIgnore
 	 @ManyToOne(cascade=CascadeType.ALL)
 	 @JoinColumn(name = "seller_Id")
 	 private Seller seller;

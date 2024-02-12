@@ -45,7 +45,7 @@ public class Seller {
 	 private List<Product> product=new ArrayList<Product>();
 	 
 	 
-	 
+	 @JsonIgnore
 	@ManyToMany(mappedBy = "sellers")
     private List<Order> orders = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class Seller {
 
 			@NotBlank(message = "Selling domain cannot be blank") String sellingDomain,
 			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
-			String password, String role, List<Product> product, List<Order> order) {
+			String password, String role, List<Product> product,List<Order> orders) {
 
 		super();
 		this.sellerId = sellerId;
@@ -75,7 +75,7 @@ public class Seller {
 		this.password = password;
 		this.role = role;
 		this.product = product;
-		this.orders = order;
+		this.orders = orders;
 	}
 
 	public int getSellerId() {
@@ -180,6 +180,7 @@ public class Seller {
 				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + ", sellingDomain="
 				+ sellingDomain + ", username=" + username + ", password=" + password + ", role=" + role + ", product="
 				+ product + ", orders=" + orders + "]";
+
 	}
 
 	
