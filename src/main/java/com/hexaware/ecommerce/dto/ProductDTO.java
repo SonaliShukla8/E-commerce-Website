@@ -24,7 +24,7 @@ public class ProductDTO {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
   //  private Category category;
-    @JsonIgnore
+    //@JsonIgnore
     private SubCategory subCategory;
    // @JsonIgnore
    // private List<Cart> cart=new ArrayList<Cart>();

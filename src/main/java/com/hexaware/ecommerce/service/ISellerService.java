@@ -15,7 +15,7 @@ import com.hexaware.ecommerce.entity.SubCategory;
 
 public interface ISellerService {
 	public String login(String username, String password);
-	public String registerSeller(SellerDTO sellerDTO);
+	public SellerDTO registerSeller(SellerDTO sellerDTO);
     public Seller updateSeller(SellerDTO sellerDTO) throws SellerNotFoundException;
     public String deleteSellerById(int sellerId) throws SellerNotFoundException;
    

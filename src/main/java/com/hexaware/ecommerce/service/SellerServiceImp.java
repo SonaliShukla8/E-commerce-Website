@@ -37,7 +37,7 @@ public class SellerServiceImp implements ISellerService {
     private static final Logger logger = LoggerFactory.getLogger(SellerServiceImp.class);
 	
 	@Override
-	public String registerSeller(SellerDTO sellerDTO) {
+	public SellerDTO registerSeller(SellerDTO sellerDTO) {
 		logger.info("Adding a seller..");
 		Seller seller=new Seller();
 		seller.setAddress(sellerDTO.getAddress());
@@ -53,7 +53,7 @@ public class SellerServiceImp implements ISellerService {
 		seller.setRole(sellerDTO.getRole());
 		seller.setUsername(sellerDTO.getUsername());
 		 repo.save(seller);
-		 return "New Seller registered";
+		 return sellerDTO;
 				
 		
 	}
