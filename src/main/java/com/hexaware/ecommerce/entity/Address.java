@@ -1,12 +1,5 @@
 package com.hexaware.ecommerce.entity;
 
-
-
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -21,7 +14,7 @@ public class Address {
 	
 		@Id
 		@NotNull
-	   	private int addressId;        // Primary Key
+	   	private int addressId;        
 		@NotBlank
 	    @Size(max = 255)
 	    private String addressLine1;
@@ -41,13 +34,10 @@ public class Address {
 		@OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
 		private Customer customer;
 
-		
 	    public Address() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
 	    
-
 		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
 				@NotBlank @Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
 				@NotBlank String city, @NotBlank String state, @NotBlank String country) {
@@ -60,9 +50,6 @@ public class Address {
 			this.state = state;
 			this.country = country;
 		}
-
-
-		
 
 		public int getAddressId() {
 			return addressId;
@@ -151,17 +138,6 @@ public class Address {
 			return "Address [addressId=" + addressId + ", addressLine1=" + addressLine1 + ", addressLine2="
 					+ addressLine2 + ", postalCode=" + postalCode + ", city=" + city + ", state=" + state + ", country="
 					+ country + ", customer=" + customer + "]";
-		}
-
-		
-
-		
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+		}	    
 	    
 }

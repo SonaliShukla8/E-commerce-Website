@@ -1,12 +1,5 @@
 package com.hexaware.ecommerce.dto;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Customer;
-
-
 
 public class AddressDTO {
 		
@@ -18,15 +11,13 @@ public class AddressDTO {
 	    private String state;
 	    private String country;
 	    @JsonIgnore
+
 	    private Customer customer;
 		
 	    public AddressDTO() {
 			super();
 			
 		}
-	    
-	    
-
 		public AddressDTO(int addressId, String addressLine1, String addressLine2, String postalCode, String city,
 				String state, String country) {
 			super();
@@ -39,9 +30,6 @@ public class AddressDTO {
 			this.country = country;
 		}
 
-
-
-		
 		public AddressDTO(int addressId, String addressLine1, String addressLine2, String postalCode, String city,
 				String state, String country, Customer customer) {
 			super();
@@ -54,8 +42,6 @@ public class AddressDTO {
 			this.country = country;
 			this.customer = customer;
 		}
-
-
 
 		public int getAddressId() {
 			return addressId;
@@ -124,8 +110,6 @@ public class AddressDTO {
 		public void setCustomer(Customer customer) {
 			this.customer = customer;
 		}
-
-
 
 		@Override
 		public String toString() {

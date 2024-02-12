@@ -2,13 +2,7 @@ package com.hexaware.ecommerce.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,7 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class SubCategory {
 	@Id
-    private int subCategoryId;        // Primary Key
+    private int subCategoryId; 
 	@NotBlank(message = "Subcategory name cannot be blank")
     private String subCategoryName;
     
@@ -43,12 +37,7 @@ public class SubCategory {
 
 	public SubCategory() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-
-
-
 
 	public SubCategory(int subCategoryId,
 			@NotBlank(message = "Subcategory name cannot be blank") String subCategoryName,  Category category,

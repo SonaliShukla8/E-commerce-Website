@@ -6,7 +6,6 @@ import com.hexaware.ecommerce.dto.AdminDTO;
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
-import com.hexaware.ecommerce.entity.Admin;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;

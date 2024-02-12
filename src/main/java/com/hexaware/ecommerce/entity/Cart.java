@@ -11,9 +11,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Min;
@@ -26,13 +23,10 @@ public class Cart {
 	  	@Id
 	  	@GeneratedValue(strategy = GenerationType.AUTO)
 	    private int cartId;
-	  	
-	  
+
 		@OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
 	  	private Customer customer;
 
-	  
-	  
 		@JsonIgnore
 	    @OneToMany( cascade = CascadeType.ALL, mappedBy="cart", orphanRemoval = true)
 	    private List<CartItem> cartItems= new ArrayList<CartItem>();
@@ -44,7 +38,6 @@ public class Cart {
 		
 		public Cart() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
 
 		public int getCartId() {
@@ -100,9 +93,7 @@ public class Cart {
 		public Cart(@NotNull int cartId,  @Positive double totalPrice) {
 			super();
 			this.cartId = cartId;
-//			this.cartItems = cartItems;
 			this.totalPrice = totalPrice;
-//			this.product = product;
 		}
 
 	    
