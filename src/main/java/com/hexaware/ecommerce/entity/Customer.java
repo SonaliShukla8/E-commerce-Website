@@ -44,12 +44,12 @@ public class Customer {
 
     
     private String role;
-    
+
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="cartId")
     private Cart cart;
-   
+
 
 	@OneToMany( mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
@@ -185,6 +185,7 @@ public class Customer {
 			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
 			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
 			String password, String role,Address address, Cart cart, List<Order> order) {
+
 
 		super();
 		this.customerId = customerId;
