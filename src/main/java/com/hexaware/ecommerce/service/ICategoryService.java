@@ -2,7 +2,6 @@ package com.hexaware.ecommerce.service;
 
 import java.util.List;
 
-import org.springframework.data.repository.query.Param;
 
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.entity.Category;

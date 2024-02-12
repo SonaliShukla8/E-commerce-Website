@@ -185,11 +185,11 @@ public class CustomerDTO {
 
 
 
-	public CustomerDTO(int customerId, String fullName, String gender, String contactNumber, String email,
+	public CustomerDTO(int customerId, String customerName, String gender, String contactNumber, String email,
 			String password) {
 		super();
 		this.customerId = customerId;
-		this.customerName = customerName;
+		this.customerName=customerName;
 		this.gender = gender;
 		this.contactNumber = contactNumber;
 		this.email = email;

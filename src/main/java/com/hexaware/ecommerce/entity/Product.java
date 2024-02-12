@@ -1,23 +1,10 @@
 package com.hexaware.ecommerce.entity;
 
 import java.time.LocalDateTime;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -31,7 +18,7 @@ public class Product {
 	@Id
 	 
 	
-	private int productId;        // Primary Key
+	private int productId;      
 	 @ManyToOne(cascade=CascadeType.ALL)
 	 @JoinColumn(name = "seller_Id")
 	 private Seller seller;
@@ -51,22 +38,12 @@ public class Product {
 	    private LocalDateTime createdAt;
 	    @PastOrPresent
 	    private LocalDateTime modifiedAt;
-	    
-//	    @JsonBackReference
-//	    @ManyToOne(cascade=CascadeType.ALL)
-//	    @JoinColumn(name = "categoryId")
-//	    private Category category;
-
 	    @ManyToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="subcategory_Id")
 	    private SubCategory subCategory;
-	    
-//	    @ManyToMany(mappedBy="product" ,fetch = FetchType.LAZY)
-//	    private List<Cart> cart=new ArrayList<Cart>();
 
 		public Product() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
 
 		public int getProductId() {
@@ -149,14 +126,6 @@ public class Product {
 			this.modifiedAt = modifiedAt;
 		}
 
-//		public Category getCategory() {
-//			return category;
-//		}
-//
-//		public void setCategory(Category category) {
-//			this.category = category;
-//		}
-
 		public SubCategory getSubCategory() {
 			return subCategory;
 		}
@@ -164,14 +133,6 @@ public class Product {
 		public void setSubCategory(SubCategory subCategory) {
 			this.subCategory = subCategory;
 		}
-
-//		public List<Cart> getCart() {
-//			return cart;
-//		}
-//
-//		public void setCart(List<Cart> cart) {
-//			this.cart = cart;
-//		}
 
 		@Override
 		public String toString() {

@@ -2,10 +2,7 @@ package com.hexaware.ecommerce.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,7 +14,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class Category {
     @Id
-	private int categoryId;        // Primary Key
+	private int categoryId;      
     @NotBlank
     private String categoryName;
     
@@ -30,15 +27,9 @@ public class Category {
     @JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="category", fetch = FetchType.LAZY)
    private List<SubCategory> subCategories =new ArrayList<SubCategory>();
-    
-	/*
-	 * @OneToMany(mappedBy = "category", cascade = CascadeType.ALL) private
-	 * List<Product> products =new ArrayList<Product>();
-	 */
-
+ 
 	public Category() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Category(int categoryId, @NotBlank String categoryName, List<SubCategory> subCategories) {

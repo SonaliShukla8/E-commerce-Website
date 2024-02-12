@@ -5,15 +5,8 @@ import java.util.List;
 
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Customer;
-import com.hexaware.ecommerce.entity.Product;
-
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 public class CartDTO {
 
@@ -25,8 +18,7 @@ public class CartDTO {
 	 
 	 @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
 	  	private Customer customer;
-	 
-	 //private List<Product> product=new ArrayList<Product>();
+
 	
 	 public CartDTO() {
 		super();

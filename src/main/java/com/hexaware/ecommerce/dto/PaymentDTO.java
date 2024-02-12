@@ -4,10 +4,6 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Order;
-
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
-
 public class PaymentDTO {
 	
 	 private int paymentId;  
@@ -22,11 +18,6 @@ public class PaymentDTO {
 		super();
 		
 	}
-	
-	
-	
-	
-
 	public PaymentDTO(int paymentId, LocalDateTime paymentDate, double amount, String paymentMethod,
 			String paymentStatus) {
 		super();
