@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -45,17 +44,11 @@ public class Customer {
 
 
     
-
     private String role;
-    
 
-    
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="cartId")
     private Cart cart;
-   
-
-   
 
 	@OneToMany( mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
@@ -63,7 +56,6 @@ public class Customer {
 
 	public Customer() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -192,6 +184,8 @@ public class Customer {
 			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
 			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
 			String password, String role,Address address, Cart cart, List<Order> order) {
+			
+
 		super();
 		this.customerId = customerId;
 		this.customerName=customerName;
