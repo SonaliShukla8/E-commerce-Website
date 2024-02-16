@@ -12,7 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.entity.Payment;
+
+import jakarta.transaction.Transactional;
 @SpringBootTest
+@Transactional
 class PaymentServiceImpTest {
 	
 	@Autowired
@@ -21,17 +24,17 @@ class PaymentServiceImpTest {
 	@Test
 	void testAddPayment() {
 		//fail("Not yet implemented");
-		PaymentDTO paymentdto = new PaymentDTO(101,LocalDateTime.now(),999.99,"Debit card","Success");
+		PaymentDTO paymentdto = new PaymentDTO(101,LocalDateTime.now(),999.99,"Debit Card","Success");
 		Payment payment = service.addPayment(paymentdto);
-		assertEquals(101,payment.getPaymentId());
+		assertEquals(999.99,payment.getAmount());
 	}
 
 	@Test
 	void testUpdatePayment() {
 		//fail("Not yet implemented");
-		PaymentDTO paymentdto = new PaymentDTO(102,LocalDateTime.now(),99.99,"Credit card","Success");
+		PaymentDTO paymentdto = new PaymentDTO(102,LocalDateTime.now(),99.99,"Credit Card","Success");
 		Payment payment = service.addPayment(paymentdto);
-		PaymentDTO paymentdto2 = new PaymentDTO(102,LocalDateTime.now(),99.0,"Credit card","Success");
+		PaymentDTO paymentdto2 = new PaymentDTO(102,LocalDateTime.now(),99.0,"Credit Card","Success");
 		Payment payment2 = service.updatePayment(paymentdto2);
 		assertEquals(99.0,payment2.getAmount());
 	}
@@ -51,7 +54,7 @@ class PaymentServiceImpTest {
 		PaymentDTO paymentdto = new PaymentDTO(104,LocalDateTime.now(),599.99,"COD","Success");
 		Payment payment = service.addPayment(paymentdto);
 		PaymentDTO paymentdto2 = service.getPaymentById(payment.getPaymentId());
-		assertEquals(104,paymentdto2.getPaymentId());
+		assertEquals("COD",paymentdto2.getPaymentMethod());
 		
 	}
 

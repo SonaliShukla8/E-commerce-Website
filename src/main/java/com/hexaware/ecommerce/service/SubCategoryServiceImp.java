@@ -11,7 +11,10 @@ import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.repository.SubCategoryRepository;
+
+import jakarta.transaction.Transactional;
 @Service
+@Transactional
 public class SubCategoryServiceImp implements ISubCategoryService {
     @Autowired 
 	SubCategoryRepository repo;

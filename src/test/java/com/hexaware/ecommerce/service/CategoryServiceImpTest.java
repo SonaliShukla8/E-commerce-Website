@@ -11,7 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.hexaware.ecommerce.dto.CategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.exception.CategoryNotFoundException;
+
+import jakarta.transaction.Transactional;
 @SpringBootTest
+@Transactional
 class CategoryServiceImpTest {
 	
 	@Autowired

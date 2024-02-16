@@ -11,7 +11,6 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Admin {
 	@Id
-	@NotNull
     private int adminID;
 	@NotBlank
     private String adminName;

@@ -10,7 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hexaware.ecommerce.dto.AddressDTO;
 import com.hexaware.ecommerce.entity.Address;
+
+import jakarta.transaction.Transactional;
 @SpringBootTest
+@Transactional
 class AddressServiceImpTest {
 	
 	@Autowired

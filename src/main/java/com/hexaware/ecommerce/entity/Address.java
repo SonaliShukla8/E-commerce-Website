@@ -15,7 +15,6 @@ import jakarta.validation.constraints.Size;
 public class Address {
 	
 		@Id
-		@NotNull
 	   	private int addressId;        
 		@NotBlank
 	    @Size(max = 255)

@@ -1,14 +1,24 @@
 package com.hexaware.ecommerce.service;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.List;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import com.hexaware.ecommerce.dto.CustomerDTO;
+import com.hexaware.ecommerce.entity.Address;
+import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
+
+import jakarta.transaction.Transactional;
 @SpringBootTest
+@Transactional
 class CustomerServiceImpTest {
 	@Autowired
     ICustomerService service;
@@ -17,36 +27,44 @@ class CustomerServiceImpTest {
 	}
 
 	@Test
-	void testAddCustomer() {
-//    User user = new User(1, "User1", "user1@gmail.com", "User@1", "customer");
-//    Cart cart =new Cart(1, 1);
-//	CustomerDTO dto =new CustomerDTO(1, "Customer 1","Male", "1234567890", "customer1@gmail.com", user, cart);
-//	       Customer dto2 =service.addCustomer(dto);
-//	       assertNotNull(dto2);
+	void testRegisterCustomer() {
+		Cart cart = new Cart(1,100);
+		Address address = new Address(2," D.NO- 3-16B-63, ABC COLONY","XYZ NAGAR, GACHIBOWLI","533003","Hyderabad","Telangana","India");
+		
+		CustomerDTO customerDto = new CustomerDTO(101, "Ram", "Male", "9244387561", "ram@example.com", "ram123","ram@123", "customer", address, cart, null);
+		String customer = service.registerCustomer(customerDto);
+		assertNotEquals("",customer);
 	}
 
+
 	@Test
-	void testUpdateCustomer() {
-//		User user = new User(1, "User1", "user1@gmail.com", "User@1", "customer");
-//	    Cart cart =new Cart(1,1);
-//		CustomerDTO dto =new CustomerDTO(1, "Customer 1","Female", "1234567899", "customer2@gmail.com", user, cart);
-//		       Customer dto2 =service.updateCustomer(dto);
-//		       assertNotNull(dto2);
-//		
+	void testUpdateCustomer() throws CustomerNotFoundException {
+	   
+	    CustomerDTO customerDto = new CustomerDTO(101, "Ram", "Male", "9244387561", "ram@example.com", "ram123", "ram@123", "customer", null, null, null);
+	    String customer = service.registerCustomer(customerDto);
+	    Address updatedAddress = new Address(3," D.NO- 432,SDF COLONY","JHG NAGAR, LB NAGAR","532104","Hyderabad","Telangana","India");
+
+	    CustomerDTO updatedCustomerDto = new CustomerDTO(101,"Ram", "Male", "9244387561", "ram@example.com", "ram123", "ram@123", "customer", updatedAddress, null, null);
+	    Customer result = service.updateCustomer(updatedCustomerDto);
+
+	    assertEquals(updatedAddress.getAddressId(), result.getAddress().getAddressId());
 	}
+
 
 	@Test
 	void testDeleteCustomerById() throws CustomerNotFoundException {
-		int id=2;
-		String s=service.deleteCustomerById(id);
-		assertNotNull(s);
+		CustomerDTO customerDto = new CustomerDTO(101, "Ram", "Male", "9244387561", "ram@example.com", "ram123", "ram@123", "customer", null, null, null);
+	    String customer = service.registerCustomer(customerDto);
+	    String delete = service.deleteCustomerById(101);
+	    assertEquals("Customer with customerId 101 deleted.",delete);
 	}
 
 	@Test
 	void testGetCustomerById() throws CustomerNotFoundException {
-		int id=1;
-		CustomerDTO dto=service.getCustomerById(id);
-		assertNotNull(dto);
+		CustomerDTO customerDto = new CustomerDTO(101, "Ram", "Male", "9244387561", "ram@example.com", "ram123", "ram@123", "customer", null, null, null);
+	    String customer = service.registerCustomer(customerDto);
+	    CustomerDTO customerDto2 = service.getCustomerById(101);
+	    assertEquals("Ram",customerDto2.getCustomerName());
 	}
 
 	@Test

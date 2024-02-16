@@ -13,7 +13,6 @@ import jakarta.validation.constraints.Positive;
 public class CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@NotNull
     private int cartitemId;
 	
 	@Positive

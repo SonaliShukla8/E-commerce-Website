@@ -11,7 +11,10 @@ import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.ProductRepository;
+
+import jakarta.transaction.Transactional;
 @Service
+@Transactional
 public class ProductServiceImp implements IProductService {
     
 	@Autowired
