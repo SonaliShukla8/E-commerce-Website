@@ -3,6 +3,8 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -21,7 +23,7 @@ import jakarta.validation.constraints.Positive;
 @Entity
 public class Cart {
 	  	@Id
-	  	@GeneratedValue(strategy = GenerationType.AUTO)
+	  	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	    private int cartId;
 
 		@OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -32,6 +34,7 @@ public class Cart {
 	    private List<CartItem> cartItems= new ArrayList<CartItem>();
 
 	    @Min(0)
+	    @Value("${totalPrice:0}")
 	    @Column(name="cart_total_price")
 	    private double totalPrice;
 

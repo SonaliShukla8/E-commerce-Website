@@ -12,7 +12,7 @@ import com.hexaware.ecommerce.entity.Order;
 
 
 public class CustomerDTO {
-	
+	@JsonIgnore
 	private int customerId;        // Primary Key
     private String customerName;
     private String gender;
