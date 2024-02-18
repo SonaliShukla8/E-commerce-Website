@@ -28,6 +28,7 @@ import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
+import com.hexaware.ecommerce.repository.CartRepository;
 import com.hexaware.ecommerce.repository.CustomerRepository;
 @Service
 public class CustomerServiceImp implements ICustomerService {
@@ -49,6 +50,8 @@ public class CustomerServiceImp implements ICustomerService {
     ICartService cartService;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    CartRepository cartRepository;
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
@@ -63,10 +66,18 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setContactNumber(customerDTO.getContactNumber());
 		customer.setAddress(customerDTO.getAddress());
 //		customer.setOrder(customerDTO.getOrder());
-		customer.setCart(customerDTO.getCart());
+//		customer.setCart(customerDTO.getCart());
 		customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
 		customer.setRole(customerDTO.getRole());
 		customer.setUsername(customerDTO.getUsername());
+		Cart cart=new Cart();
+		cart.setCartId(customerDTO.getCustomerId());
+		cart.setTotalPrice(0);
+		cartRepository.save(cart);
+		customer.setCart(cart);
+		
+		
+
 		 repo.save(customer);
 		 return "New customer Registered";
 	}
