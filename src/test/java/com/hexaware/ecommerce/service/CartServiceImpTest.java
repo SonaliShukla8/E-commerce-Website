@@ -12,7 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.hexaware.ecommerce.dto.CartDTO;
 import com.hexaware.ecommerce.entity.Cart;
+
+import jakarta.transaction.Transactional;
 @SpringBootTest
+@Transactional
 class CartServiceImpTest {
     @Autowired
 	ICartService service;
@@ -39,17 +42,18 @@ class CartServiceImpTest {
 	@Test
 	void testDeleteCartById() {
 		int id=2;
-	     String str1=service.deleteCartById(2);
+	     String str1=service.deleteCartById(id);
 	     assertNotNull(str1);
 	}
 
 	@Test
 	void testGetCartbyId() {
-		int id=1;
-		CartDTO dto=service.getCartbyId(id);
-		assertNotNull(dto);
-		
+	    int id = 2;
+	    CartDTO dto = new CartDTO(id, 900);
+	    Cart cart = service.addCart(dto);
+	    assertEquals(900, cart.getTotalPrice()); 
 	}
+
 
 	@Test
 	void testGetAllCart() {

@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import com.hexaware.ecommerce.dto.AddressDTO;
 import com.hexaware.ecommerce.entity.Address;
 import com.hexaware.ecommerce.repository.AddressRepository;
+
+import jakarta.transaction.Transactional;
 @Service
+@Transactional
 public class AddressServiceImp implements IAddressService {
     @Autowired
     AddressRepository repo;

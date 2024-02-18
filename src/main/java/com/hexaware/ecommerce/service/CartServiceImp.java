@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.hexaware.ecommerce.dto.CartDTO;
 import com.hexaware.ecommerce.entity.Cart;
 import com.hexaware.ecommerce.repository.CartRepository;
+
+import jakarta.transaction.Transactional;
 @Service
+@Transactional
 public class CartServiceImp implements ICartService {
     @Autowired
 	CartRepository repo;

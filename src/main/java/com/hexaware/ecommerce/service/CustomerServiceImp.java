@@ -180,7 +180,10 @@ public class CustomerServiceImp implements ICustomerService {
                                                  .filter(item -> item.getProduct().equals(product))
                                                  .findFirst().orElse(null);
                      if (existingCartItem != null) {
-                         existingCartItem.setItemQuantity(existingCartItem.getItemQuantity() + quantity);
+                    	 if (quantity < existingCartItem.getItemQuantity()) {
+                             existingCartItem.setItemQuantity(quantity);
+                         }else {
+                         existingCartItem.setItemQuantity(existingCartItem.getItemQuantity() + quantity);}
                      } else {
                          // Create a new cart item
                          CartItem cartItem = new CartItem();
@@ -224,7 +227,7 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	@Override
-	public String placeOrder(int customerId) throws OrderNotFoundException, ProductNotFoundException {
+	public String placeOrder(int customerId,String paymentMethod) throws OrderNotFoundException, ProductNotFoundException {
 		
 		 Customer customer = repo.findById(customerId).orElse(null);
 		 if (customer == null) {
@@ -247,7 +250,7 @@ public class CustomerServiceImp implements ICustomerService {
 	        Payment payment = new Payment();
 	        payment.setAmount(totalAmount);
 	        payment.setPaymentDate(LocalDateTime.now());
-	        payment.setPaymentMethod("Credit Card");
+	        payment.setPaymentMethod(paymentMethod);
 	        payment.setPaymentStatus("Paid"); 
 	       // order.setPayment(payment);
 	        payment.setOrder(order);
@@ -298,7 +301,7 @@ public class CustomerServiceImp implements ICustomerService {
 			
 			orderDTO.setPayment(order.getPayment());
 	        orderDTO.setStatus("Payment Done.");
-	        orderDTO.setStatusDescription("Payment done via"+payment.getPaymentMethod()+"is successful.");
+	        orderDTO.setStatusDescription("Payment done via "+payment.getPaymentMethod()+" is successful.");
 	        orderService.updateOrder(orderDTO);
 	        int cartdelete = customer.getCart().getCartId();
 	        customer.setCart(null);

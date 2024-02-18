@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.repository.PaymentRepository;
+
+import jakarta.transaction.Transactional;
 @Service
+@Transactional
 public class PaymentServiceImp implements IPaymentService {
     @Autowired
 	PaymentRepository repo;

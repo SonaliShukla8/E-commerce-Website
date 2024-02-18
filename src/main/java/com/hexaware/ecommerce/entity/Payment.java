@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
 @Entity
@@ -25,6 +26,7 @@ public class Payment {
 	 @Positive
 	private double amount;
 	@NotBlank
+	@Pattern(regexp = "^(COD|Credit Card|Debit Card|UPI|cod|credit card|debit card|upi)$")
 	private String paymentMethod;
 	@NotBlank
 	private String paymentStatus;
@@ -36,7 +38,7 @@ public class Payment {
 	
 
 	public Payment(int paymentId, @PastOrPresent LocalDateTime paymentDate, @Positive double amount,
-			@NotBlank String paymentMethod, @NotBlank String paymentStatus) {
+			@NotBlank @Pattern(regexp = "^(COD|Credit Card|Debit Card|UPI|cod|credit card|debit card|upi)$") String paymentMethod, @NotBlank String paymentStatus) {
 		super();
 		this.paymentId = paymentId;
 		this.paymentDate = paymentDate;
@@ -47,7 +49,7 @@ public class Payment {
 
 
 	public Payment(int paymentId, Order order, @PastOrPresent LocalDateTime paymentDate, @Positive double amount,
-			@NotBlank String paymentMethod, @NotBlank String paymentStatus) {
+			@NotBlank @Pattern(regexp = "^(COD|Credit Card|Debit Card|UPI|cod|credit card|debit card|upi)$") String paymentMethod, @NotBlank String paymentStatus) {
 		super();
 		this.paymentId = paymentId;
 		this.order = order;

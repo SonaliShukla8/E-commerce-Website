@@ -73,10 +73,10 @@ public class CustomerRestController {
 		return service.addProductToCustomerCart(customerId, productId, quantity);
 	}
 	
-	@PostMapping("/ placeOrder/{customerId}")
+	@PostMapping("/ placeOrder/{customerId}/{paymentMethod}")
 	@PreAuthorize("hasAuthority('customer')")
-	public String placeOrder(@PathVariable int customerId) throws OrderNotFoundException, ProductNotFoundException{
-		return service.placeOrder(customerId);
+	public String placeOrder(@PathVariable int customerId,@PathVariable String paymentMethod) throws OrderNotFoundException, ProductNotFoundException{
+		return service.placeOrder(customerId,paymentMethod);
 	}
 	
     @GetMapping("/viewAllProduct")
