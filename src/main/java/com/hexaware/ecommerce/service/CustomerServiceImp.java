@@ -28,7 +28,6 @@ import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
-import com.hexaware.ecommerce.repository.CartRepository;
 import com.hexaware.ecommerce.repository.CustomerRepository;
 @Service
 public class CustomerServiceImp implements ICustomerService {
@@ -50,8 +49,6 @@ public class CustomerServiceImp implements ICustomerService {
     ICartService cartService;
     @Autowired
     PasswordEncoder passwordEncoder;
-    @Autowired
-    CartRepository cartRepository;
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
@@ -65,18 +62,11 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
 		customer.setAddress(customerDTO.getAddress());
-//		customer.setOrder(customerDTO.getOrder());
+//		customer.setOrder(customerDTO.getOrder());		
 //		customer.setCart(customerDTO.getCart());
 		customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
 		customer.setRole(customerDTO.getRole());
 		customer.setUsername(customerDTO.getUsername());
-		Cart cart=new Cart();
-		cart.setCartId(customerDTO.getCustomerId());
-		cart.setTotalPrice(0);
-		cartRepository.save(cart);
-		customer.setCart(cart);
-		
-		
 
 		 repo.save(customer);
 		 return "New customer Registered";
@@ -180,7 +170,10 @@ public class CustomerServiceImp implements ICustomerService {
                                                  .filter(item -> item.getProduct().equals(product))
                                                  .findFirst().orElse(null);
                      if (existingCartItem != null) {
-                         existingCartItem.setItemQuantity(existingCartItem.getItemQuantity() + quantity);
+                    	 if (quantity < existingCartItem.getItemQuantity()) {
+                             existingCartItem.setItemQuantity(quantity);
+                         }else {
+                         existingCartItem.setItemQuantity(existingCartItem.getItemQuantity() + quantity);}
                      } else {
                          // Create a new cart item
                          CartItem cartItem = new CartItem();
@@ -224,7 +217,7 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	@Override
-	public String placeOrder(int customerId) throws OrderNotFoundException, ProductNotFoundException {
+	public String placeOrder(int customerId,String paymentMethod) throws OrderNotFoundException, ProductNotFoundException {
 		
 		 Customer customer = repo.findById(customerId).orElse(null);
 		 if (customer == null) {
@@ -247,7 +240,7 @@ public class CustomerServiceImp implements ICustomerService {
 	        Payment payment = new Payment();
 	        payment.setAmount(totalAmount);
 	        payment.setPaymentDate(LocalDateTime.now());
-	        payment.setPaymentMethod("Credit Card");
+	        payment.setPaymentMethod(paymentMethod);
 	        payment.setPaymentStatus("Paid"); 
 	       // order.setPayment(payment);
 	        payment.setOrder(order);
@@ -298,7 +291,7 @@ public class CustomerServiceImp implements ICustomerService {
 			
 			orderDTO.setPayment(order.getPayment());
 	        orderDTO.setStatus("Payment Done.");
-	        orderDTO.setStatusDescription("Payment done via"+payment.getPaymentMethod()+"is successful.");
+	        orderDTO.setStatusDescription("Payment done via "+payment.getPaymentMethod()+" is successful.");
 	        orderService.updateOrder(orderDTO);
 	        int cartdelete = customer.getCart().getCartId();
 	        customer.setCart(null);

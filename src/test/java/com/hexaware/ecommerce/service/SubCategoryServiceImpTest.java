@@ -19,6 +19,7 @@ import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import ch.qos.logback.classic.Logger;
 import jakarta.transaction.Transactional;
 @SpringBootTest
+@Transactional
 class SubCategoryServiceImpTest {
 	
 	@Autowired
@@ -29,31 +30,31 @@ class SubCategoryServiceImpTest {
 	@Test
 	void testAddSubCategory() throws CategoryNotFoundException {
 		//fail("Not yet implemented");
-		CategoryDTO categorydto = service2.getCategoryById(101);
+		CategoryDTO categorydto = new CategoryDTO(1,"Electronics");
 		Category category = service2.updateCategory(categorydto);
-		SubCategoryDTO subCategoryDTO = new SubCategoryDTO(201,"Shirts",category);
+		SubCategoryDTO subCategoryDTO = new SubCategoryDTO(201,"Mobiles",category);
 		SubCategory subCategory = service.addSubCategory(subCategoryDTO);
-		assertEquals("Shirts",subCategory.getSubCategoryName());
+		assertEquals("Mobiles",subCategory.getSubCategoryName());
 	}
 
 	@Test
 	void testUpdateSubCategory() throws CategoryNotFoundException, SubCategoryNotFoundException {
 		//fail("Not yet implemented");
-		CategoryDTO categorydto = service2.getCategoryById(101);
+		CategoryDTO categorydto = new CategoryDTO(1,"Electronics");
 		Category category = service2.updateCategory(categorydto);
-		SubCategoryDTO subCategoryDTO = new SubCategoryDTO(202,"T-shirts",category);
+		SubCategoryDTO subCategoryDTO = new SubCategoryDTO(202,"PC",category);
 		SubCategory subCategory = service.addSubCategory(subCategoryDTO);
-		SubCategoryDTO subCategoryDTO2 = new SubCategoryDTO(202,"T Shirts",category);
+		SubCategoryDTO subCategoryDTO2 = new SubCategoryDTO(202,"Laptop",category);
 		SubCategory subCategory2 = service.updateSubCategory(subCategoryDTO2);
-		assertEquals("T Shirts",subCategory2.getSubCategoryName());
+		assertEquals("Laptop",subCategory2.getSubCategoryName());
 	}
 
 	@Test
 	void testDeleteSubCategoryById() throws CategoryNotFoundException, SubCategoryNotFoundException {
 		//fail("Not yet implemented");
-		CategoryDTO categorydto = service2.getCategoryById(101);
+		CategoryDTO categorydto = new CategoryDTO(1,"Electronics");
 		Category category = service2.updateCategory(categorydto);
-		SubCategoryDTO subCategoryDTO = new SubCategoryDTO(203,"Jeans",category);
+		SubCategoryDTO subCategoryDTO = new SubCategoryDTO(203,"Power Bank",category);
 		SubCategory subCategory = service.addSubCategory(subCategoryDTO);
 		String delete = service.deleteSubCategoryById(subCategory.getSubCategoryId());
 		assertNotEquals(null,delete);
@@ -62,12 +63,12 @@ class SubCategoryServiceImpTest {
 	@Test
 	void testGetSubCategoryById() throws CategoryNotFoundException, SubCategoryNotFoundException {
 		//fail("Not yet implemented");
-		CategoryDTO categorydto = service2.getCategoryById(102);
+		CategoryDTO categorydto = new CategoryDTO(1,"Electronics");
 		Category category = service2.updateCategory(categorydto);
-		SubCategoryDTO subCategoryDTO = new SubCategoryDTO(301,"TV",category);
+		SubCategoryDTO subCategoryDTO = new SubCategoryDTO(203,"TV",category);
 		SubCategory subCategory = service.addSubCategory(subCategoryDTO);
 		SubCategoryDTO subCategoryDTO2 = service.getSubCategoryById(subCategory.getSubCategoryId());
-		assertEquals(301,subCategoryDTO2.getSubCategoryId());
+		assertEquals(203,subCategoryDTO2.getSubCategoryId());
 		
 	}
 

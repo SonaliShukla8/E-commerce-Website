@@ -127,6 +127,12 @@ public class ProductDTO {
 	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
 	}
+	 public int getSellerId() {
+	        return this.seller.getSellerId();
+	    }
+	 public int getSubCateegoryId() {
+		 return this.subCategory.getSubCategoryId();
+	 }
 
 
 	@Override

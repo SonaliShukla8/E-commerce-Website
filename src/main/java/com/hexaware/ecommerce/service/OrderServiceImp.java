@@ -11,7 +11,10 @@ import com.hexaware.ecommerce.dto.OrderDTO;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.repository.OrderRepository;
+
+import jakarta.transaction.Transactional;
 @Service
+@Transactional
 public class OrderServiceImp implements IOrderService {
     @Autowired
 	OrderRepository repo;

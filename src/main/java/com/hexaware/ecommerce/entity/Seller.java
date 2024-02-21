@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
@@ -17,6 +19,7 @@ import jakarta.validation.constraints.Pattern;
 @Entity
 public class Seller {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	 private int sellerId;        // Primary Key
 	@NotBlank
 	private String sellerName;

@@ -23,19 +23,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hexaware.ecommerce.dto.AuthRequest;
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.dto.SellerDTO;
+import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.exception.SellerNotFoundException;
+import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.service.ISellerService;
+import com.hexaware.ecommerce.service.ISubCategoryService;
 import com.hexaware.ecommerce.service.JwtService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin("localhost://4200")
+
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("api/seller")
 public class SellerRestController {
@@ -43,6 +47,8 @@ public class SellerRestController {
 	 private static final Logger log = LoggerFactory.getLogger(SellerRestController.class);
 	@Autowired
 	ISellerService service;
+	@Autowired
+	ISubCategoryService subCategoryService;
 	
 	@Autowired
 	JwtService jwtService;
@@ -109,7 +115,13 @@ public class SellerRestController {
 	
 	@PostMapping("/addProduct")
 	@PreAuthorize("hasAuthority('seller')")
-	public Product addProduct(@RequestBody ProductDTO productdto) {
+	public Product addProduct(@RequestBody ProductDTO productdto) throws SellerNotFoundException, SubCategoryNotFoundException {
+		SellerDTO sellerdto = service.getSellerById(productdto.getSellerId());
+		Seller seller = service.updateSeller(sellerdto);
+		SubCategoryDTO subCategoryDto = subCategoryService.getSubCategoryById(productdto.getSubCateegoryId());
+		SubCategory subCategory = subCategoryService.updateSubCategory(subCategoryDto);
+	    productdto.setSeller(seller);
+	    productdto.setSubCategory(subCategory);
 		return service.addProduct(productdto);
 	}
 	

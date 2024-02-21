@@ -24,7 +24,10 @@ import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.repository.AdminRepository;
 import com.hexaware.ecommerce.repository.CategoryRepository;
+
+import jakarta.transaction.Transactional;
 @Service
+@Transactional
 public class AdminServiceImp implements IAdminService{
 	@Autowired
 	AdminRepository adminrepo;
@@ -63,7 +66,7 @@ public class AdminServiceImp implements IAdminService{
 		admin.setEmail(admindto.getEmail());
 		admin.setJoiningDate(admindto.getJoiningDate());
 		admin.setPassword(passwordEncoder.encode(admindto.getPassword()));
-		admin.setPhoneNumber(admindto.getPassword());
+		//admin.setPhoneNumber(admindto.getPassword());
 		admin.setPhoneNumber(admindto.getPhoneNumber());
 		admin.setRole(admindto.getRole());
 		admin.setUsername(admindto.getUsername());

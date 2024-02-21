@@ -21,6 +21,7 @@ import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 
 import jakarta.transaction.Transactional;
+@Transactional
 @SpringBootTest
 class ProductServiceImpTest {
 	
@@ -31,7 +32,6 @@ class ProductServiceImpTest {
 	@Autowired
 	ISubCategoryService subCategoryService;
 	@Test
-	//@Transactional
 	void testAddProduct() throws SubCategoryNotFoundException, SellerNotFoundException {
 	//	fail("Not yet implemented");
 		SellerDTO sellerDTO = sellerService.getSellerById(101);
@@ -43,7 +43,6 @@ class ProductServiceImpTest {
 		Product product = productService.addProduct(productdto);
 		assertEquals(101,product.getProductId());
 	}
-	//@Transactional
 	@Test
 	void testUpdateProduct() throws SellerNotFoundException, SubCategoryNotFoundException, ProductNotFoundException {
 		//fail("Not yet implemented");
@@ -57,7 +56,7 @@ class ProductServiceImpTest {
 		Product product2 = productService.updateProduct(productdto2);
 		
 		assertEquals(65000,product2.getPrice());
-	}/*
+	}
 	@Test
 	void testDeleteProductById() throws SellerNotFoundException, SubCategoryNotFoundException, ProductNotFoundException {
 		//fail("Not yet implemented");
@@ -69,10 +68,9 @@ class ProductServiceImpTest {
 			Product product = productService.addProduct(productdto);
 			String delete = productService.deleteProductById(product.getProductId());
 		 assertNotEquals(null,delete);
-	}*/
+	}
 
 	@Test
-	//@Transactional
 	void testGetProductById() throws SellerNotFoundException, SubCategoryNotFoundException, ProductNotFoundException {
 		//fail("Not yet implemented");
 		SellerDTO sellerDTO = sellerService.getSellerById(102);

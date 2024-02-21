@@ -19,7 +19,10 @@ import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.repository.SellerRepository;
+
+import jakarta.transaction.Transactional;
 @Service
+@Transactional
 public class SellerServiceImp implements ISellerService {
     @Autowired
 	SellerRepository repo;
