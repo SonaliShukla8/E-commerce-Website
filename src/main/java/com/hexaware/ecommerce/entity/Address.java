@@ -23,7 +23,6 @@ public class Address {
 		@NotBlank
 	    @Size(max = 255)
 	    private String addressLine1;
-		@NotBlank
 		@Size(max = 255)
 	    private String addressLine2;
 		@NotBlank

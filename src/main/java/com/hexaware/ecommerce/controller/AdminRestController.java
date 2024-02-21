@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +37,7 @@ import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.service.IAdminService;
 import com.hexaware.ecommerce.service.JwtService;
-
+@CrossOrigin("localhost://4200")
 @RestController
 @RequestMapping("/api/admin")
 public class AdminRestController {
