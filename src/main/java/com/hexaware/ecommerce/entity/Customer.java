@@ -60,18 +60,28 @@ public class Customer {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
-				+ password + ", role=" + role + ", address=" + address + ", cart=" + cart + ", order=" + order
-				+ "]";
-	}
+//	@Override
+////	public String toString() {
+////		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
+////				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
+////				+ password + ", role=" + role + ", address=" + address + ", cart=" + cart + ", order=" + order
+////				+ "]";
+////	}
+//	
+	
 
 	public int getCustomerId() {
 		return customerId;
 	}
 
+
+	@Override
+	public String toString() {
+		return "";
+//		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
+//				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
+//				+ password  + ", role=" + role + ", cart=" + cart + "]";
+	}
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;

@@ -1,7 +1,8 @@
 package com.hexaware.ecommerce.controller;
-
+import java.util.Optional;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import com.hexaware.ecommerce.dto.AdminDTO;
 import com.hexaware.ecommerce.dto.AuthRequest;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
+import com.hexaware.ecommerce.entity.Admin;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
@@ -30,6 +32,7 @@ import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.AdminNotFoundException;
 import com.hexaware.ecommerce.exception.CategoryNotFoundException;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
@@ -54,14 +57,16 @@ public class AdminRestController {
 	
 	
 	@PostMapping("/login/authenticate")
-	public String  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) {
+	public Object authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) throws AdminNotFoundException {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 		String token = null;
 		if(authentication.isAuthenticated()) {
 				  // call generate token method from jwtService class	
 			     token=jwtService.generateToken(authRequest.getUsername());		
-			
 			log.info("Tokent : "+token);
+			System.out.println(authentication.getDetails());
+			
+			
 			  }
 				else{
 					
@@ -69,7 +74,14 @@ public class AdminRestController {
 			
 					 throw new UsernameNotFoundException("UserName or Password in Invalid / Invalid Request");	
 				}
-				return token;	 
+		
+		Optional<Admin> admin=service.fetchAdminDetails(authRequest.getUsername());
+		System.out.println(admin);
+		 Map<String, Object> object = new HashMap<>();
+		 object.put("token", token);
+		 object.put("data", admin);
+		 
+				return object;	 
 	 }
 	@PostMapping("/addAdmin")
 	@PreAuthorize("hasAuthority('admin')")

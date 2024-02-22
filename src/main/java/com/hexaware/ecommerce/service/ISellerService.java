@@ -1,7 +1,7 @@
 package com.hexaware.ecommerce.service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.dto.SellerDTO;
@@ -32,4 +32,5 @@ public interface ISellerService {
 	public Product getProductbyName(String name) throws ProductNotFoundException;
 	public ProductDTO getProductById(int id) throws ProductNotFoundException;
 	public ProductDTO markProductOutOfStock(int sellerId, int productId) throws ProductNotFoundException;
+	public Optional<Seller> fetchSellerDetails(String username) throws SellerNotFoundException;
 }

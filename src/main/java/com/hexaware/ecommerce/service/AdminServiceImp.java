@@ -1,6 +1,9 @@
 package com.hexaware.ecommerce.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.swing.text.html.Option;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +20,7 @@ import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.AdminNotFoundException;
 import com.hexaware.ecommerce.exception.CategoryNotFoundException;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
@@ -149,6 +153,12 @@ public class AdminServiceImp implements IAdminService{
      public String deleteCustomer(int id) throws CustomerNotFoundException {
              return customerService.deleteCustomerById(id);
      }
+
+	@Override
+	public Optional<Admin> fetchAdminDetails(String username) throws AdminNotFoundException {
+		
+		return adminrepo.findByUsername(username);
+	}
 	
 	
      

@@ -1,6 +1,7 @@
 package com.hexaware.ecommerce.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.entity.CartItem;
@@ -33,5 +34,6 @@ public interface ICustomerService {
     public String placeOrder(int customerId) throws OrderNotFoundException, ProductNotFoundException;
     public List<Product> getProductsByBrand(String brand);
     public List<Product> getProductsByPriceRange(double min,double max);
+	public Optional<Customer> fetchCustomerDetails(String username)throws CustomerNotFoundException ;
 
 }

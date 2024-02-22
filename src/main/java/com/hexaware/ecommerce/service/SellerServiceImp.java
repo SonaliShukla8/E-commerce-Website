@@ -1,7 +1,7 @@
 package com.hexaware.ecommerce.service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -191,6 +191,12 @@ public class SellerServiceImp implements ISellerService {
 	@Override
 	public String login(String username, String password) {
 		return null;
+	}
+
+	@Override
+	public Optional<Seller> fetchSellerDetails(String username) throws SellerNotFoundException {
+		// TODO Auto-generated method stub
+		return repo.findByUsername(username);
 	}
 	}
 

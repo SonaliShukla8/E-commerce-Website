@@ -1,6 +1,9 @@
 package com.hexaware.ecommerce.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.ecommerce.dto.AuthRequest;
 import com.hexaware.ecommerce.dto.CustomerDTO;
+import com.hexaware.ecommerce.entity.Admin;
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
+import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.service.ICustomerService;
@@ -45,7 +51,7 @@ public class CustomerRestController {
 	AuthenticationManager authenticationManager;
 	
 	@PostMapping("/login/authenticate")
-	public String  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) {
+	public Object  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) throws CustomerNotFoundException {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 		String token = null;
 		if(authentication.isAuthenticated()) {
@@ -60,7 +66,12 @@ public class CustomerRestController {
 			
 					 throw new UsernameNotFoundException("UserName or Password in Invalid / Invalid Request");	
 				}
-				return token;	 
+	Optional<Customer> customer=service.fetchCustomerDetails(authRequest.getUsername());
+		System.out.println("customer"+customer);
+		 Map<String, Object> object = new HashMap<>();
+		 object.put("token", token);
+		 object.put("data", customer);
+				return object;	 
 	 }
 	
 	@PostMapping("/register")

@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -314,6 +316,13 @@ public class CustomerServiceImp implements ICustomerService {
 	        return "Order placed successfully";
 		
 		
+	}
+
+	@Override
+	public Optional<Customer> fetchCustomerDetails(String username) throws CustomerNotFoundException {
+		// TODO Auto-generated method stub
+		System.out.println("repo "+username);
+		return repo.findByUsername(username);
 	}
 
 

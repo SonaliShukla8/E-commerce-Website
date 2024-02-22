@@ -1,6 +1,9 @@
 package com.hexaware.ecommerce.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +27,7 @@ import com.hexaware.ecommerce.dto.AuthRequest;
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.dto.SellerDTO;
 import com.hexaware.ecommerce.entity.Category;
+import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
@@ -51,7 +55,7 @@ public class SellerRestController {
 	AuthenticationManager authenticationManager;
 	
 	@PostMapping("/login/authenticate")
-	public String  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) {
+	public Object  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) throws SellerNotFoundException {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 		String token = null;
 		if(authentication.isAuthenticated()) {
@@ -66,7 +70,12 @@ public class SellerRestController {
 			
 					 throw new UsernameNotFoundException("UserName or Password in Invalid / Invalid Request");	
 				}
-				return token;	 
+		Optional<Seller> seller=service.fetchSellerDetails(authRequest.getUsername());
+		
+		 Map<String, Object> object = new HashMap<>();
+		 object.put("token", token);
+		 object.put("data", seller);
+				return object;	 
 	 }
 	
 	@PostMapping("/register")
@@ -142,6 +151,7 @@ public class SellerRestController {
 	public ProductDTO markProductOutOfStock(@PathVariable int sellerId,@PathVariable int productId) throws ProductNotFoundException{
 		return service.markProductOutOfStock(sellerId, productId);
 	}
+	
 
 
 }
