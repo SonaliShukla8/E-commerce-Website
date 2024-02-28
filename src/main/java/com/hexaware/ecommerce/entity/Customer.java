@@ -3,6 +3,8 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -27,7 +29,7 @@ public class Customer {
 	@NotBlank
     private String gender;
 	@NotBlank
-	@Pattern(regexp = "\\d{10}")
+	//@Pattern(regexp = "\\d{10}")
     private String contactNumber;
     @NotBlank
     @Email
@@ -38,6 +40,7 @@ public class Customer {
 	private String username;
     
     private String password;
+   
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
@@ -50,8 +53,7 @@ public class Customer {
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="cartId")
     private Cart cart;
-
-
+    
 	@OneToMany( mappedBy="customer")
     private List<Order> order= new ArrayList<Order>();
 
@@ -64,7 +66,7 @@ public class Customer {
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
 				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
-				+ password + ", role=" + role + ", address=" + address + ", cart=" + cart + ", order=" + order
+				+ password + ", role=" + role 
 				+ "]";
 	}
 
@@ -183,7 +185,7 @@ public class Customer {
 
 
 	public Customer(int customerId, @NotBlank String customerName, @NotBlank String gender,
-			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
+			@NotBlank String contactNumber, @NotBlank @Email String email,
 			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
 			String password, String role,Address address, Cart cart, List<Order> order) {
 

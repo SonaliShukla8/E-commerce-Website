@@ -11,4 +11,5 @@ public interface IPaymentService {
     public String deletePaymentById(int paymentId);
     public PaymentDTO getPaymentById(int paymentId);
     public List<Payment> getAllPayment();
+   // public List<Payment> getPaymentsOfSeller(int sellerId);
 }

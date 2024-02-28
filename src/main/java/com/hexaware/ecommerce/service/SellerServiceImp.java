@@ -1,7 +1,7 @@
 package com.hexaware.ecommerce.service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,12 +11,15 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.dto.SellerDTO;
+import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.exception.SellerNotFoundException;
+import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.repository.SellerRepository;
 
@@ -171,7 +174,9 @@ public class SellerServiceImp implements ISellerService {
 
 	@Override
 
-	public ProductDTO markProductOutOfStock(int sellerId, int productId) throws ProductNotFoundException {
+	public Product markProductOutOfStock(int sellerId, int productId) throws ProductNotFoundException {
+		
+		logger.info("Marking Product Out Of Stock");
 		ProductDTO productDTO = productService.getProductById(productId);
 		 if (productDTO == null) {
 		        throw new ProductNotFoundException("Product with productId: " + productId + " not found.");
@@ -179,13 +184,17 @@ public class SellerServiceImp implements ISellerService {
 		if (productDTO.getSeller().getSellerId() == sellerId) {
             productDTO.setStockQuantity(0);
     
-            productService.updateProduct(productDTO);
-            return productDTO;
+            Product product =  productService.updateProduct(productDTO);
+           
+            return product;
 		}
 		else {
 	        throw new IllegalArgumentException("Product does not belong to the seller");
 	    }
 	}
+	
+	
+	
 
 
 
@@ -194,6 +203,36 @@ public class SellerServiceImp implements ISellerService {
 	@Override
 	public String login(String username, String password) {
 		return null;
+	}
+
+	@Override
+	public Optional<Seller> fetchSellerDetails(String username) throws SellerNotFoundException {
+		// TODO Auto-generated method stub
+		return repo.findByUsername(username);
+	}
+
+	@Override
+	public List<Product> viewMyProducts(int sellerId) throws ProductNotFoundException {
+		// TODO Auto-generated method stub
+		return productService.getAllProductBySellerId(sellerId);
+	}
+
+	@Override
+	public SubCategoryDTO getSubcategoryById(int subCategoryId) throws SubCategoryNotFoundException {
+		// TODO Auto-generated method stub
+		return subCategoryService.getSubCategoryById(subCategoryId);
+	}
+
+	@Override
+	public List<Integer> getOrdersBySellerId(int sellerId) {
+		// TODO Auto-generated method stub
+		return repo.getOrdersBySellerId(sellerId);
+	}
+
+	@Override
+	public List<Integer> getPaymentsOfSeller(int sellerId) {
+		// TODO Auto-generated method stub
+		return repo.getPaymentsOfSeller(sellerId);
 	}
 	}
 

@@ -1,6 +1,9 @@
 package com.hexaware.ecommerce.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,15 +25,17 @@ import com.hexaware.ecommerce.dto.AuthRequest;
 import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
+import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.service.ICustomerService;
 import com.hexaware.ecommerce.service.JwtService;
 
 import jakarta.validation.Valid;
-
+@CrossOrigin("localhost://4200")
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerRestController {
@@ -44,7 +50,7 @@ public class CustomerRestController {
 	AuthenticationManager authenticationManager;
 	
 	@PostMapping("/login/authenticate")
-	public String  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) {
+	public Object  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) throws CustomerNotFoundException {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 		String token = null;
 		if(authentication.isAuthenticated()) {
@@ -59,7 +65,12 @@ public class CustomerRestController {
 			
 					 throw new UsernameNotFoundException("UserName or Password in Invalid / Invalid Request");	
 				}
-				return token;	 
+	Optional<Customer> customer=service.fetchCustomerDetails(authRequest.getUsername());
+		System.out.println("customer"+customer);
+		 Map<String, Object> object = new HashMap<>();
+		 object.put("token", token);
+		 object.put("data", customer);
+				return object;	 
 	 }
 	
 	@PostMapping("/register")
@@ -131,6 +142,12 @@ public class CustomerRestController {
     @PreAuthorize("hasAuthority('customer')")
     public List<Product> getProductsByPriceRange(@PathVariable double min,@PathVariable double max){
     	return service.getProductsByPriceRange(min, max);
+    }
+    
+    @PostMapping("/deleteProductFromCustomerCart/{customerId}/{productId}")
+    @PreAuthorize("hasAuthority('customer')")
+    public String deleteProductFromCustomerCart(@PathVariable int customerId,@PathVariable int productId) throws ProductNotFoundException {
+    	return service.deleteProductFromCustomerCart(customerId, productId);
     }
 
 }

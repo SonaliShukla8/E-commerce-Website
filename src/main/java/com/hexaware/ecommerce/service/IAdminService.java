@@ -1,9 +1,12 @@
 package com.hexaware.ecommerce.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.hexaware.ecommerce.dto.AdminDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
+import com.hexaware.ecommerce.entity.Admin;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
@@ -11,6 +14,7 @@ import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
 import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.AdminNotFoundException;
 import com.hexaware.ecommerce.exception.CategoryNotFoundException;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
@@ -40,6 +44,8 @@ public interface IAdminService {
     public  String deleteSeller(int id) throws SellerNotFoundException;
     
     public String deleteCustomer(int id) throws CustomerNotFoundException;
+    
+    public Admin viewAdminById(int adminId) throws AdminNotFoundException;
      
     public List<Category> viewAllCategory();
     
@@ -49,7 +55,10 @@ public interface IAdminService {
     
     public Category addCategory(Category category);
     
-    public SubCategory addSubCategory(SubCategoryDTO subcategorydto); 
+    public SubCategory addSubCategory(SubCategoryDTO subcategorydto);
+
+	public Optional<Admin> fetchAdminDetails(String username) throws AdminNotFoundException; 
+	
     
 
     

@@ -7,7 +7,7 @@ import com.hexaware.ecommerce.entity.Order;
 public class PaymentDTO {
 	
 	 private int paymentId;  
-	 @JsonIgnore
+	// @JsonIgnore
 	 private Order order;
 	private LocalDateTime paymentDate;
 	private double amount;

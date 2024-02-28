@@ -51,9 +51,9 @@ public class OrderServiceImp implements IOrderService {
 		order.setStatus(orderDTO.getStatus());
 		order.setStatusDescription(orderDTO.getStatusDescription());
 		order.setTotalAmount(orderDTO.getTotalAmount());
-		order.setPayment(orderDTO.getPayment());
-		order.setCustomer(orderDTO.getCustomer());
-		order.setSellers(orderDTO.getSellers());
+		//order.setPayment(orderDTO.getPayment());
+		//order.setCustomer(orderDTO.getCustomer());
+		//order.setSellers(orderDTO.getSellers());
 	
 		return repo.save(order);
 	}

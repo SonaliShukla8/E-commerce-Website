@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -30,8 +31,8 @@ public class Order {
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderId;        // Primary Key
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@JsonIgnore
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	 @JoinColumn(name="customerId")
 	    private Customer customer;
 	@NotNull
@@ -44,6 +45,7 @@ public class Order {
 	    private String statusDescription;
 	    @FutureOrPresent
 	    private LocalDate deliveryDate;
+	    @JsonIgnore
 	    @OneToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="payment_id")
 	    private Payment payment;

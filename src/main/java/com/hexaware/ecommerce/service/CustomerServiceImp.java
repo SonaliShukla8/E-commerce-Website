@@ -5,11 +5,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.hexaware.config.TwilioConfig;
+import com.hexaware.dto.OtpRequest;
+import com.hexaware.dto.OtpResponseDto;
+import com.hexaware.dto.OtpStatus;
 import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.dto.OrderDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
@@ -29,6 +36,8 @@ import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.CustomerRepository;
+import com.hexaware.service.SmsService;
+import com.twilio.Twilio;
 @Service
 public class CustomerServiceImp implements ICustomerService {
     @Autowired
@@ -49,6 +58,8 @@ public class CustomerServiceImp implements ICustomerService {
     ICartService cartService;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    SmsService smsService;
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
@@ -150,7 +161,7 @@ public class CustomerServiceImp implements ICustomerService {
      public SubCategory getSubCategoryByName(String name) {
              return subcategoryService.getSubCategoryByName(name);
      }
-     
+     @Override
      public String addProductToCustomerCart(int customerId, int productId, int quantity) throws ProductNotFoundException {
       
     	 Customer customer = repo.findById(customerId).orElse(null);
@@ -235,13 +246,23 @@ public class CustomerServiceImp implements ICustomerService {
 	        order.setTotalAmount(totalAmount);
 	        order.setStatus("Pending");
 	        order.setStatusDescription("Payment Not Yet Processed...");
+	        TwilioConfig twilioConfig  = new TwilioConfig();
+	        Twilio.init("AC9ef31ca2a17af0bced9af46fe36930b0", "284719557cb0dcad4c447a563e3a3ea8");
+	        OtpRequest otpRequest = new OtpRequest();
+	        otpRequest.setUsername(customer.getUsername()); 
+	        otpRequest.setPhoneNumber("+918074770561");
+	        OtpResponseDto otpResponse = smsService.sendSMS(otpRequest);
+        if (otpResponse.getStatus() == OtpStatus.DELIVERED) {
+       	return "Validate the OTP.";
+	        }
 	        
-	        
+	   
 	        Payment payment = new Payment();
 	        payment.setAmount(totalAmount);
 	        payment.setPaymentDate(LocalDateTime.now());
 	        payment.setPaymentMethod(paymentMethod);
-	        payment.setPaymentStatus("Paid"); 
+	        if(paymentMethod == "COD" || paymentMethod == "cod") { payment.setPaymentStatus("To be Paid, at time of Delivery. ");}
+	        else { payment.setPaymentStatus("Paid");} 
 	       // order.setPayment(payment);
 	        payment.setOrder(order);
 	        PaymentDTO paymentDTO = new PaymentDTO();
@@ -290,7 +311,7 @@ public class CustomerServiceImp implements ICustomerService {
 			orderDTO.setDeliveryDate(order.getDeliveryDate());
 			
 			orderDTO.setPayment(order.getPayment());
-	        orderDTO.setStatus("Payment Done.");
+	        orderDTO.setStatus("Order Placed.");
 	        orderDTO.setStatusDescription("Payment done via "+payment.getPaymentMethod()+" is successful.");
 	        orderService.updateOrder(orderDTO);
 	        int cartdelete = customer.getCart().getCartId();
@@ -309,5 +330,41 @@ public class CustomerServiceImp implements ICustomerService {
 		
 	}
 
+	@Override
+	public Optional<Customer> fetchCustomerDetails(String username) throws CustomerNotFoundException {
+		// TODO Auto-generated method stub
+		return repo.findByUsername(username);
+	}
 
+	@Override
+	public String deleteProductFromCustomerCart(int customerId, int productId) {
+		Customer customer = repo.findById(customerId).orElse(null);
+	    if (customer == null) {
+	        return "Customer not found";
+	    }
+
+	    Cart cart = customer.getCart();
+	    if (cart == null || cart.getCartItems().isEmpty()) {
+	        return "Cart is empty";
+	    }
+
+	    Optional<CartItem> itemToRemove = cart.getCartItems().stream()
+	            .filter(item -> item.getProduct().getProductId() == productId)
+	            .findFirst();
+
+	    if (itemToRemove.isPresent()) {
+	        cart.getCartItems().remove(itemToRemove.get());
+	        double totalPrice = cart.getCartItems().stream()
+	                .mapToDouble(item -> item.getItemQuantity() * item.getProduct().getPrice())
+	                .sum();
+	        cart.setTotalPrice(totalPrice);
+	        repo.save(customer);
+	        return "Product removed from the cart";
+	    } else {
+	        return "Product not found in the cart";
+	    }
+}
+
+
+	
 }

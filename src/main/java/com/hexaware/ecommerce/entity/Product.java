@@ -20,7 +20,7 @@ public class Product {
 	 
 	
 	private int productId;      
-	 @ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	 @ManyToOne(cascade=CascadeType.PERSIST,fetch=FetchType.EAGER)
 	 @JoinColumn(name = "seller_Id")
 	 private Seller seller;
 	 @NotBlank
@@ -40,7 +40,7 @@ public class Product {
 	    @PastOrPresent
 	    private LocalDateTime modifiedAt;
 
-	    @ManyToOne(cascade=CascadeType.ALL)
+	    @ManyToOne(cascade=CascadeType.PERSIST)
 	    @JoinColumn(name="subcategory_Id")
 	    private SubCategory subCategory;
 

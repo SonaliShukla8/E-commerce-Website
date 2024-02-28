@@ -19,7 +19,7 @@ public class Category {
     private String categoryName;
    
     @JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="category", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.PERSIST,mappedBy="category", fetch = FetchType.LAZY)
    private List<SubCategory> subCategories =new ArrayList<SubCategory>();
  
 	public Category() {

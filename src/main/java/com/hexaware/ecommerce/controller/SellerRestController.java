@@ -1,11 +1,14 @@
 package com.hexaware.ecommerce.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,18 +23,25 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.hexaware.ecommerce.dto.AuthRequest;
+import com.hexaware.ecommerce.dto.OrderDTO;
+import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.dto.SellerDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
+import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
-import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.service.IOrderService;
+import com.hexaware.ecommerce.service.IPaymentService;
 import com.hexaware.ecommerce.service.ISellerService;
 import com.hexaware.ecommerce.service.ISubCategoryService;
 import com.hexaware.ecommerce.service.JwtService;
@@ -48,6 +58,10 @@ public class SellerRestController {
 	ISellerService service;
 	@Autowired
 	ISubCategoryService subCategoryService;
+	@Autowired
+	IOrderService orderService;
+	@Autowired
+	IPaymentService paymentService;
 	
 	@Autowired
 	JwtService jwtService;
@@ -56,7 +70,7 @@ public class SellerRestController {
 	AuthenticationManager authenticationManager;
 	
 	@PostMapping("/login/authenticate")
-	public String  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) {
+	public Object  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) throws SellerNotFoundException {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 		String token = null;
 		if(authentication.isAuthenticated()) {
@@ -71,7 +85,12 @@ public class SellerRestController {
 			
 					 throw new UsernameNotFoundException("UserName or Password in Invalid / Invalid Request");	
 				}
-				return token;	 
+		Optional<Seller> seller=service.fetchSellerDetails(authRequest.getUsername());
+		
+		 Map<String, Object> object = new HashMap<>();
+		 object.put("token", token);
+		 object.put("data", seller);
+				return object;	 
 	 }
 	
 	@PostMapping("/register")
@@ -126,7 +145,13 @@ public class SellerRestController {
 	
 	@PostMapping("/updateProduct")
 	@PreAuthorize("hasAuthority('seller')")
-	public Product updateProduct(@RequestBody ProductDTO productdto) throws ProductNotFoundException {
+	public Product updateProduct(@RequestBody ProductDTO productdto) throws ProductNotFoundException, SellerNotFoundException, SubCategoryNotFoundException {
+		SellerDTO sellerdto = service.getSellerById(productdto.getSellerId());
+		Seller seller = service.updateSeller(sellerdto);
+		SubCategoryDTO subCategoryDto = subCategoryService.getSubCategoryById(productdto.getSubCateegoryId());
+		SubCategory subCategory = subCategoryService.updateSubCategory(subCategoryDto);
+	    productdto.setSeller(seller);
+	    productdto.setSubCategory(subCategory);
 		return service.updateProduct(productdto);
 	}
 	
@@ -148,11 +173,79 @@ public class SellerRestController {
 		return service.getProductById(id);
 	}
 	
-	@GetMapping("/markProductOutOfStock/{sellerId}/{productId}")
+	@PostMapping("/markProductOutOfStock/{sellerId}/{productId}")
 	@PreAuthorize("hasAuthority('seller')")
-	public ProductDTO markProductOutOfStock(@PathVariable int sellerId,@PathVariable int productId) throws ProductNotFoundException{
+	public Product markProductOutOfStock(@PathVariable int sellerId,@PathVariable int productId) throws ProductNotFoundException{
+		
 		return service.markProductOutOfStock(sellerId, productId);
 	}
+	@GetMapping("/viewMyProducts/{sellerId}")
+	@PreAuthorize("hasAuthority('seller')")
+	public List<Product> viewMyProducts(@PathVariable int sellerId) throws ProductNotFoundException{
+		return service.viewMyProducts(sellerId);
+	}
+	
+	@GetMapping("/getSellerById/{sellerId}")
+	@PreAuthorize("hasAuthority('seller')")
+	public SellerDTO getSellerById(@PathVariable int sellerId) throws SellerNotFoundException{
+		return service.getSellerById(sellerId);
+	}
+	
+	@GetMapping("/getSubCategoryById/{subCategoryId}")
+	@PreAuthorize("hasAuthority('seller')")
+	public SubCategoryDTO getSubcategoryById(@PathVariable int subCategoryId) throws SubCategoryNotFoundException{
+		return service.getSubcategoryById(subCategoryId);
+	}
+	
+	@GetMapping("/getOrdersBySellerId/{sellerId}")
+	@PreAuthorize("hasAuthority('seller')")
+	public List<Integer> getOrdersBySellerId(@PathVariable int sellerId){
+		return service.getOrdersBySellerId(sellerId);
+	}
+	
+	@GetMapping("/getOrdersDetailsBySellerId/{sellerId}")
+	@PreAuthorize("hasAuthority('seller')")
+	public List<OrderDTO> getOrdersDetailsBySellerId(@PathVariable int sellerId) throws OrderNotFoundException {
+	    List<Integer> orderIds = service.getOrdersBySellerId(sellerId);
+	    List<OrderDTO> orderDetails = new ArrayList<>();
+	    
+	    for (Integer orderId : orderIds) {
+	        OrderDTO order = orderService.getOrderById(orderId);
+	        orderDetails.add(order);
+	    }
+	    
+	    return orderDetails;
+	}
+	
+	@PutMapping("/updateOrder")
+	@PreAuthorize("hasAuthority('seller')")
+	 public Order updateOrder(@RequestBody OrderDTO orderDTO) throws OrderNotFoundException{
+		return orderService.updateOrder(orderDTO);
+	}
+	
+	@GetMapping("/getPaymentDetailsBySellerId/{sellerId}")
+	@PreAuthorize("hasAuthority('seller')")
+	public List<Integer> getPaymentsOfSeller(@PathVariable int sellerId){
+		return service.getPaymentsOfSeller(sellerId);
+	}
+	
+	@GetMapping("/viewMyPayments/{sellerId}")
+	@PreAuthorize("hasAuthority('seller')")
+	public List<PaymentDTO> viewMyPayments(@PathVariable int sellerId){
+		List<Integer> paymentIds = service.getPaymentsOfSeller(sellerId);
+		List<PaymentDTO> paymentDetails = new ArrayList<>();
+		for(Integer paymentId : paymentIds) {
+			PaymentDTO paymentDTO = paymentService.getPaymentById(paymentId);
+			paymentDetails.add(paymentDTO);
+		}
+		return paymentDetails;
+	}
+	
+
+	
+	
+	
+	
 
 
 }

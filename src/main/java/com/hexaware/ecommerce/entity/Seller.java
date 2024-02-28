@@ -46,7 +46,7 @@ public class Seller {
 	 private List<Product> product=new ArrayList<Product>();
 	 
 	 
-	 @JsonIgnore
+	// @JsonIgnore
 	@ManyToMany(mappedBy = "sellers")
     private List<Order> orders = new ArrayList<>();
 

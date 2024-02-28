@@ -24,8 +24,8 @@ public class Address {
 		@NotBlank
 	    @Size(max = 255)
 	    private String addressLine1;
-		@NotBlank
-		@Size(max = 255)
+		//@NotBlank
+		//@Size(max = 255)
 	    private String addressLine2;
 		@NotBlank
 	    @Pattern(regexp = "\\d{6}")
@@ -45,7 +45,7 @@ public class Address {
 		}
 	    
 		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
-				@NotBlank @Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
+				@Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
 				@NotBlank String city, @NotBlank String state, @NotBlank String country) {
 			super();
 			this.addressId = addressId;
@@ -143,7 +143,7 @@ public class Address {
 		public String toString() {
 			return "Address [addressId=" + addressId + ", addressLine1=" + addressLine1 + ", addressLine2="
 					+ addressLine2 + ", postalCode=" + postalCode + ", city=" + city + ", state=" + state + ", country="
-					+ country + ", customer=" + customer + "]";
+					+ country +"]";
 		}	    
 	    
 }
