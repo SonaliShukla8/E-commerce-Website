@@ -17,13 +17,11 @@ import jakarta.validation.constraints.Size;
 public class Address {
 	
 		@Id
-		@NotNull
 		@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	   	private int addressId;        
 		@NotBlank
 	    @Size(max = 255)
 	    private String addressLine1;
-		@Size(max = 255)
 	    private String addressLine2;
 		@NotBlank
 	    @Pattern(regexp = "\\d{6}")
@@ -35,25 +33,25 @@ public class Address {
 		@NotBlank
 	    private String country;
 		@JsonIgnore
-		@OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
+		@OneToOne(mappedBy = "address")
 		private Customer customer;
 
 	    public Address() {
 			super();
 		}
-	    
-		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
-				@NotBlank @Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
-				@NotBlank String city, @NotBlank String state, @NotBlank String country) {
-			super();
-			this.addressId = addressId;
-			this.addressLine1 = addressLine1;
-			this.addressLine2 = addressLine2;
-			this.postalCode = postalCode;
-			this.city = city;
-			this.state = state;
-			this.country = country;
-		}
+//	    
+//		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
+//				 String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
+//				@NotBlank String city, @NotBlank String state, @NotBlank String country) {
+//			super();
+//			this.addressId = addressId;
+//			this.addressLine1 = addressLine1;
+//			this.addressLine2 = addressLine2;
+//			this.postalCode = postalCode;
+//			this.city = city;
+//			this.state = state;
+//			this.country = country;
+//		}
 
 		public int getAddressId() {
 			return addressId;
@@ -111,10 +109,17 @@ public class Address {
 			this.country = country;
 		}
 
+		@Override
+		public String toString() {
+			return "Address [addressId=" + addressId + ", addressLine1=" + addressLine1 + ", addressLine2="
+					+ addressLine2 + ", postalCode=" + postalCode + ", city=" + city + ", state=" + state + ", country="
+					+ country + "]";
+		}
 
-		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
-				@NotBlank @Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
-				@NotBlank String city, @NotBlank String state, @NotBlank String country, Customer customer) {
+
+		public Address(int addressId, @NotBlank @Size(max = 255) String addressLine1, String addressLine2,
+				@NotBlank @Pattern(regexp = "\\d{6}") String postalCode, @NotBlank String city, @NotBlank String state,
+				@NotBlank String country, Customer customer) {
 			super();
 			this.addressId = addressId;
 			this.addressLine1 = addressLine1;
@@ -125,8 +130,20 @@ public class Address {
 			this.country = country;
 			this.customer = customer;
 		}
+		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
+				@NotBlank @Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
+				@NotBlank String city, @NotBlank String state, @NotBlank String country) {
+			super();
+			this.addressId = addressId;
+			this.addressLine1 = addressLine1;
+			this.addressLine2 = addressLine2;
+			this.postalCode = postalCode;
+			this.city = city;
+			this.state = state;
+			this.country = country;
+		}
 
-
+//
 		public Customer getCustomer() {
 			return customer;
 		}
@@ -136,12 +153,6 @@ public class Address {
 			this.customer = customer;
 		}
 
-
-		@Override
-		public String toString() {
-			return "Address [addressId=" + addressId + ", addressLine1=" + addressLine1 + ", addressLine2="
-					+ addressLine2 + ", postalCode=" + postalCode + ", city=" + city + ", state=" + state + ", country="
-					+ country + ", customer=" + customer + "]";
-		}	    
+	    
 	    
 }

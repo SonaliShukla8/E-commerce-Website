@@ -13,9 +13,7 @@ import jakarta.validation.constraints.Positive;
 public class CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@NotNull
     private int cartitemId;
-	
 	@Positive
 	private int itemQuantity;
 	
@@ -23,7 +21,7 @@ public class CartItem {
     @JoinColumn(name="productId", nullable = false)
 	private Product product;
 	
-	 @ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	 @JoinColumn(name="cartId")
 	 private Cart cart;
 	

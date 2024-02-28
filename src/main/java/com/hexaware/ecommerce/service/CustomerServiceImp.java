@@ -12,6 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+//import com.hexaware.config.TwilioConfig;
+//import com.hexaware.dto.OtpRequest;
+//import com.hexaware.dto.OtpResponseDto;
+//import com.hexaware.dto.OtpStatus;
 import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.dto.OrderDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
@@ -30,12 +35,16 @@ import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
-import com.hexaware.ecommerce.repository.CartRepository;
 import com.hexaware.ecommerce.repository.CustomerRepository;
+import com.hexaware.ecommerce.repository.ProductRepository;
+//import com.hexaware.service.SmsService;
+//import com.twilio.Twilio;
 @Service
 public class CustomerServiceImp implements ICustomerService {
     @Autowired
 	CustomerRepository repo;
+    @Autowired
+    ProductRepository productRepo;
     @Autowired
     IProductService productService;
     @Autowired
@@ -52,8 +61,7 @@ public class CustomerServiceImp implements ICustomerService {
     ICartService cartService;
     @Autowired
     PasswordEncoder passwordEncoder;
-    @Autowired
-    CartRepository cartRepository;
+
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
@@ -67,18 +75,11 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setGender(customerDTO.getGender());
 		customer.setContactNumber(customerDTO.getContactNumber());
 		customer.setAddress(customerDTO.getAddress());
-//		customer.setOrder(customerDTO.getOrder());
+//		customer.setOrder(customerDTO.getOrder());		
 //		customer.setCart(customerDTO.getCart());
 		customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
 		customer.setRole(customerDTO.getRole());
 		customer.setUsername(customerDTO.getUsername());
-		Cart cart=new Cart();
-		cart.setCartId(customerDTO.getCustomerId());
-		cart.setTotalPrice(0);
-		cartRepository.save(cart);
-		customer.setCart(cart);
-		
-		
 
 		 repo.save(customer);
 		 return "New customer Registered";
@@ -182,7 +183,10 @@ public class CustomerServiceImp implements ICustomerService {
                                                  .filter(item -> item.getProduct().equals(product))
                                                  .findFirst().orElse(null);
                      if (existingCartItem != null) {
-                         existingCartItem.setItemQuantity(existingCartItem.getItemQuantity() + quantity);
+                    	 if (quantity < existingCartItem.getItemQuantity()) {
+                             existingCartItem.setItemQuantity(quantity);
+                         }else {
+                         existingCartItem.setItemQuantity(existingCartItem.getItemQuantity() + quantity);}
                      } else {
                          // Create a new cart item
                          CartItem cartItem = new CartItem();
@@ -226,7 +230,7 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	@Override
-	public String placeOrder(int customerId) throws OrderNotFoundException, ProductNotFoundException {
+	public String placeOrder(int customerId,String paymentMethod) throws OrderNotFoundException, ProductNotFoundException {
 		
 		 Customer customer = repo.findById(customerId).orElse(null);
 		 if (customer == null) {
@@ -244,13 +248,23 @@ public class CustomerServiceImp implements ICustomerService {
 	        order.setTotalAmount(totalAmount);
 	        order.setStatus("Pending");
 	        order.setStatusDescription("Payment Not Yet Processed...");
+//	        TwilioConfig twilioConfig  = new TwilioConfig();
+//	        Twilio.init("AC9ef31ca2a17af0bced9af46fe36930b0", "284719557cb0dcad4c447a563e3a3ea8");
+//	        OtpRequest otpRequest = new OtpRequest();
+//	        otpRequest.setUsername(customer.getUsername()); 
+//	        otpRequest.setPhoneNumber("+918074770561");
+//	        OtpResponseDto otpResponse = smsService.sendSMS(otpRequest);
+//        if (otpResponse.getStatus() == OtpStatus.DELIVERED) {
+//       	return "Validate the OTP.";
+//	        }
 	        
-	        
+	   
 	        Payment payment = new Payment();
 	        payment.setAmount(totalAmount);
 	        payment.setPaymentDate(LocalDateTime.now());
-	        payment.setPaymentMethod("Credit Card");
-	        payment.setPaymentStatus("Paid"); 
+	        payment.setPaymentMethod(paymentMethod);
+	        if(paymentMethod == "COD" || paymentMethod == "cod") { payment.setPaymentStatus("To be Paid, at time of Delivery. ");}
+	        else { payment.setPaymentStatus("Paid");} 
 	       // order.setPayment(payment);
 	        payment.setOrder(order);
 	        PaymentDTO paymentDTO = new PaymentDTO();
@@ -299,8 +313,8 @@ public class CustomerServiceImp implements ICustomerService {
 			orderDTO.setDeliveryDate(order.getDeliveryDate());
 			
 			orderDTO.setPayment(order.getPayment());
-	        orderDTO.setStatus("Payment Done.");
-	        orderDTO.setStatusDescription("Payment done via"+payment.getPaymentMethod()+"is successful.");
+	        orderDTO.setStatus("Order Placed.");
+	        orderDTO.setStatusDescription("Payment done via "+payment.getPaymentMethod()+" is successful.");
 	        orderService.updateOrder(orderDTO);
 	        int cartdelete = customer.getCart().getCartId();
 	        customer.setCart(null);
@@ -318,11 +332,60 @@ public class CustomerServiceImp implements ICustomerService {
 		
 	}
 
+//	@Override
+//	public String placeOrder(int customerId) throws OrderNotFoundException, ProductNotFoundException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
 	@Override
 	public Optional<Customer> fetchCustomerDetails(String username) throws CustomerNotFoundException {
 		// TODO Auto-generated method stub
-		System.out.println("repo "+username);
 		return repo.findByUsername(username);
+	}
+	
+	@Override
+	public String deleteProductFromCustomerCart(int customerId, int productId) {
+		Customer customer = repo.findById(customerId).orElse(null);
+	    if (customer == null) {
+	        return "Customer not found";
+	    }
+
+	    Cart cart = customer.getCart();
+	    if (cart == null || cart.getCartItems().isEmpty()) {
+	        return "Cart is empty";
+	    }
+
+	    Optional<CartItem> itemToRemove = cart.getCartItems().stream()
+	            .filter(item -> item.getProduct().getProductId() == productId)
+	            .findFirst();
+
+	    if (itemToRemove.isPresent()) {
+	        cart.getCartItems().remove(itemToRemove.get());
+	        double totalPrice = cart.getCartItems().stream()
+	                .mapToDouble(item -> item.getItemQuantity() * item.getProduct().getPrice())
+	                .sum();
+	        cart.setTotalPrice(totalPrice);
+	        repo.save(customer);
+	        return "Product removed from the cart";
+	    } else {
+	        return "Product not found in the cart";
+	    }
+}
+
+	@Override
+	public List<Product> viewProductsBySubCategoryName(String subcategoryName) {
+		subcategoryName=subcategoryName.trim();
+		SubCategory subcategory=subcategoryService.getSubCategoryByName(subcategoryName);
+		if (subcategory!=null) {
+			int subcategoryId=subcategory.getSubCategoryId();
+			return productRepo.findBySubCategoryId(subcategoryId);
+		}
+		
+		else {
+			return new ArrayList<>();
+		}
+		
 	}
 
 
