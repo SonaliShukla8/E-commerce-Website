@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.hexaware.config.TwilioConfig;
-import com.hexaware.dto.OtpRequest;
-import com.hexaware.dto.OtpResponseDto;
-import com.hexaware.dto.OtpStatus;
+
+//import com.hexaware.config.TwilioConfig;
+//import com.hexaware.dto.OtpRequest;
+//import com.hexaware.dto.OtpResponseDto;
+//import com.hexaware.dto.OtpStatus;
 import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.dto.OrderDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
@@ -36,12 +37,16 @@ import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.CustomerRepository;
-import com.hexaware.service.SmsService;
-import com.twilio.Twilio;
+
+import com.hexaware.ecommerce.repository.ProductRepository;
+//import com.hexaware.service.SmsService;
+//import com.twilio.Twilio;
 @Service
 public class CustomerServiceImp implements ICustomerService {
     @Autowired
 	CustomerRepository repo;
+    @Autowired
+    ProductRepository productRepo;
     @Autowired
     IProductService productService;
     @Autowired
@@ -58,8 +63,8 @@ public class CustomerServiceImp implements ICustomerService {
     ICartService cartService;
     @Autowired
     PasswordEncoder passwordEncoder;
-    @Autowired
-    SmsService smsService;
+
+
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
@@ -246,15 +251,16 @@ public class CustomerServiceImp implements ICustomerService {
 	        order.setTotalAmount(totalAmount);
 	        order.setStatus("Pending");
 	        order.setStatusDescription("Payment Not Yet Processed...");
-	        TwilioConfig twilioConfig  = new TwilioConfig();
-	        Twilio.init("AC9ef31ca2a17af0bced9af46fe36930b0", "284719557cb0dcad4c447a563e3a3ea8");
-	        OtpRequest otpRequest = new OtpRequest();
-	        otpRequest.setUsername(customer.getUsername()); 
-	        otpRequest.setPhoneNumber("+918074770561");
-	        OtpResponseDto otpResponse = smsService.sendSMS(otpRequest);
-        if (otpResponse.getStatus() == OtpStatus.DELIVERED) {
-       	return "Validate the OTP.";
-	        }
+
+//	        TwilioConfig twilioConfig  = new TwilioConfig();
+//	        Twilio.init("AC9ef31ca2a17af0bced9af46fe36930b0", "284719557cb0dcad4c447a563e3a3ea8");
+//	        OtpRequest otpRequest = new OtpRequest();
+//	        otpRequest.setUsername(customer.getUsername()); 
+//	        otpRequest.setPhoneNumber("+918074770561");
+//	        OtpResponseDto otpResponse = smsService.sendSMS(otpRequest);
+//        if (otpResponse.getStatus() == OtpStatus.DELIVERED) {
+//       	return "Validate the OTP.";
+//	        }
 	        
 	   
 	        Payment payment = new Payment();
@@ -330,12 +336,19 @@ public class CustomerServiceImp implements ICustomerService {
 		
 	}
 
+
+//	@Override
+//	public String placeOrder(int customerId) throws OrderNotFoundException, ProductNotFoundException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
 	@Override
 	public Optional<Customer> fetchCustomerDetails(String username) throws CustomerNotFoundException {
 		// TODO Auto-generated method stub
 		return repo.findByUsername(username);
 	}
-
+	
 	@Override
 	public String deleteProductFromCustomerCart(int customerId, int productId) {
 		Customer customer = repo.findById(customerId).orElse(null);
@@ -366,5 +379,19 @@ public class CustomerServiceImp implements ICustomerService {
 }
 
 
-	
+	@Override
+	public List<Product> viewProductsBySubCategoryName(String subcategoryName) {
+		subcategoryName=subcategoryName.trim();
+		SubCategory subcategory=subcategoryService.getSubCategoryByName(subcategoryName);
+		if (subcategory!=null) {
+			int subcategoryId=subcategory.getSubCategoryId();
+			return productRepo.findBySubCategoryId(subcategoryId);
+		}
+		
+		else {
+			return new ArrayList<>();
+		}
+		
+	}
+
 }

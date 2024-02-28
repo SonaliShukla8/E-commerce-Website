@@ -18,17 +18,17 @@ public class AddressDTO {
 			super();
 			
 		}
-		public AddressDTO(int addressId, String addressLine1, String addressLine2, String postalCode, String city,
-				String state, String country) {
-			super();
-			this.addressId = addressId;
-			this.addressLine1 = addressLine1;
-			this.addressLine2 = addressLine2;
-			this.postalCode = postalCode;
-			this.city = city;
-			this.state = state;
-			this.country = country;
-		}
+//		public AddressDTO(int addressId, String addressLine1, String addressLine2, String postalCode, String city,
+//				String state, String country) {
+//			super();
+//			this.addressId = addressId;
+//			this.addressLine1 = addressLine1;
+//			this.addressLine2 = addressLine2;
+//			this.postalCode = postalCode;
+//			this.city = city;
+//			this.state = state;
+//			this.country = country;
+//		}
 
 		public AddressDTO(int addressId, String addressLine1, String addressLine2, String postalCode, String city,
 				String state, String country, Customer customer) {
@@ -42,7 +42,19 @@ public class AddressDTO {
 			this.country = country;
 			this.customer = customer;
 		}
+		
 
+		public AddressDTO(int addressId, String addressLine1, String addressLine2, String postalCode, String city, String state,
+		String country) {
+	super();
+	this.addressId = addressId;
+	this.addressLine1 = addressLine1;
+	this.addressLine2 = addressLine2;
+	this.postalCode = postalCode;
+	this.city = city;
+	this.state = state;
+	this.country = country;
+}
 		public int getAddressId() {
 			return addressId;
 		}
@@ -101,11 +113,10 @@ public class AddressDTO {
 
 
 
+	
 		public Customer getCustomer() {
 			return customer;
 		}
-
-
 
 		public void setCustomer(Customer customer) {
 			this.customer = customer;
@@ -115,8 +126,9 @@ public class AddressDTO {
 		public String toString() {
 			return "AddressDTO [addressId=" + addressId + ", addressLine1=" + addressLine1 + ", addressLine2="
 					+ addressLine2 + ", postalCode=" + postalCode + ", city=" + city + ", state=" + state + ", country="
-					+ country + ", customer=" + customer + "]";
+					+ country +  "]";
 		}
+
 
 		
 

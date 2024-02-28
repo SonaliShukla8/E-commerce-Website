@@ -51,8 +51,10 @@ public class CustomerRestController {
 	
 	@PostMapping("/login/authenticate")
 	public Object  authenticateAndGetTokent(@RequestBody  AuthRequest authRequest) throws CustomerNotFoundException {
+
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 		String token = null;
+		System.out.println("hiiiiiiiiiiii");
 		if(authentication.isAuthenticated()) {
 				  // call generate token method from jwtService class	
 			     token=jwtService.generateToken(authRequest.getUsername());		
@@ -64,8 +66,11 @@ public class CustomerRestController {
 					log.info("invalid");
 			
 					 throw new UsernameNotFoundException("UserName or Password in Invalid / Invalid Request");	
+	
+				
 				}
 	Optional<Customer> customer=service.fetchCustomerDetails(authRequest.getUsername());
+
 		System.out.println("customer"+customer);
 		 Map<String, Object> object = new HashMap<>();
 		 object.put("token", token);
@@ -82,11 +87,12 @@ public class CustomerRestController {
 	@PreAuthorize("hasAuthority('customer')")
 	public String addProductToCustomerCart(@PathVariable int customerId,@PathVariable int productId,@PathVariable int quantity) throws ProductNotFoundException{
 		return service.addProductToCustomerCart(customerId, productId, quantity);
-	}
+	}	
 	
 	@PostMapping("/placeOrder/{customerId}/{paymentMethod}")
 	@PreAuthorize("hasAuthority('customer')")
 	public String placeOrder(@PathVariable int customerId,@PathVariable String paymentMethod) throws OrderNotFoundException, ProductNotFoundException{
+
 		return service.placeOrder(customerId,paymentMethod);
 	}
 	
@@ -143,11 +149,17 @@ public class CustomerRestController {
     public List<Product> getProductsByPriceRange(@PathVariable double min,@PathVariable double max){
     	return service.getProductsByPriceRange(min, max);
     }
-    
+
     @PostMapping("/deleteProductFromCustomerCart/{customerId}/{productId}")
     @PreAuthorize("hasAuthority('customer')")
     public String deleteProductFromCustomerCart(@PathVariable int customerId,@PathVariable int productId) throws ProductNotFoundException {
     	return service.deleteProductFromCustomerCart(customerId, productId);
+    }
+
+    @GetMapping("/viewProductsBySubCategoryName/{subcategoryName}")
+    @PreAuthorize("hasAuthority('customer')")
+    public List<Product> viewProductsBySubCategoryName(@PathVariable String subcategoryName){
+    	return service.viewProductsBySubCategoryName(subcategoryName);
     }
 
 }

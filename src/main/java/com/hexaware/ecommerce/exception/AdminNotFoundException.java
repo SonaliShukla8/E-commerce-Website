@@ -6,3 +6,4 @@ public AdminNotFoundException(String message) {
 		super(message);
 	}
 }
+

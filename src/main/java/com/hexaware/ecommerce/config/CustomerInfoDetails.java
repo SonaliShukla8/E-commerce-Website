@@ -1,5 +1,6 @@
 package com.hexaware.ecommerce.config;
 
+import java.security.Permission;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -10,6 +11,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.hexaware.ecommerce.entity.Customer;
+
+import jakarta.persistence.OneToOne;
 
 public class CustomerInfoDetails implements UserDetails{
 	private String name;
@@ -68,5 +71,8 @@ public class CustomerInfoDetails implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
+//	@Getter(AccessLevel.NONE)
+//	@OneToOne(mappedBy = "customer")
+//	private Permission permission;
 
 }

@@ -56,10 +56,9 @@ public interface IAdminService {
     public Category addCategory(Category category);
     
     public SubCategory addSubCategory(SubCategoryDTO subcategorydto);
-
 	public Optional<Admin> fetchAdminDetails(String username) throws AdminNotFoundException; 
 	
-    
+
 
     
     
