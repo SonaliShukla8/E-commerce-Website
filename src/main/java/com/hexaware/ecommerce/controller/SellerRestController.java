@@ -1,6 +1,8 @@
 package com.hexaware.ecommerce.controller;
 
+
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,7 @@ import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.dto.SellerDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
+import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.OrderItem;
 import com.hexaware.ecommerce.entity.Payment;
@@ -52,6 +55,7 @@ import com.hexaware.ecommerce.service.JwtService;
 import jakarta.validation.Valid;
 
 @CrossOrigin("http://localhost:4200")
+
 @RestController
 @RequestMapping("api/seller")
 public class SellerRestController {
@@ -269,8 +273,6 @@ public class SellerRestController {
 	
 	
 
-	
-	
 	
 	
 

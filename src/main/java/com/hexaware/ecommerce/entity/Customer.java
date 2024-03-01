@@ -29,7 +29,7 @@ public class Customer {
 	@NotBlank
     private String gender;
 	@NotBlank
-	//@Pattern(regexp = "\\d{10}")
+
     private String contactNumber;
     @NotBlank
     @Email
@@ -49,8 +49,7 @@ public class Customer {
     
     private String role;
 
-
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinColumn(name="cartId")
     private Cart cart;
     
@@ -62,18 +61,28 @@ public class Customer {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
-				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
-				+ password + ", role=" + role 
-				+ "]";
-	}
+
+//	@Override
+////	public String toString() {
+////		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
+////				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
+////				+ password + ", role=" + role + ", address=" + address + ", cart=" + cart + ", order=" + order
+////				+ "]";
+////	}
+//	
 
 	public int getCustomerId() {
 		return customerId;
 	}
 
+
+//	@Override
+//	public String toString() {
+//		return "";
+//		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", gender=" + gender
+//				+ ", contactNumber=" + contactNumber + ", email=" + email + ", username=" + username + ", password="
+//				+ password  + ", role=" + role + ", cart=" + cart + "]";
+//	}
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
@@ -182,27 +191,62 @@ public class Customer {
 		this.order = order;
 	}
 
-
-
 	public Customer(int customerId, @NotBlank String customerName, @NotBlank String gender,
 			@NotBlank String contactNumber, @NotBlank @Email String email,
 			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
-			String password, String role,Address address, Cart cart, List<Order> order) {
-
-
+			String password, Address address, String role, Cart cart, List<Order> order) {
 		super();
 		this.customerId = customerId;
-		this.customerName=customerName;
+		this.customerName = customerName;
 		this.gender = gender;
 		this.contactNumber = contactNumber;
 		this.email = email;
 		this.username = username;
 		this.password = password;
-		this.role = role;
 		this.address = address;
+		this.role = role;
 		this.cart = cart;
 		this.order = order;
 	}
+
+//	public Customer(int customerId, @NotBlank String customerName, @NotBlank String gender,
+//			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
+//			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
+//			String password, Address address, String role, Cart cart) {
+//		super();
+//		this.customerId = customerId;
+//		this.customerName = customerName;
+//		this.gender = gender;
+//		this.contactNumber = contactNumber;
+//		this.email = email;
+//		this.username = username;
+//		this.password = password;
+//		this.address = address;
+//		this.role = role;
+//		this.cart = cart;
+//	}
+//
+//
+//
+//	public Customer(int customerId, @NotBlank String customerName, @NotBlank String gender,
+//			@NotBlank @Pattern(regexp = "\\d{10}") String contactNumber, @NotBlank @Email String email,
+//			@NotBlank(message = "Username is required") @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores") String username,
+//			String password, String role,Address address, Cart cart, List<Order> order) {
+//
+//
+//		super();
+//		this.customerId = customerId;
+//		this.customerName=customerName;
+//		this.gender = gender;
+//		this.contactNumber = contactNumber;
+//		this.email = email;
+//		this.username = username;
+//		this.password = password;
+//		this.role = role;
+//		this.address = address;
+//		this.cart = cart;
+//		this.order = order;
+//	}
 	
 	
     

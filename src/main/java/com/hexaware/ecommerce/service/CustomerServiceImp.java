@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.hexaware.config.TwilioConfig;
-import com.hexaware.dto.OtpRequest;
-import com.hexaware.dto.OtpResponseDto;
-import com.hexaware.dto.OtpStatus;
+
+//import com.hexaware.config.TwilioConfig;
+//import com.hexaware.dto.OtpRequest;
+//import com.hexaware.dto.OtpResponseDto;
+//import com.hexaware.dto.OtpStatus;
 import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.dto.OrderDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
@@ -37,15 +38,26 @@ import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.CustomerRepository;
+//<<<<<<< HEAD
+//import com.hexaware.ecommerce.repository.OrderRepository;
+//import com.hexaware.service.SmsService;
+//import com.twilio.Twilio;
+//=======
 import com.hexaware.ecommerce.repository.OrderRepository;
-import com.hexaware.service.SmsService;
-import com.twilio.Twilio;
+import com.hexaware.ecommerce.repository.ProductRepository;
+////import com.hexaware.service.SmsService;
+////import com.twilio.Twilio;
+//>>>>>>> branch 'Branch-1' of https://github.com/SonaliShukla8/E-commerce-Website.git
 @Service
 public class CustomerServiceImp implements ICustomerService {
     @Autowired
 	CustomerRepository repo;
     @Autowired
+
     OrderRepository orderRepo;
+    @Autowired
+    ProductRepository productRepo;
+
     @Autowired
     IProductService productService;
     @Autowired
@@ -62,8 +74,12 @@ public class CustomerServiceImp implements ICustomerService {
     ICartService cartService;
     @Autowired
     PasswordEncoder passwordEncoder;
-   // @Autowired
-   // SmsService smsService;
+//<<<<<<< HEAD
+//   // @Autowired
+//   // SmsService smsService;
+//=======
+
+
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
@@ -264,6 +280,7 @@ public class CustomerServiceImp implements ICustomerService {
 		    orderItem.setStatusDescription("Order placed. Pending processing.");
 		    orderItem.setDeliveryDate(LocalDate.now().plusDays(7));
 	        orderItems.add(orderItem);
+
 	        
 	        Product updateProduct = cartItem.getProduct();
 	        updateProduct.setStockQuantity(updateProduct.getStockQuantity() - cartItem.getItemQuantity());
@@ -308,7 +325,7 @@ public class CustomerServiceImp implements ICustomerService {
 		// TODO Auto-generated method stub
 		return repo.findByUsername(username);
 	}
-
+	
 	@Override
 	public String deleteProductFromCustomerCart(int customerId, int productId) {
 		Customer customer = repo.findById(customerId).orElse(null);
@@ -339,5 +356,19 @@ public class CustomerServiceImp implements ICustomerService {
 }
 
 
-	
+	@Override
+	public List<Product> viewProductsBySubCategoryName(String subcategoryName) {
+		subcategoryName=subcategoryName.trim();
+		SubCategory subcategory=subcategoryService.getSubCategoryByName(subcategoryName);
+		if (subcategory!=null) {
+			int subcategoryId=subcategory.getSubCategoryId();
+			return productRepo.findBySubCategoryId(subcategoryId);
+		}
+		
+		else {
+			return new ArrayList<>();
+		}
+		
+	}
+
 }

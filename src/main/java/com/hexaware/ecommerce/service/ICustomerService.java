@@ -30,10 +30,13 @@ public interface ICustomerService {
     public SubCategory getSubCategoryByName(String name);
     public String addProductToCustomerCart(int customerId, int productId, int quantity) throws ProductNotFoundException;
     public List<CartItem> viewCartitems(int customerId);
-    public String deleteProductFromCustomerCart(int customerId, int productId) throws ProductNotFoundException;
-    public String placeOrder(int customerId, String paymentMethod) throws OrderNotFoundException, ProductNotFoundException;
+
+
+    public String placeOrder(int customerId,String paymentMethod) throws OrderNotFoundException, ProductNotFoundException;
     public List<Product> getProductsByBrand(String brand);
     public List<Product> getProductsByPriceRange(double min,double max);
-	public Optional<Customer> fetchCustomerDetails(String username)throws CustomerNotFoundException;
+	public Optional<Customer> fetchCustomerDetails(String username)throws CustomerNotFoundException ;
+	public String deleteProductFromCustomerCart(int customerId, int productId);
+	public List<Product> viewProductsBySubCategoryName(String subcategoryName);
 
 }

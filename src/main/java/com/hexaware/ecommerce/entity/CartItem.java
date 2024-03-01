@@ -14,7 +14,6 @@ public class CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private int cartitemId;
-	
 	@Positive
 	private int itemQuantity;
 	
@@ -23,6 +22,7 @@ public class CartItem {
 	private Product product;
 	
 	 @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+
 	 @JoinColumn(name="cartId")
 	 private Cart cart;
 	

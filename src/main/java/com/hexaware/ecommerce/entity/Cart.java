@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,6 +32,7 @@ public class Cart {
 
 		@JsonIgnore
 		@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, mappedBy = "cart", orphanRemoval = true)
+
 	    private List<CartItem> cartItems= new ArrayList<CartItem>();
 
 	    @Min(0)
@@ -78,8 +80,13 @@ public class Cart {
 
 		@Override
 		public String toString() {
-			return "Cart [cartId=" + cartId + ", customer=" + customer + ", cartItems=" + cartItems + ", totalPrice="
+			return "Cart [cartId=" + cartId +  ", cartItems=" + cartItems + ", totalPrice="
 					+ totalPrice + "]";
+		}
+		public Cart(@NotNull int cartId,  @Positive double totalPrice) {
+			super();
+			this.cartId = cartId;
+			this.totalPrice = totalPrice;
 		}
 
 		
@@ -92,11 +99,7 @@ public class Cart {
 			
 		}
 
-		public Cart(@NotNull int cartId,  @Positive double totalPrice) {
-			super();
-			this.cartId = cartId;
-			this.totalPrice = totalPrice;
-		}
+		
 
 	    
 }

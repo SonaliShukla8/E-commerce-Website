@@ -19,4 +19,6 @@ public interface ProductRepository extends JpaRepository<Product,Integer>  {
 	List<Product> findBypriceBetween(double min,double max);
 	@Query(value="select * from product where seller_id=?1",nativeQuery=true)
 	List<Product> findBySellerId(int sellerId);
+	@Query(value="select * from product where subcategory_id=?1",nativeQuery=true)
+	List<Product> findBySubCategoryId(int subcategoryId);
 }

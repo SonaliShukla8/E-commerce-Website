@@ -38,4 +38,5 @@ public interface ISellerService {
 	public Product markProductOutOfStock(int sellerId, int productId) throws ProductNotFoundException;
 	public Optional<Seller> fetchSellerDetails(String username)throws SellerNotFoundException;
 	public List<Integer> getPaymentsOfSeller(int sellerId);
+
 }
