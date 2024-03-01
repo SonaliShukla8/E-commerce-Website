@@ -27,6 +27,7 @@ import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.entity.OrderItem;
 import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
@@ -36,12 +37,15 @@ import com.hexaware.ecommerce.exception.CustomerNotFoundException;
 import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.repository.CustomerRepository;
+import com.hexaware.ecommerce.repository.OrderRepository;
 import com.hexaware.service.SmsService;
 import com.twilio.Twilio;
 @Service
 public class CustomerServiceImp implements ICustomerService {
     @Autowired
 	CustomerRepository repo;
+    @Autowired
+    OrderRepository orderRepo;
     @Autowired
     IProductService productService;
     @Autowired
@@ -58,8 +62,8 @@ public class CustomerServiceImp implements ICustomerService {
     ICartService cartService;
     @Autowired
     PasswordEncoder passwordEncoder;
-    @Autowired
-    SmsService smsService;
+   // @Autowired
+   // SmsService smsService;
     
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
@@ -228,107 +232,76 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	@Override
-	public String placeOrder(int customerId,String paymentMethod) throws OrderNotFoundException, ProductNotFoundException {
-		
-		 Customer customer = repo.findById(customerId).orElse(null);
-		 if (customer == null) {
-	            return "Customer not found";
-	        }
-		 Cart cart = customer.getCart();
-	        if (cart == null || cart.getCartItems().isEmpty()) {
-	            return "Cart is empty";
-	        }
-	        Order order = new Order();
-	        order.setCustomer(customer);
-	        order.setOrderDate(LocalDate.now());
-	        order.setDeliveryDate(LocalDate.now().plusDays(7));
-	        double totalAmount = cart.getTotalPrice();
-	        order.setTotalAmount(totalAmount);
-	        order.setStatus("Pending");
-	        order.setStatusDescription("Payment Not Yet Processed...");
-	        TwilioConfig twilioConfig  = new TwilioConfig();
-	        Twilio.init("AC9ef31ca2a17af0bced9af46fe36930b0", "284719557cb0dcad4c447a563e3a3ea8");
-	        OtpRequest otpRequest = new OtpRequest();
-	        otpRequest.setUsername(customer.getUsername()); 
-	        otpRequest.setPhoneNumber("+918074770561");
-	        OtpResponseDto otpResponse = smsService.sendSMS(otpRequest);
-        if (otpResponse.getStatus() == OtpStatus.DELIVERED) {
-       	return "Validate the OTP.";
-	        }
+	public String placeOrder(int customerId, String paymentMethod) throws ProductNotFoundException {
+	    Customer customer = repo.findById(customerId).orElse(null);
+	    if (customer == null) {
+	        return "Customer not found.";
+	    }
+	    
+	    Cart cart = customer.getCart();
+	    if (cart == null || cart.getCartItems().isEmpty()) {
+	        return "Cart is empty. Cannot place an order.";
+	    }
+	    
+	    Order order = new Order();
+	    order.setCustomer(customer);
+	    order.setOrderDate(LocalDate.now());
+	    
+	   // order.setPaymentMethod(paymentMethod);
+	    
+	    List<OrderItem> orderItems = new ArrayList<>();
+	    for (CartItem cartItem : cart.getCartItems()) {
+	    	int productId = cartItem.getProduct().getProductId();
+	    	ProductDTO productDTO = productService.getProductById(productId);
+	    	Product product = productService.updateProduct(productDTO);
+	        OrderItem orderItem = new OrderItem();
+	        orderItem.setOrder(order);
+	        orderItem.setProduct(product); 
+	        orderItem.setQuantity(cartItem.getItemQuantity());
+	        orderItem.setPrice(cartItem.getProduct().getPrice() * cartItem.getItemQuantity());
+	        orderItem.setSeller(cartItem.getProduct().getSeller()); 
+	        orderItem.setStatus("Pending");
+		    orderItem.setStatusDescription("Order placed. Pending processing.");
+		    orderItem.setDeliveryDate(LocalDate.now().plusDays(7));
+	        orderItems.add(orderItem);
 	        
-	   
-	        Payment payment = new Payment();
-	        payment.setAmount(totalAmount);
-	        payment.setPaymentDate(LocalDateTime.now());
-	        payment.setPaymentMethod(paymentMethod);
-	        if(paymentMethod == "COD" || paymentMethod == "cod") { payment.setPaymentStatus("To be Paid, at time of Delivery. ");}
-	        else { payment.setPaymentStatus("Paid");} 
-	       // order.setPayment(payment);
-	        payment.setOrder(order);
-	        PaymentDTO paymentDTO = new PaymentDTO();
-	        paymentDTO.setPaymentId(payment.getPaymentId());
-	        paymentDTO.setAmount(payment.getAmount());
-	        
-	        paymentDTO.setOrder(order);
-	        paymentDTO.setPaymentDate(payment.getPaymentDate());
-	        paymentDTO.setPaymentMethod(payment.getPaymentMethod());
-	        paymentDTO.setPaymentStatus(payment.getPaymentStatus());
-	        paymentService.updatePayment(paymentDTO);
-	        
-	        
-	        for (CartItem cartItem : cart.getCartItems()) {
-	            Product product = cartItem.getProduct();
-	            int productID = cartItem.getProduct().getProductId();
-	            int orderedQuantity = cartItem.getItemQuantity();
-	            int currentStock = product.getStockQuantity();
-	            if (currentStock >= orderedQuantity) {
-	                product.setStockQuantity(currentStock - orderedQuantity);
-	            } else {
-	                return "Insufficient stock for product: " + product.getProductName();
-	            }
-	            ProductDTO productDTO = new ProductDTO();
-	            productDTO = productService.getProductById(productID);
-	            productService.updateProduct(productDTO);
-	        }
-	        List<Seller> sellers = new ArrayList<>();
-	        for (CartItem cartItem : cart.getCartItems()) {
-	            Seller seller = cartItem.getProduct().getSeller();
-	            if (!sellers.contains(seller)) {
-	                sellers.add(seller);
-	            }
-	        }
-	        order.setSellers(sellers);
-	        if(order.getPayment() == null) {
-			    order.setPayment(payment);
-			}
-	        
-	        OrderDTO orderDTO=new OrderDTO();
-			orderDTO.setOrderId(order.getOrderId());
-			orderDTO.setSellers(order.getSellers());
-			orderDTO.setTotalAmount(order.getTotalAmount());
-			orderDTO.setCustomer(order.getCustomer());
-			orderDTO.setOrderDate(order.getOrderDate());
-			orderDTO.setDeliveryDate(order.getDeliveryDate());
-			
-			orderDTO.setPayment(order.getPayment());
-	        orderDTO.setStatus("Order Placed.");
-	        orderDTO.setStatusDescription("Payment done via "+payment.getPaymentMethod()+" is successful.");
-	        orderService.updateOrder(orderDTO);
-	        int cartdelete = customer.getCart().getCartId();
-	        customer.setCart(null);
-	        repo.save(customer);
-	        
-	        for (CartItem cartItem : cart.getCartItems()) {
-	        	
-	        	cartitemService.deleteCartItemById(cartItem.getCartitemId());
-	        }
-	        cartService.deleteCartById(cartdelete);
+	        Product updateProduct = cartItem.getProduct();
+	        updateProduct.setStockQuantity(updateProduct.getStockQuantity() - cartItem.getItemQuantity());
+	    }
+	    
+	    double totalAmount = orderItems.stream()
+	                                   .mapToDouble(item -> item.getPrice())
+	                                   .sum();
+	    order.setTotalAmount(totalAmount);
+	    
+	    Payment payment = new Payment();
+	    payment.setAmount(totalAmount);
+	    payment.setPaymentDate(LocalDateTime.now());
+	    payment.setPaymentMethod(paymentMethod);
+	    payment.setPaymentStatus("Pending"); 
+	    
+	    order.setPayment(payment);
+	    int cartdelete = customer.getCart().getCartId();
+	    
+	    order.setOrderItems(orderItems);
+	    customer.getOrder().add(order);
+	    orderRepo.save(order);
+	    customer.setCart(null);
+	    repo.save(customer);
+	    for (CartItem cartItem : cart.getCartItems()) {
+        	
+        	cartitemService.deleteCartItemById(cartItem.getCartitemId());
+        }
+        cartService.deleteCartById(cartdelete);
 
-	        cart.getCartItems().clear();
-	        return "Order placed successfully";
-		
-		
+        cart.getCartItems().clear();
+	    
+	   
+	    
+	    return "Order placed successfully.";
 	}
+
+
 
 	@Override
 	public Optional<Customer> fetchCustomerDetails(String username) throws CustomerNotFoundException {

@@ -26,12 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.ecommerce.dto.AuthRequest;
 import com.hexaware.ecommerce.dto.OrderDTO;
+import com.hexaware.ecommerce.dto.OrderItemDTO;
 import com.hexaware.ecommerce.dto.PaymentDTO;
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.dto.SellerDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.entity.OrderItem;
 import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
@@ -40,6 +42,7 @@ import com.hexaware.ecommerce.exception.OrderNotFoundException;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.exception.SellerNotFoundException;
 import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
+import com.hexaware.ecommerce.service.IOrderItemService;
 import com.hexaware.ecommerce.service.IOrderService;
 import com.hexaware.ecommerce.service.IPaymentService;
 import com.hexaware.ecommerce.service.ISellerService;
@@ -62,6 +65,8 @@ public class SellerRestController {
 	IOrderService orderService;
 	@Autowired
 	IPaymentService paymentService;
+	@Autowired
+	IOrderItemService orderItemService;
 	
 	@Autowired
 	JwtService jwtService;
@@ -223,6 +228,12 @@ public class SellerRestController {
 		return orderService.updateOrder(orderDTO);
 	}
 	
+	@GetMapping("/getOrderById/{orderId}")
+	@PreAuthorize("hasAuthority('seller')")
+	public OrderDTO getOrderById(@PathVariable int orderId) throws OrderNotFoundException {
+		return orderService.getOrderById(orderId);
+	}
+	
 	@GetMapping("/getPaymentDetailsBySellerId/{sellerId}")
 	@PreAuthorize("hasAuthority('seller')")
 	public List<Integer> getPaymentsOfSeller(@PathVariable int sellerId){
@@ -240,6 +251,22 @@ public class SellerRestController {
 		}
 		return paymentDetails;
 	}
+	
+	
+	
+	@GetMapping("viewAllOrderItemsOfSellerInOrder/{orderId}/{sellerId}")
+	@PreAuthorize("hasAuthority('seller')")
+	public List<OrderItem> viewAllOrderItemsOfSellerInOrder(@PathVariable int orderId,@PathVariable int sellerId){
+		return orderItemService.viewAllOrderItemsOfSellerInOrder(orderId, sellerId);
+	}
+	
+	@PutMapping("updateOrderItem")
+	@PreAuthorize("hasAuthority('seller')")
+	public OrderItem updateOrderItem(@RequestBody OrderItemDTO orderItemDTO) {
+		return orderItemService.updateOrderItem(orderItemDTO);
+	}
+	
+	
 	
 
 	

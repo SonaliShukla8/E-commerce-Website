@@ -30,6 +30,7 @@ import com.hexaware.ecommerce.entity.Admin;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.entity.OrderItem;
 import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
@@ -188,6 +189,12 @@ public class AdminRestController {
 	   @PreAuthorize("hasAuthority('admin')")
 	   public Admin viewAdminById(@PathVariable int adminId) throws AdminNotFoundException {
 		   return service.viewAdminById(adminId);
+	   }
+	   
+	   @GetMapping("/getOrderItemsByOrderId/{orderId}")
+	   @PreAuthorize("hasAuthority('admin')")
+	   public List<OrderItem> getOrderItemsByOrderId(@PathVariable int orderId){
+		   return service.getOrderItemsByOrderId(orderId);
 	   }
 	   
 

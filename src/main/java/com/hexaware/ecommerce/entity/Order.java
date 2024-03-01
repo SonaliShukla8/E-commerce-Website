@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -39,12 +40,7 @@ public class Order {
 	    private LocalDate orderDate;
 	   @Positive
 	    private double totalAmount;
-	   @NotBlank
-	    private String status;
-	   @NotBlank
-	    private String statusDescription;
-	    @FutureOrPresent
-	    private LocalDate deliveryDate;
+	   
 	    @JsonIgnore
 	    @OneToOne(cascade=CascadeType.ALL)
 	    @JoinColumn(name="payment_id")
@@ -57,6 +53,17 @@ public class Order {
 	        inverseJoinColumns = @JoinColumn(name = "seller_id")
 	    )
 	    private List<Seller> sellers = new ArrayList<>();
+	    
+	    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	    private List<OrderItem> orderItems = new ArrayList<>();
+
+		public List<OrderItem> getOrderItems() {
+			return orderItems;
+		}
+
+		public void setOrderItems(List<OrderItem> orderItems) {
+			this.orderItems = orderItems;
+		}
 
 		public Order() {
 			super();
@@ -95,29 +102,7 @@ public class Order {
 			this.totalAmount = totalAmount;
 		}
 
-		public String getStatus() {
-			return status;
-		}
 
-		public void setStatus(String status) {
-			this.status = status;
-		}
-
-		public String getStatusDescription() {
-			return statusDescription;
-		}
-
-		public void setStatusDescription(String statusDescription) {
-			this.statusDescription = statusDescription;
-		}
-
-		public LocalDate getDeliveryDate() {
-			return deliveryDate;
-		}
-
-		public void setDeliveryDate(LocalDate deliveryDate) {
-			this.deliveryDate = deliveryDate;
-		}
 
 		public Payment getPayment() {
 			return payment;
@@ -138,24 +123,23 @@ public class Order {
 		@Override
 		public String toString() {
 			return "Order [orderId=" + orderId + ", customer=" + customer + ", orderDate=" + orderDate
-					+ ", totalAmount=" + totalAmount + ", status=" + status + ", statusDescription=" + statusDescription
-					+ ", deliveryDate=" + deliveryDate + ", payment=" + payment + ", sellers=" + sellers + "]";
+					+ ", totalAmount=" + totalAmount + ", payment=" + payment + ", sellers=" + sellers + ", orderItems="
+					+ orderItems + "]";
 		}
 
 		public Order(int orderId, Customer customer, @NotNull LocalDate orderDate, @Positive double totalAmount,
-				@NotBlank String status, @NotBlank String statusDescription, @FutureOrPresent LocalDate deliveryDate,
-				Payment payment, List<Seller> sellers) {
+				Payment payment, List<Seller> sellers, List<OrderItem> orderItems) {
 			super();
 			this.orderId = orderId;
 			this.customer = customer;
 			this.orderDate = orderDate;
 			this.totalAmount = totalAmount;
-			this.status = status;
-			this.statusDescription = statusDescription;
-			this.deliveryDate = deliveryDate;
 			this.payment = payment;
 			this.sellers = sellers;
+			this.orderItems = orderItems;
 		}
+
+		
 
 		
 

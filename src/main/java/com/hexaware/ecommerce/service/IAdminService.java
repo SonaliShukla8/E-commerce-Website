@@ -10,6 +10,7 @@ import com.hexaware.ecommerce.entity.Admin;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.entity.OrderItem;
 import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
@@ -57,7 +58,9 @@ public interface IAdminService {
     
     public SubCategory addSubCategory(SubCategoryDTO subcategorydto);
 
-	public Optional<Admin> fetchAdminDetails(String username) throws AdminNotFoundException; 
+	public Optional<Admin> fetchAdminDetails(String username) throws AdminNotFoundException;
+
+	List<OrderItem> getOrderItemsByOrderId(int orderId); 
 	
     
 

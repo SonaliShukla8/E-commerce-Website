@@ -37,7 +37,6 @@ public class Seller {
 	 @NotBlank(message = "Username is required")
 		@Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username should contain only alphanumeric characters and underscores")
 		private String username;
-	 @JsonIgnore
 	 	 private String password;
 	 	 private String role;
 

@@ -26,7 +26,7 @@ public class Cart {
 	  	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	    private int cartId;
 	  	@JsonIgnore
-		@OneToOne(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+		@OneToOne(mappedBy = "cart", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
 	  	private Customer customer;
 
 		@JsonIgnore

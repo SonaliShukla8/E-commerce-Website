@@ -14,6 +14,7 @@ import com.hexaware.ecommerce.entity.Admin;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
+import com.hexaware.ecommerce.entity.OrderItem;
 import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
@@ -59,6 +60,9 @@ public class AdminServiceImp implements IAdminService{
 	PasswordEncoder passwordEncoder;
 	@Autowired
 	CategoryRepository categoryRepo;
+	
+	@Autowired
+	IOrderItemService orderItemService;
 
 	@Override
 	public String addAdmin(AdminDTO admindto) {
@@ -165,6 +169,12 @@ public class AdminServiceImp implements IAdminService{
 	public Admin viewAdminById(int adminId) throws AdminNotFoundException {
 		// TODO Auto-generated method stub
 		return adminrepo.findById(adminId).orElse(null);
+	}
+	
+	@Override
+	public List<OrderItem> getOrderItemsByOrderId(int orderId){
+		return orderItemService.getOrderItemsByOrderId(orderId);
+		
 	}
 	
 	
