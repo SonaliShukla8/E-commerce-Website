@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hexaware.ecommerce.entity.Customer;
+import com.hexaware.ecommerce.entity.OrderItem;
 import com.hexaware.ecommerce.entity.Payment;
 import com.hexaware.ecommerce.entity.Seller;
 
@@ -16,13 +17,11 @@ public class OrderDTO {
 	 private Customer customer;
 	    private LocalDate orderDate;
 	    private double totalAmount;
-	    private String status;
-	    private String statusDescription;
 	    @JsonIgnore
 	    private Payment payment;
-	    private LocalDate deliveryDate;
 	    @JsonIgnore
 	    private List<Seller> sellers = new ArrayList<>();
+	    private List<OrderItem> orderItems = new ArrayList<>();
 		public OrderDTO() {
 			super();
 			
@@ -51,30 +50,14 @@ public class OrderDTO {
 		public void setTotalAmount(double totalAmount) {
 			this.totalAmount = totalAmount;
 		}
-		public String getStatus() {
-			return status;
-		}
-		public void setStatus(String status) {
-			this.status = status;
-		}
-		public String getStatusDescription() {
-			return statusDescription;
-		}
-		public void setStatusDescription(String statusDescription) {
-			this.statusDescription = statusDescription;
-		}
+		
 		public Payment getPayment() {
 			return payment;
 		}
 		public void setPayment(Payment payment) {
 			this.payment = payment;
 		}
-		public LocalDate getDeliveryDate() {
-			return deliveryDate;
-		}
-		public void setDeliveryDate(LocalDate deliveryDate) {
-			this.deliveryDate = deliveryDate;
-		}
+		
 		
 		public List<Seller> getSellers() {
 			return sellers;
@@ -82,25 +65,30 @@ public class OrderDTO {
 		public void setSellers(List<Seller> sellers) {
 			this.sellers = sellers;
 		}
+		public List<OrderItem> getOrderItems() {
+			return orderItems;
+		}
+		public void setOrderItems(List<OrderItem> orderItems) {
+			this.orderItems = orderItems;
+		}
 		@Override
 		public String toString() {
 			return "OrderDTO [orderId=" + orderId + ", customer=" + customer + ", orderDate=" + orderDate
-					+ ", totalAmount=" + totalAmount + ", status=" + status + ", statusDescription=" + statusDescription
-					+ ", payment=" + payment + ", deliveryDate=" + deliveryDate + ", sellers=" + sellers + "]";
+					+ ", totalAmount=" + totalAmount + ", payment=" + payment + ", sellers=" + sellers + ", orderItems="
+					+ orderItems + "]";
 		}
-		public OrderDTO(int orderId, Customer customer, LocalDate orderDate, double totalAmount, String status,
-				String statusDescription, Payment payment, LocalDate deliveryDate, List<Seller> sellers) {
+		public OrderDTO(int orderId, Customer customer, LocalDate orderDate, double totalAmount, Payment payment,
+				List<Seller> sellers, List<OrderItem> orderItems) {
 			super();
 			this.orderId = orderId;
 			this.customer = customer;
 			this.orderDate = orderDate;
 			this.totalAmount = totalAmount;
-			this.status = status;
-			this.statusDescription = statusDescription;
 			this.payment = payment;
-			this.deliveryDate = deliveryDate;
 			this.sellers = sellers;
+			this.orderItems = orderItems;
 		}
+		
 		
 		
 }

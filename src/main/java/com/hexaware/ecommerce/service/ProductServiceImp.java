@@ -1,5 +1,8 @@
 package com.hexaware.ecommerce.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,9 +28,9 @@ public class ProductServiceImp implements IProductService {
 	    Product product = new Product();
 	    product.setProductId(productDTO.getProductId());
 	    product.setBrand(productDTO.getBrand());
-	    product.setCreatedAt(productDTO.getCreatedAt());
+	    product.setCreatedAt(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
 	    product.setDescription(productDTO.getDescription());
-	    product.setModifiedAt(productDTO.getModifiedAt());
+	    product.setModifiedAt(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
 	    product.setPrice(productDTO.getPrice());
 	    product.setProductImageURL(productDTO.getProductImageURL());
 	    product.setProductName(productDTO.getProductName());
@@ -86,6 +89,9 @@ public class ProductServiceImp implements IProductService {
 	    dto.setCreatedAt(product.getCreatedAt());
 	   dto.setDescription(product.getDescription());
 	    dto.setModifiedAt(product.getModifiedAt());
+//	    product.setCreatedAt(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
+//	    product.setDescription(productDTO.getDescription());
+//	    product.setModifiedAt(LocalDateTime.of(LocalDate.now(), LocalTime.now()));
 	    dto.setPrice(product.getPrice());
 	    dto.setProductImageURL(product.getProductImageURL());
 	   dto.setProductName(product.getProductName());

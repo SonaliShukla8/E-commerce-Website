@@ -11,13 +11,15 @@ import org.springframework.stereotype.Service;
 
 import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.dto.SellerDTO;
+import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
+import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.ProductNotFoundException;
 import com.hexaware.ecommerce.exception.SellerNotFoundException;
-import com.hexaware.ecommerce.entity.SubCategory;
+import com.hexaware.ecommerce.exception.SubCategoryNotFoundException;
 import com.hexaware.ecommerce.repository.SellerRepository;
 @Service
 public class SellerServiceImp implements ISellerService {
@@ -197,6 +199,27 @@ public class SellerServiceImp implements ISellerService {
 	public Optional<Seller> fetchSellerDetails(String username) throws SellerNotFoundException {
 		// TODO Auto-generated method stub
 		return repo.findByUsername(username);
+	}
+	@Override
+	public List<Product> viewMyProducts(int sellerId) throws ProductNotFoundException {
+		return productService.getAllProductBySellerId(sellerId);
+	}
+
+	@Override
+	public SubCategoryDTO getSubcategoryById(int subCategoryId) throws SubCategoryNotFoundException {
+		// TODO Auto-generated method stub
+		return subCategoryService.getSubCategoryById(subCategoryId);
+	}
+	@Override
+	public List<Integer> getOrdersBySellerId(int sellerId) {
+		// TODO Auto-generated method stub
+		return repo.getOrdersBySellerId(sellerId);
+	}
+	
+	@Override
+	public List<Integer> getPaymentsOfSeller(int sellerId) {
+		// TODO Auto-generated method stub
+		return repo.getPaymentsOfSeller(sellerId);
 	}
 	}
 

@@ -27,7 +27,6 @@ class AddressServiceImpTest {
 
 	@Test
 	void testUpdateAddress() {
-		//fail("Not yet implemented");
 		AddressDTO addressDTO = new AddressDTO(3," D.NO- 432,SDF COLONY","DER NAGAR, LB NAGAR","532004","Hyderabad","Telangana","India");
 		Address address = service.addAddress(addressDTO);
 		AddressDTO addressDTO2 = new AddressDTO(3," D.NO- 432,SDF COLONY","JHG NAGAR, LB NAGAR","532104","Hyderabad","Telangana","India");

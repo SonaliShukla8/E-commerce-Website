@@ -3,7 +3,6 @@ package com.hexaware.ecommerce.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,11 +16,13 @@ import jakarta.validation.constraints.Size;
 public class Address {
 	
 		@Id
+
 		@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	   	private int addressId;        
 		@NotBlank
 	    @Size(max = 255)
 	    private String addressLine1;
+
 	    private String addressLine2;
 		@NotBlank
 	    @Pattern(regexp = "\\d{6}")
@@ -39,19 +40,19 @@ public class Address {
 	    public Address() {
 			super();
 		}
-//	    
-//		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
-//				 String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
-//				@NotBlank String city, @NotBlank String state, @NotBlank String country) {
-//			super();
-//			this.addressId = addressId;
-//			this.addressLine1 = addressLine1;
-//			this.addressLine2 = addressLine2;
-//			this.postalCode = postalCode;
-//			this.city = city;
-//			this.state = state;
-//			this.country = country;
-//		}
+	    
+		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
+				@Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
+				@NotBlank String city, @NotBlank String state, @NotBlank String country) {
+			super();
+			this.addressId = addressId;
+			this.addressLine1 = addressLine1;
+			this.addressLine2 = addressLine2;
+			this.postalCode = postalCode;
+			this.city = city;
+			this.state = state;
+			this.country = country;
+		}
 
 		public int getAddressId() {
 			return addressId;
@@ -130,20 +131,7 @@ public class Address {
 			this.country = country;
 			this.customer = customer;
 		}
-		public Address(@NotNull int addressId, @NotBlank @Size(max = 255) String addressLine1,
-				@NotBlank @Size(max = 255) String addressLine2, @NotBlank @Pattern(regexp = "\\d{6}") String postalCode,
-				@NotBlank String city, @NotBlank String state, @NotBlank String country) {
-			super();
-			this.addressId = addressId;
-			this.addressLine1 = addressLine1;
-			this.addressLine2 = addressLine2;
-			this.postalCode = postalCode;
-			this.city = city;
-			this.state = state;
-			this.country = country;
-		}
 
-//
 		public Customer getCustomer() {
 			return customer;
 		}
@@ -152,7 +140,7 @@ public class Address {
 		public void setCustomer(Customer customer) {
 			this.customer = customer;
 		}
+    
 
-	    
 	    
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -14,6 +16,7 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class SubCategory {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int subCategoryId; 
 	@NotBlank(message = "Subcategory name cannot be blank")
     private String subCategoryName;

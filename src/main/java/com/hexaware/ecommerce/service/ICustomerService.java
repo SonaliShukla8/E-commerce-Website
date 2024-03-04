@@ -7,6 +7,7 @@ import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
+import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.SubCategory;
 
@@ -31,11 +32,14 @@ public interface ICustomerService {
     public String addProductToCustomerCart(int customerId, int productId, int quantity) throws ProductNotFoundException;
     public List<CartItem> viewCartitems(int customerId);
 
-    public String placeOrder(int customerId,String paymentMethod) throws OrderNotFoundException, ProductNotFoundException;
+    
     public List<Product> getProductsByBrand(String brand);
     public List<Product> getProductsByPriceRange(double min,double max);
 	public Optional<Customer> fetchCustomerDetails(String username)throws CustomerNotFoundException ;
 	public String deleteProductFromCustomerCart(int customerId, int productId);
 	public List<Product> viewProductsBySubCategoryName(String subcategoryName);
+	public List<Order> viewOrderByCustomerId(int customerId);
+	public String sendingOTP(String username, String phoneNumber);
+	public String placeOrder(int customerId, String paymentMethod, String otp)throws ProductNotFoundException ;
 
 }

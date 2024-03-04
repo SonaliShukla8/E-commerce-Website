@@ -26,6 +26,7 @@ import com.hexaware.ecommerce.dto.CustomerDTO;
 import com.hexaware.ecommerce.entity.CartItem;
 import com.hexaware.ecommerce.entity.Category;
 import com.hexaware.ecommerce.entity.Customer;
+import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.SubCategory;
 import com.hexaware.ecommerce.exception.CustomerNotFoundException;
@@ -90,11 +91,6 @@ public class CustomerRestController {
 		return service.addProductToCustomerCart(customerId, productId, quantity);
 	}	
 	
-	@PostMapping("/ placeOrder/{customerId}/{paymentMethod}")
-	@PreAuthorize("hasAuthority('customer')")
-	public String placeOrder(@PathVariable int customerId,@PathVariable String paymentMethod ) throws OrderNotFoundException, ProductNotFoundException{
-		return service.placeOrder(customerId,paymentMethod);
-	}
 	
     @GetMapping("/viewAllProduct")
     @PreAuthorize("hasAuthority('customer')")
@@ -159,5 +155,21 @@ public class CustomerRestController {
     public List<Product> viewProductsBySubCategoryName(@PathVariable String subcategoryName){
     	return service.viewProductsBySubCategoryName(subcategoryName);
     }
+    @GetMapping("/viewOrdersByCustomerId/{customerId}")
+    @PreAuthorize("hasAuthority('customer')")
+    public List<Order> viewOrdersByCustomerId(@PathVariable int customerId){
+    	return service.viewOrderByCustomerId(customerId);
+    }
+    @PostMapping("/placeOrder/{customerId}/{paymentMethod}/{otp}")
+	@PreAuthorize("hasAuthority('customer')")
+	public String placeOrder(@PathVariable int customerId,@PathVariable String paymentMethod,@PathVariable String otp) throws OrderNotFoundException, ProductNotFoundException{
 
+		return service.placeOrder(customerId,paymentMethod,otp);
+	}
+    @PostMapping("/sendingOTP/{username}/{phoneNumber}")
+    @PreAuthorize("hasAuthority('customer')")
+    public String sendingOTP(@PathVariable String username,@PathVariable String phoneNumber) {
+    	return service.sendingOTP(username, phoneNumber);
+    }
+    
 }
