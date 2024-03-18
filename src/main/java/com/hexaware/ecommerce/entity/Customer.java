@@ -3,6 +3,7 @@ package com.hexaware.ecommerce.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hexaware.ecommerce.dto.CartDTO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

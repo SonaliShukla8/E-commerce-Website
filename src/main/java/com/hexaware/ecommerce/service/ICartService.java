@@ -10,6 +10,6 @@ public interface ICartService {
 	 public Cart addCart(CartDTO cartDTO);
      public Cart updateCart(CartDTO cartDTO);
      public String deleteCartById(int cartId);
-     public CartDTO getCartbyId(int cartId);
+     public Cart getCartbyId(int cartId);
      public List<Cart> getAllCart();
 }

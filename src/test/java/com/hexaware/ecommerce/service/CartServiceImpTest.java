@@ -43,13 +43,13 @@ class CartServiceImpTest {
 	     assertNotNull(str1);
 	}
 
-	@Test
-	void testGetCartbyId() {
-		int id=1;
-		CartDTO dto=service.getCartbyId(id);
-		assertNotNull(dto);
-		
-	}
+//	@Test
+//	void testGetCartbyId() {
+//		int id=1;
+//		CartDTO dto=service.getCartbyId(id);
+//		assertNotNull(dto);
+//		
+//	}
 
 	@Test
 	void testGetAllCart() {

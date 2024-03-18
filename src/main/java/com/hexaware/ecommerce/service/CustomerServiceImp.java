@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ import com.hexaware.config.TwilioConfig;
 import com.hexaware.dto.OtpRequest;
 import com.hexaware.dto.OtpResponseDto;
 import com.hexaware.dto.OtpValidationRequest;
+import com.hexaware.ecommerce.dto.CartDTO;
 //import com.hexaware.config.TwilioConfig;
 //import com.hexaware.dto.OtpRequest;
 //import com.hexaware.dto.OtpResponseDto;
@@ -74,6 +77,7 @@ public class CustomerServiceImp implements ICustomerService {
     @Autowired
     SmsService smsService;
     
+    
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 	
 	@Override
@@ -99,8 +103,14 @@ public class CustomerServiceImp implements ICustomerService {
 	@Override
 	public Customer updateCustomer(CustomerDTO customerDTO)throws CustomerNotFoundException  {
 		logger.info("Updating the customer");
+		System.out.println(customerDTO);
+		int customerId=repo.findCustomerIdByUsername(customerDTO.getUsername());
+//		int cartId=repo.getCartIdByCutomerId(customerId);
+//		System.out.println("cart Id :" + cartId);
+//		Cart cart=cartService.getCartbyId(cartId);
+//		System.out.println(cart);
 		Customer customer = new Customer();
-		customer.setCustomerId(customerDTO.getCustomerId());
+		customer.setCustomerId(customerId);
 		customer.setEmail(customerDTO.getEmail());
 		customer.setCustomerName(customerDTO.getCustomerName());
 		customer.setGender(customerDTO.getGender());
@@ -108,10 +118,11 @@ public class CustomerServiceImp implements ICustomerService {
 		customer.setAddress(customerDTO.getAddress());
 //		customer.setOrder(customerDTO.getOrder());
 
-		customer.setCart(customerDTO.getCart());
+//		customer.setCart(cart);
 		customer.setPassword(customerDTO.getPassword());
 		customer.setRole(customerDTO.getRole());
 		customer.setUsername(customerDTO.getUsername());
+		System.out.println("hey");
 		return repo.save(customer);
 	}
 
@@ -326,7 +337,8 @@ public class CustomerServiceImp implements ICustomerService {
 	
 	@Override
 	public String sendingOTP(String username, String phoneNumber) {
-	
+		TwilioConfig twilioConfig  = new TwilioConfig();
+        Twilio.init("AC9ef31ca2a17af0bced9af46fe36930b0", "562c5e6f1f18b36aef23762625484c00");
         OtpRequest otpRequest = new OtpRequest();
         otpRequest.setUsername(username); 
         otpRequest.setPhoneNumber(phoneNumber);
@@ -388,6 +400,28 @@ public class CustomerServiceImp implements ICustomerService {
 	public List<Order> viewOrderByCustomerId(int customerId) {
 		
 		return orderRepo.findOrderByCustomerId(customerId);
+	}
+
+	@Override
+	public Map<String,Object> changePassword(int customerId, String oldpassword, String newpassword) {
+		Customer customer=repo.findByCustomerId(customerId);
+		System.out.println("Customer is: " +customer);
+		System.out.println("Old Password: "+oldpassword);
+		System.out.println("New Password: "+ newpassword);
+		Map<String,Object> map=new HashMap<>();
+		if(this.passwordEncoder.matches(oldpassword, customer.getPassword())){
+			customer.setPassword(passwordEncoder.encode(newpassword));
+			this.repo.save(customer);
+			map.put("status", true);
+			map.put("message", "Password changed successfully");
+			return map;
+		}
+		else {
+			map.put("status", false);
+			map.put("message", "Sorry you have entered wrong current password. Please end correct old password");
+			return map;
+		}
+		
 	}
 
 

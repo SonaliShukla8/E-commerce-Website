@@ -1,6 +1,8 @@
 package com.hexaware.ecommerce.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import com.hexaware.ecommerce.dto.ProductDTO;
 import com.hexaware.ecommerce.dto.SellerDTO;
 import com.hexaware.ecommerce.dto.SubCategoryDTO;
 import com.hexaware.ecommerce.entity.Category;
+import com.hexaware.ecommerce.entity.Customer;
 import com.hexaware.ecommerce.entity.Order;
 import com.hexaware.ecommerce.entity.Product;
 import com.hexaware.ecommerce.entity.Seller;
@@ -220,6 +223,28 @@ public class SellerServiceImp implements ISellerService {
 	public List<Integer> getPaymentsOfSeller(int sellerId) {
 		// TODO Auto-generated method stub
 		return repo.getPaymentsOfSeller(sellerId);
+	}
+
+	@Override
+	public Map<String, Object> changePassword(int sellerId, String oldpassword, String newpassword) {
+		Seller seller=repo.findBySellerId(sellerId);
+		System.out.println("Seller is: " +seller);
+		System.out.println("Old Password: "+oldpassword);
+		System.out.println("New Password: "+ newpassword);
+		Map<String,Object> map=new HashMap<>();
+		if(this.passwordEncoder.matches(oldpassword, seller.getPassword())){
+			seller.setPassword(passwordEncoder.encode(newpassword));
+			this.repo.save(seller);
+			map.put("status", true);
+			map.put("message", "Password changed successfully");
+			return map;
+		}
+		else {
+			map.put("status", false);
+			map.put("message", "Sorry you have entered wrong current password. Please end correct old password");
+			return map;
+		}
+		
 	}
 	}
 

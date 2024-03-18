@@ -21,5 +21,19 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
 	 
 	Customer findByEmail(String email);
 
+    @Query(value="select * from customer where customer_id=:customerId", nativeQuery=true)
+	Customer findByCustomerId(int customerId);
+
+    @Query(value="select cart_id from customer where customer_id=:customerId ",nativeQuery=true)
+	int getCartIdByCutomerId(int customerId);
+
+    @Query(value="select customer_id from customer where username=:username",nativeQuery=true)
+	int findCustomerIdByUsername(String username);
+    
+   
+
+    
+
+
     
 }

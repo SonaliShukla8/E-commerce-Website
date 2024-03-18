@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ import com.hexaware.ecommerce.service.ICustomerService;
 import com.hexaware.ecommerce.service.JwtService;
 
 import jakarta.validation.Valid;
-@CrossOrigin("localhost://4200")
+//@CrossOrigin("localhost://4200")
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerRestController {
@@ -171,5 +172,18 @@ public class CustomerRestController {
     public String sendingOTP(@PathVariable String username,@PathVariable String phoneNumber) {
     	return service.sendingOTP(username, phoneNumber);
     }
+    @PostMapping("/changePassword/{customerId}/{oldpassword}/{newpassword}")
+    @PreAuthorize("hasAuthority('customer')")
+    public Map<String, Object> changePassword(@PathVariable int customerId,@PathVariable String oldpassword, @PathVariable String newpassword){
+    	return service.changePassword(customerId, oldpassword, newpassword);
+    }
+    @PutMapping("/updateProfile")
+    @PreAuthorize("hasAuthority('customer')")
+    public Customer updateProfile(@RequestBody @Valid CustomerDTO customerDTO) throws CustomerNotFoundException{
+    	return service.updateCustomer(customerDTO);
+    }
+    
+    
+    
     
 }

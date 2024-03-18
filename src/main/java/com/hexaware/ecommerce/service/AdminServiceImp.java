@@ -1,6 +1,8 @@
 package com.hexaware.ecommerce.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.swing.text.html.Option;
@@ -173,6 +175,28 @@ public class AdminServiceImp implements IAdminService{
 	@Override
 	public List<OrderItem> getOrderItemsByOrderId(int orderId) {
 		return orderItemService.getOrderItemsByOrderId(orderId);
+	}
+
+	@Override
+	public Map<String, Object> changePassword(int adminId, String oldpassword, String newpassword) {
+		Admin admin=adminrepo.findByAdminId(adminId);
+		System.out.println("Admin is: " +admin);
+		System.out.println("Old Password: "+oldpassword);
+		System.out.println("New Password: "+ newpassword);
+		Map<String,Object> map=new HashMap<>();
+		if(this.passwordEncoder.matches(oldpassword, admin.getPassword())){
+			admin.setPassword(passwordEncoder.encode(newpassword));
+			this.adminrepo.save(admin);
+			map.put("status", true);
+			map.put("message", "Password changed successfully");
+			return map;
+		}
+		else {
+			map.put("status", false);
+			map.put("message", "Sorry you have entered wrong current password. Please end correct old password");
+			return map;
+		}
+		
 	}
 	
      

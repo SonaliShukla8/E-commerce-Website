@@ -54,21 +54,16 @@ public class CartServiceImp implements ICartService {
 	}
 
 	@Override
-	public CartDTO getCartbyId(int cartId) {
+	public Cart getCartbyId(int cartId) {
 		
 		Cart cart = repo.findById(cartId).orElse(null);
 		if(cart == null) {
 			logger.warn("Cart with ID " +cartId+ "not found.");
 			return null;
 		}
-		CartDTO dto = new CartDTO();
-		dto.setCartId(cart.getCartId());
-		dto.setCartItems(cart.getCartItems());
-		dto.setCustomer(cart.getCustomer());
-		dto.setTotalPrice(cart.getTotalPrice());
-		dto.setCartItems(cart.getCartItems());
+		System.out.println(cart);
 
-		return dto;
+		return cart;
 	}
 
 	@Override

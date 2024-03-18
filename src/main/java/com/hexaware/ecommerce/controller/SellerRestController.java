@@ -265,6 +265,10 @@ public class SellerRestController {
 		return orderService.getOrderById(orderId);
 	}
 	
-
+    @PostMapping("/changePassword/{sellerId}/{oldpassword}/{newpassword}")
+    @PreAuthorize("hasAuthority('seller')")
+    public Map<String, Object> changePassword(@PathVariable int sellerId,@PathVariable String oldpassword, @PathVariable String newpassword){
+    	return service.changePassword(sellerId, oldpassword, newpassword);
+    }
 
 }

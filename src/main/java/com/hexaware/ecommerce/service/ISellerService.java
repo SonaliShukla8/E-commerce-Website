@@ -1,6 +1,7 @@
 package com.hexaware.ecommerce.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.hexaware.ecommerce.dto.ProductDTO;
@@ -37,7 +38,6 @@ public interface ISellerService {
 	public SubCategoryDTO getSubcategoryById(int subCategoryId) throws SubCategoryNotFoundException;
 	public List<Integer> getOrdersBySellerId(int sellerId);
 	public List<Integer> getPaymentsOfSeller(int sellerId);
-
-
+	public Map<String, Object> changePassword(int sellerId, String oldpassword, String newpassword);
 
 }

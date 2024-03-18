@@ -194,6 +194,12 @@ public class AdminRestController {
 	   public List<OrderItem> getOrderItemsByOrderId(@PathVariable int orderId){
 		   return service.getOrderItemsByOrderId(orderId);
 	   }
+	   
+	   @PostMapping("/changePassword/{adminId}/{oldpassword}/{newpassword}")
+	    @PreAuthorize("hasAuthority('admin')")
+	    public Map<String, Object> changePassword(@PathVariable int adminId,@PathVariable String oldpassword, @PathVariable String newpassword){
+	    	return service.changePassword(adminId, oldpassword, newpassword);
+	    }
 	
 	
 }

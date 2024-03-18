@@ -21,4 +21,7 @@ public interface SellerRepository extends JpaRepository<Seller,Integer>  {
 	 
 	 @Query(value ="select payment.payment_id from payment where payment_id IN (SELECT payment.payment_id FROM payment JOIN order_table ON payment.payment_id = order_table.payment_id JOIN order_item ON order_table.order_id = order_item.order_id WHERE order_item.seller_id = :sellerId);", nativeQuery = true)
 	 List<Integer> getPaymentsOfSeller(int sellerId);
+	
+	 @Query(value="select * from seller where seller_id=:sellerId", nativeQuery=true)
+	 Seller findBySellerId(int sellerId);
 }

@@ -1,6 +1,7 @@
 package com.hexaware.ecommerce.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.hexaware.ecommerce.dto.AdminDTO;
@@ -60,7 +61,9 @@ public interface IAdminService {
 
 	public Admin viewAdminById(int adminId) throws AdminNotFoundException;
 
-	List<OrderItem> getOrderItemsByOrderId(int orderId); 
+	List<OrderItem> getOrderItemsByOrderId(int orderId);
+
+	public Map<String, Object> changePassword(int adminId, String oldpassword, String newpassword); 
     
     
       
